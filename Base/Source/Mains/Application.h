@@ -24,8 +24,6 @@ public:
 	// Stored Window Values
 	int cA_WindowHeight, cA_WindowWidth;
 
-	// Stored Camera Values
-	static float cA_MinimumTerrainY, cA_CurrentTerrainY;
 
 	//static ISoundEngine* theSoundEngine;
 	//static ISound* Sound_Footstep;

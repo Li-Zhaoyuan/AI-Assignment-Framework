@@ -50,6 +50,8 @@ void SceneTest1::Render()
     // Model matrix : an identity matrix (model will be at the origin)
     modelStack->LoadIdentity();
 
+    zeGraphics->RenderMesh(0, false);
+
     std::ostringstream ss;
     ss << "FPS:" << fps;
     zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 40, 10, 10);

@@ -402,6 +402,11 @@ void GraphicsEntity::RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const f
 	viewStack->PopMatrix();
 }
 
+void GraphicsEntity::RenderMesh(const size_t &meshID, const bool &enableLight)
+{
+    RenderMesh(*anotherMeshList[meshID], enableLight);
+}
+
 void GraphicsEntity::RenderMesh(Mesh &mesh, const bool &enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
