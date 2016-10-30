@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Classes\CameraBS.cpp" />
+    <ClCompile Include="Source\Classes\GameEntity.cpp" />
+    <ClCompile Include="Source\Commands\CommandSystem.cpp" />
+    <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
+    <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\MyMeshComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\SpriteComponent.cpp" />
+    <ClCompile Include="Source\GenericECS\GenericComponent.cpp" />
+    <ClCompile Include="Source\GenericECS\GenericEntity.cpp" />
+    <ClCompile Include="Source\Mains\Application.cpp" />
+    <ClCompile Include="Source\Classes\Camera.cpp" />
+    <ClCompile Include="Source\Misc\DepthFBO.cpp" />
+    <ClCompile Include="Source\Misc\GlobalFunctions.cpp" />
+    <ClCompile Include="Source\Scenes\GraphicsEntity.cpp" />
+    <ClCompile Include="Source\Misc\LoadHmap.cpp" />
+    <ClCompile Include="Source\Misc\LoadOBJ.cpp" />
+    <ClCompile Include="Source\Misc\LoadTGA.cpp" />
+    <ClCompile Include="Source\Classes\main.cpp" />
+    <ClCompile Include="Source\Classes\Mesh.cpp" />
+    <ClCompile Include="Source\Misc\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Scenes\SceneTest1.cpp" />
+    <ClCompile Include="Source\Systems\ComponentSystem.cpp" />
+    <ClCompile Include="Source\Systems\Scene_System.cpp" />
+    <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\Classes\SpriteAnimation.cpp" />
+    <ClCompile Include="Source\Misc\Utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Classes\Camera.h" />
+    <ClInclude Include="Source\Classes\CameraBS.h" />
+    <ClInclude Include="Source\Classes\GameEntity.h" />
+    <ClInclude Include="Source\Classes\Light.h" />
+    <ClInclude Include="Source\Classes\Material.h" />
+    <ClInclude Include="Source\Classes\Mesh.h" />
+    <ClInclude Include="Source\Classes\SceneEntity.h" />
+    <ClInclude Include="Source\Classes\singletontemplate.h" />
+    <ClInclude Include="Source\Classes\SpriteAnimation.h" />
+    <ClInclude Include="Source\Commands\CommandSystem.h" />
+    <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
+    <ClInclude Include="Source\Gathering of Components\ID_Component.h" />
+    <ClInclude Include="Source\Gathering of Components\MeshComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\MyMeshComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\SpriteComponent.h" />
+    <ClInclude Include="Source\GenericECS\GenericComponent.h" />
+    <ClInclude Include="Source\GenericECS\GenericEntity.h" />
+    <ClInclude Include="Source\GenericECS\GenericSystem.h" />
+    <ClInclude Include="Source\Mains\Application.h" />
+    <ClInclude Include="Source\Misc\DepthFBO.h" />
+    <ClInclude Include="Source\Misc\DetectMemoryLeak.h" />
+    <ClInclude Include="Source\Misc\GlobalFunctions.h" />
+    <ClInclude Include="Source\Misc\LoadHmap.h" />
+    <ClInclude Include="Source\Misc\LoadOBJ.h" />
+    <ClInclude Include="Source\Misc\LoadTGA.h" />
+    <ClInclude Include="Source\Misc\MeshBuilder.h" />
+    <ClInclude Include="Source\Misc\shader.hpp" />
+    <ClInclude Include="Source\Misc\Utility.h" />
+    <ClInclude Include="Source\Scenes\GraphicsEntity.h" />
+    <ClInclude Include="Source\Scenes\SceneTest1.h" />
+    <ClInclude Include="Source\Systems\ComponentSystem.h" />
+    <ClInclude Include="Source\Systems\Scene_System.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\GPass.fragmentshader" />
+    <None Include="Shader\GPass.vertexshader" />
+    <None Include="Shader\Shadow.fragmentshader" />
+    <None Include="Shader\Shadow.vertexshader" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9B172635-4E2B-46F1-A403-08F4194D00F5}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Base</RootNamespace>
+    <ProjectName>Base</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)/irrKlang-1.5.0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(SolutionDir)/glfw/lib-msvc100;$(SolutionDir)/glew/lib;$(SolutionDir)/irrKlang-1.5.0/lib/Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;winmm.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)/irrKlang-1.5.0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(SolutionDir)/glfw/lib-msvc100;$(SolutionDir)/glew/lib;$(SolutionDir)/irrKlang-1.5.0/lib/Win32-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;winmm.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

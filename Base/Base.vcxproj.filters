@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{05251734-afdb-45bb-ad9d-1492f3189b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{bec32c23-f289-47c5-8fb2-15447e4c73d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mains">
+      <UniqueIdentifier>{7a1a93e6-2269-4361-bf8e-900673398942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes">
+      <UniqueIdentifier>{0a2a732e-3799-430e-b97e-79cb79e2d6ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{3d513b2a-ca09-4a0d-be9e-1cb19ce15114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{ea0727e2-ee25-4d44-8d90-f39b8b008d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mains">
+      <UniqueIdentifier>{35081f40-8b4a-47b1-93c1-05fb587f553b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{b2d02fa3-79ee-458b-86f2-0209eca1da31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{23a0ea06-741c-4e09-b504-76fb10ac4d33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{f062b6cd-9d33-4947-9281-367ca5dfe141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GenericECS">
+      <UniqueIdentifier>{aeafa64d-0faa-49fd-b942-60989d76c45d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands">
+      <UniqueIdentifier>{2957a17a-3478-4717-9296-e8e9775cad54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Commands">
+      <UniqueIdentifier>{81b862f7-9613-47e9-b7be-4cc40db7cb11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GenericECS">
+      <UniqueIdentifier>{d163c512-26ee-4067-bf57-ab9057361c84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gathering of Components">
+      <UniqueIdentifier>{aecfc467-00d6-42b7-982d-5c01d6fdbb78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gathering of Components">
+      <UniqueIdentifier>{5fe481db-ef8f-4ff1-b11d-5531360061d0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\shader.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mains\Application.cpp">
+      <Filter>Source Files\Mains</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Classes\Camera.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\DepthFBO.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenes\GraphicsEntity.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\LoadHmap.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\LoadOBJ.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\LoadTGA.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Classes\main.cpp">
+      <Filter>Source Files\Mains</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Classes\Mesh.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\MeshBuilder.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\Scene_System.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Classes\SpriteAnimation.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\Utility.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Classes\CameraBS.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\ComponentSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Commands\CommandSystem.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GenericECS\GenericEntity.cpp">
+      <Filter>Source Files\GenericECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GenericECS\GenericComponent.cpp">
+      <Filter>Source Files\GenericECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\MyMeshComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\SpriteComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Misc\GlobalFunctions.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Classes\GameEntity.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenes\SceneTest1.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Classes\Camera.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\Light.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\Material.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\Mesh.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\SceneEntity.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\singletontemplate.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mains\Application.h">
+      <Filter>Header Files\Mains</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\DepthFBO.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\DetectMemoryLeak.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\LoadHmap.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\LoadOBJ.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\LoadTGA.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\MeshBuilder.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\shader.hpp">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\Utility.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\GraphicsEntity.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\Scene_System.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\CameraBS.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\SpriteAnimation.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Misc\GlobalFunctions.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GenericECS\GenericComponent.h">
+      <Filter>Header Files\GenericECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GenericECS\GenericEntity.h">
+      <Filter>Header Files\GenericECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GenericECS\GenericSystem.h">
+      <Filter>Header Files\GenericECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Commands\CommandSystem.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\ComponentSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\MeshComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\MyMeshComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\SpriteComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\ID_Component.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Classes\GameEntity.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\SceneTest1.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\ForwardCommand.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\CommandComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\GPass.fragmentshader">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\GPass.vertexshader">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\Shadow.fragmentshader">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\Shadow.vertexshader">
+      <Filter>Shader</Filter>
+    </None>
+  </ItemGroup>
+</Project>
