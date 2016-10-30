@@ -183,18 +183,17 @@ void GraphicsEntity::Update(float dt)
 void GraphicsEntity::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void GraphicsEntity::Exit()
 {
-	//if (meshList.empty() == false)
-	//{
-	//	for (auto it : meshList)
-	//	{
-	//		delete it.second;
-	//	}
-	//	meshList.clear();
-	//}
+    for (std::vector<Mesh*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it)
+    {
+        delete *it;
+        (*it) = nullptr;
+    }
+    anotherMeshList.clear();
 	glDeleteProgram(m_programID);
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	modelStack = nullptr;

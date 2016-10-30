@@ -26,7 +26,10 @@ void SceneTest1::Init()
     zeGraphics->m_renderPass = GraphicsEntity::RENDER_PASS_MAIN;
 
     zeGraphics->projectionStack = projectionStack;
-   zeGraphics->SetHUD(true);
+    zeGraphics->SetHUD(true);
+    Mtx44 projection;
+    projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+    projectionStack->LoadMatrix(projection);
 }
 
 void SceneTest1::Update(float dt)
