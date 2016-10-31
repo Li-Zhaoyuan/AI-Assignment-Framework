@@ -27,9 +27,9 @@ void SceneTest1::Init()
 
     zeGraphics->projectionStack = projectionStack;
     zeGraphics->SetHUD(true);
-    Mtx44 projection;
-    projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
-    projectionStack->LoadMatrix(projection);
+    //Mtx44 projection;
+    //projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -100, 100);
+    //projectionStack->LoadMatrix(projection);
 }
 
 void SceneTest1::Update(float dt)
@@ -41,7 +41,19 @@ void SceneTest1::Update(float dt)
 void SceneTest1::Render()
 {
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
-    zeGraphics->Render();
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, Application::GetInstance().cA_WindowWidth, Application::GetInstance().cA_WindowHeight);
+
+    //glEnable(GL_CULL_FACE);
+    //glCullFace(GL_BACK);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glUseProgram(zeGraphics->m_programID);
+
+    //pass light depth texture
+    //zeGraphics->m_lightDepthFBO.BindForReading(GL_TEXTURE8);
+    //glUniform1i(zeGraphics->m_parameters[GraphicsEntity::U_SHADOW_MAP], 8);
 
     // camera_ matrix
     viewStack->LoadIdentity();

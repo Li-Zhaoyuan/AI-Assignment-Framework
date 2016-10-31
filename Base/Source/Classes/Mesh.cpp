@@ -122,7 +122,7 @@ void Mesh::Render(unsigned offset, unsigned count)
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 
-	if(textureID > 0)
+	//if(textureID > 0)
 	{
 		glDisableVertexAttribArray(3);
 	}
