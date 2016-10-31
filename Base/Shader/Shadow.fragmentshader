@@ -266,7 +266,7 @@ void main(){
 			
 			color +=
 				// Ambient : simulates indirect lighting
-				//materialColor * vec4(material.kAmbient, 1) +
+				materialColor * vec4(material.kAmbient, 1) +
 
 				// Diffuse : "color" of the object
 				visibility * materialColor * vec4(material.kDiffuse, 1) * vec4(lights[i].color, 1) * lights[i].power * cosTheta * attenuationFactor * spotlightEffect +
