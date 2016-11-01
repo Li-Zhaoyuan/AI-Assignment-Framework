@@ -25,6 +25,9 @@ void SceneTest1::Init()
     fps = 1;
     zeGraphics->m_renderPass = GraphicsEntity::RENDER_PASS_MAIN;
 
+    Mtx44 ortho;
+    ortho.SetToOrtho(-400, 400, -300, 300, -10, 10);
+    projectionStack->LoadMatrix(ortho);
     //zeGraphics->projectionStack = projectionStack;
     //zeGraphics->SetHUD(true);
     //Mtx44 projection;
@@ -55,9 +58,9 @@ void SceneTest1::Render()
     //zeGraphics->m_lightDepthFBO.BindForReading(GL_TEXTURE8);
     //glUniform1i(zeGraphics->m_parameters[GraphicsEntity::U_SHADOW_MAP], 8);
 
-    Mtx44 perspective;
-    perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 1000.0f);
-    projectionStack->LoadMatrix(perspective);
+    //Mtx44 perspective;
+    //perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 1000.0f);
+    //projectionStack->LoadMatrix(perspective);
     // camera_ matrix
     viewStack->LoadIdentity();
     viewStack->LookAt(
@@ -70,11 +73,11 @@ void SceneTest1::Render()
 
     zeGraphics->RenderMesh(0, false);
 
-    zeGraphics->SetHUD(true);
+    //zeGraphics->SetHUD(true);
     std::ostringstream ss;
     ss << "FPS:" << fps;
-    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 400, 0, 0);
-    zeGraphics->SetHUD(false);
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 40, 0, 0);
+    //zeGraphics->SetHUD(false);
 }
 
 void SceneTest1::Exit()
