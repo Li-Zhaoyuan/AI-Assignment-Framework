@@ -265,7 +265,7 @@ void GraphicsEntity::RenderTextOnScreen(Mesh& mesh, const std::string &text, Col
 	modelStack->PushMatrix();
 	modelStack->LoadIdentity();
 	modelStack->Translate(x, y, 0);
-	modelStack->Scale(size, size, size);
+	modelStack->Scale(size, size, 1);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
 	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
@@ -288,8 +288,16 @@ void GraphicsEntity::RenderTextOnScreen(Mesh& mesh, const std::string &text, Col
 	viewStack->PopMatrix();
 }
 
+void GraphicsEntity::RenderTextOnScreen(const size_t &zeMeshID, const std::string &text, Color &color, const float &size, const float &x, const float &y)
+{
+    RenderTextOnScreen(*anotherMeshList[zeMeshID], text, color, size, x, y);
+}
+
 void GraphicsEntity::RenderTextOnScreen(const std::string &text, Color &color, const float &size, const float &x, const float &y)
 {
+#ifdef _DEBUG
+    assert(ExportedFont->textureArray[0] > 0);
+#endif
 	if (ExportedFont->textureArray[0] <= 0)
 		return;
 
@@ -298,7 +306,7 @@ void GraphicsEntity::RenderTextOnScreen(const std::string &text, Color &color, c
 	modelStack->PushMatrix();
 	modelStack->LoadIdentity();
 	modelStack->Translate(x, y, 0);
-	modelStack->Scale(size, size, size);
+	modelStack->Scale(size, size, 1);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
 	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
@@ -352,7 +360,7 @@ void GraphicsEntity::RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const f
 	}
 	glUniform1i(m_parameters[U_LIGHTENABLED], enableLight);
 	mesh.Render();
-	if (mesh.textureArray[0] > 0 || mesh.textureID > 0)
+	if (mesh.textureArray[0] > 0 /*|| mesh.textureID > 0*/)
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
@@ -392,7 +400,7 @@ void GraphicsEntity::RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const f
 	}
 	glUniform1i(m_parameters[U_LIGHTENABLED], enableLight);
 	mesh.Render();
-	if (mesh.textureArray[0] > 0 || mesh.textureID > 0)
+	if (mesh.textureArray[0] > 0/* || mesh.textureID > 0*/)
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
@@ -772,4 +780,26 @@ size_t GraphicsEntity::getMeshID(const std::string &zeName)
             break;
     }
     return num;
+}
+
+Mesh &GraphicsEntity::getMeshRef(const std::string &zeName)
+{
+    Mesh *nothing = nullptr;
+    for (std::vector<Mesh*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it)
+    {
+        if ((*it)->name == zeName)
+            return (**it);
+    }
+#ifdef _DEBUG
+    assert(nothing);
+#endif
+    return *nothing;
+}
+
+Mesh &GraphicsEntity::getMeshRef(const size_t &zeNum)
+{
+#ifdef _DEBUG
+    assert(zeNum < anotherMeshList.size() && zeNum >= 0);
+#endif
+    return *anotherMeshList[zeNum];
 }

@@ -1,2 +1,3 @@
 Name,ObjectType,ObjectFile,ColorR,ColorG,ColorB,texture1,texture2,numRows,numColumns
 text,Text,,,,,Image//ExportedFont.tga,,,
+cube,cube,,1,1,1,,,,

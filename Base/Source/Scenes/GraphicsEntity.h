@@ -124,19 +124,20 @@ public:
     unsigned m_vertexArrayID;
     Light lights[MAX_NUM_LIGHTS];
 
-    virtual void RenderText(Mesh& mesh, const std::string &text, Color &color);
-    virtual void RenderText(const std::string &text, Color &color);
-    virtual void RenderTextOnScreen(Mesh& mesh, const std::string &text, Color &color, const float &size, const float &x, const float &y);
-    virtual void RenderTextOnScreen(const std::string &text, Color &color, const float &size, const float &x, const float &y);
-    virtual void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &size, const float &x, const float &y);
-    virtual void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y);
-    virtual void RenderMesh(Mesh &mesh, const bool &enableLight);
-    virtual void RenderMesh(const size_t &meshID, const bool &enableLight);
-    //virtual void RenderText(const std::string &meshName, const std::string &text, Color &color);
-    //virtual void RenderTextOnScreen(const std::string &meshName, const std::string &text, Color &color, const float &size, const float &x, const float &y);
-	//virtual void RenderMeshIn2D(const std::string &meshName, const bool &enableLight, const float &size, const float &x, const float &y);
-    //virtual void RenderMeshIn2D(const std::string &meshName, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y);
-    //virtual void RenderMesh(const std::string &meshName, const bool &enableLight);
+    void RenderText(Mesh& mesh, const std::string &text, Color &color);
+    void RenderText(const std::string &text, Color &color);
+    void RenderTextOnScreen(Mesh& mesh, const std::string &text, Color &color, const float &size, const float &x, const float &y);
+    void RenderTextOnScreen(const std::string &text, Color &color, const float &size, const float &x, const float &y);
+    void RenderTextOnScreen(const size_t &zeMeshID, const std::string &text, Color &color, const float &size, const float &x, const float &y);
+    void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &size, const float &x, const float &y);
+    void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y);
+    void RenderMesh(Mesh &mesh, const bool &enableLight);
+    void RenderMesh(const size_t &meshID, const bool &enableLight);
+    //void RenderText(const std::string &meshName, const std::string &text, Color &color);
+    //void RenderTextOnScreen(const std::string &meshName, const std::string &text, Color &color, const float &size, const float &x, const float &y);
+	//void RenderMeshIn2D(const std::string &meshName, const bool &enableLight, const float &size, const float &x, const float &y);
+    //void RenderMeshIn2D(const std::string &meshName, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y);
+    //void RenderMesh(const std::string &meshName, const bool &enableLight);
 
     void SetHUD(const bool& m_bHUDmode);
 
@@ -148,6 +149,8 @@ public:
 	RENDER_PASS m_renderPass;
 
     size_t getMeshID(const std::string &zeName);
+    Mesh &getMeshRef(const std::string &zeName);
+    Mesh &getMeshRef(const size_t &zeNum);
 
 private:
     bool m_bIsInOrthogonalMode;

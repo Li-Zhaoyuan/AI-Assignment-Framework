@@ -25,19 +25,21 @@ void SceneTest1::Init()
     fps = 1;
     zeGraphics->m_renderPass = GraphicsEntity::RENDER_PASS_MAIN;
 
+    // The very reason why we can't see any thing
     Mtx44 ortho;
-    ortho.SetToOrtho(-400, 400, -300, 300, -10, 10);
+    ortho.SetToOrtho(-400, 400, -300, 300, -100, 100);
     projectionStack->LoadMatrix(ortho);
-    //zeGraphics->projectionStack = projectionStack;
-    //zeGraphics->SetHUD(true);
-    //Mtx44 projection;
-    //projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -100, 100);
-    //projectionStack->LoadMatrix(projection);
+    // The very reason why we can't see any thing
 }
 
 void SceneTest1::Update(float dt)
 {
+#ifdef _DEBUG
+    // TODO: Remove it when it is not debugging
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
+    zeGraphics->Update(dt);
+    // TODO: Remove it when it is not debugging
+#endif
     fps = 1 / dt;
 }
 
@@ -73,10 +75,22 @@ void SceneTest1::Render()
 
     zeGraphics->RenderMesh(0, false);
 
+    modelStack->PushMatrix();
+    modelStack->Translate(-50, -50, 0);
+    modelStack->Scale(50, 50, 10);
+    zeGraphics->RenderMesh(2, false);
+    modelStack->PopMatrix();
+
+    modelStack->PushMatrix();
+    modelStack->Scale(100, 100, 1);
+    zeGraphics->RenderText("Hello", Color(0, 1, 0));
+    modelStack->PopMatrix();
+
     //zeGraphics->SetHUD(true);
+    viewStack->LoadIdentity();
     std::ostringstream ss;
     ss << "FPS:" << fps;
-    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 40, 0, 0);
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);
     //zeGraphics->SetHUD(false);
 }
 

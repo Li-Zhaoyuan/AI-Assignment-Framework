@@ -9,7 +9,7 @@ Mesh::Mesh(const std::string &meshName)
 {
 	glGenBuffers(1, &vertexBuffer);
 	glGenBuffers(1, &indexBuffer);
-	textureID = 0;
+	//textureID = 0;
     //WOOT 3
     for (int i = 0; i < MAX_TEXTURES; ++i)
     {
@@ -91,8 +91,8 @@ void Mesh::Render(unsigned offset, unsigned count)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Position));
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color)));
-	if(textureID > 0)
-	{
+    if (textureArray[0] > 0)
+    {
 		glEnableVertexAttribArray(3);
 		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
 	}
@@ -109,13 +109,14 @@ void Mesh::Render(unsigned offset, unsigned count)
     switch (mode)
     {
     case DRAW_LINES:
-        glDrawElements(GL_LINES, indexSize, GL_UNSIGNED_INT, 0);
+        	glDrawElements(GL_LINES, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(GLuint)));
         break;
     case DRAW_TRIANGLE_STRIP:
-        glDrawElements(GL_TRIANGLE_STRIP, indexSize, GL_UNSIGNED_INT, 0);
+        	glDrawElements(GL_TRIANGLE_STRIP, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(GLuint)));
         break;
     default:
-        glDrawElements(GL_TRIANGLES, indexSize, GL_UNSIGNED_INT, 0);
+        	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(GLuint)));
+            break;
     }
 
 	glDisableVertexAttribArray(0);

@@ -28,7 +28,7 @@ public:
 	unsigned indexSize;
 
 	Material material;
-	unsigned textureID;
+	//unsigned textureID;
     unsigned textureArray[MAX_TEXTURES];    //WOOT 2
 };
 
