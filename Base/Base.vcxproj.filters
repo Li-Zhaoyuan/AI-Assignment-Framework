@@ -141,6 +141,12 @@
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scenes\SceneA.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenes\SceneB.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -241,6 +247,12 @@
     </ClInclude>
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h">
       <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\SceneA.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\SceneB.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

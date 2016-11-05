@@ -31,6 +31,8 @@
     <ClCompile Include="Source\Classes\main.cpp" />
     <ClCompile Include="Source\Classes\Mesh.cpp" />
     <ClCompile Include="Source\Misc\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Scenes\SceneA.cpp" />
+    <ClCompile Include="Source\Scenes\SceneB.cpp" />
     <ClCompile Include="Source\Scenes\SceneTest1.cpp" />
     <ClCompile Include="Source\Systems\ComponentSystem.cpp" />
     <ClCompile Include="Source\Systems\Scene_System.cpp" />
@@ -69,6 +71,8 @@
     <ClInclude Include="Source\Misc\shader.hpp" />
     <ClInclude Include="Source\Misc\Utility.h" />
     <ClInclude Include="Source\Scenes\GraphicsEntity.h" />
+    <ClInclude Include="Source\Scenes\SceneA.h" />
+    <ClInclude Include="Source\Scenes\SceneB.h" />
     <ClInclude Include="Source\Scenes\SceneTest1.h" />
     <ClInclude Include="Source\Systems\ComponentSystem.h" />
     <ClInclude Include="Source\Systems\Scene_System.h" />

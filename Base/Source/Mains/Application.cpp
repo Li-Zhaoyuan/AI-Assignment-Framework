@@ -22,6 +22,8 @@
 #include <stdlib.h>
 
 #include "../Scenes/SceneTest1.h"
+#include "../Scenes/SceneA.h"
+#include "../Scenes/SceneB.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -133,7 +135,8 @@ void Application::Init()
 
     Math::InitRNG();
     Scene_System::accessing().setGraphics_Scene(*new GraphicsEntity());
-
+    Scene_System::accessing().AddScene(*new SceneA);
+    Scene_System::accessing().AddScene(*new SceneB);
     Scene_System::accessing().AddScene(*(new SceneTest1));
 }
 
