@@ -1,0 +1,2 @@
+Sprite and Mesh Component: 0
+State Machine Component: 1

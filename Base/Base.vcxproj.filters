@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Gathering of Components">
       <UniqueIdentifier>{5fe481db-ef8f-4ff1-b11d-5531360061d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\StatesStuff">
+      <UniqueIdentifier>{50ee4e90-b159-4411-ae49-319a80d7dce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StatesStuff">
+      <UniqueIdentifier>{04fbd980-13a8-4d08-aa6f-15c4ec17f894}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\shader.cpp">
@@ -146,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="Source\Scenes\SceneB.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\StateMachineComponent.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="Source\Scenes\SceneB.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\StateMachineComponent.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\StateComponent.h">
+      <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
