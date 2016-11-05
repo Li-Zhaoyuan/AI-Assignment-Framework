@@ -4,10 +4,11 @@
 #include "../GenericECS/GenericEntity.h"
 #include "../GenericECS/GenericComponent.h"
 #include <set>
+#include <vector>
 
-#ifndef MAX_NUM_COMPONENTS
-#define MAX_NUM_COMPONENTS 32U
-#endif
+//#ifndef MAX_NUM_COMPONENTS
+//#define MAX_NUM_COMPONENTS 32U
+//#endif
 
 class GameEntity : public GenericEntity
 {
@@ -27,8 +28,10 @@ public: //Do go and investigate union
     bool removeComponent(const size_t &zeNum);
 
 protected:
-    bool ComponentActive[MAX_NUM_COMPONENTS];   //Referring to Data Locality Pattern here.
-    GenericComponent *ComponentsItHeld[MAX_NUM_COMPONENTS];
+    //bool ComponentActive[MAX_NUM_COMPONENTS];   //Referring to Data Locality Pattern here.
+    //GenericComponent *ComponentsItHeld[MAX_NUM_COMPONENTS];
+    std::vector<GenericComponent*> ComponentsItHeld;
+    std::vector<bool> ComponentActive;
     std::set<size_t> whatComponentAreThr;
 };
 
