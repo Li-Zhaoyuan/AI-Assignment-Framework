@@ -15,7 +15,7 @@ public:
         DRAW_MODE_LAST,
     };
     MyMeshComponent();
-    MyMeshComponent(const std::string &zeName, GenericEntity *zeOwner);
+    MyMeshComponent(const std::string &zeName, GenericEntity *zeOwner = nullptr);
     virtual ~MyMeshComponent();
 
     virtual void Render();

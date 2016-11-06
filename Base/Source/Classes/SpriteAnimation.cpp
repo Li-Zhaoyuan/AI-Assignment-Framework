@@ -4,7 +4,7 @@
 #include "MyMath.h"
 
 SpriteAnimation::SpriteAnimation(const std::string &meshName, int row, int col)
-    : Mesh(meshName), m_row(row), m_col(col), m_currentFrame(0), m_currentTime(0),
+    : Mesh(meshName), m_row(row), m_col(col), m_currentFrame(0), /*m_currentTime(0),*/
     m_anim(NULL), doReversal(false), /*rotation(0), isItBillBoard(false),*/ oppositeWay(false),
     unlimitedTimes(false)
 {
@@ -14,15 +14,15 @@ SpriteAnimation::SpriteAnimation(const std::string &meshName, int row, int col)
 
 SpriteAnimation::~SpriteAnimation()
 {
-    if (m_anim)
-        delete m_anim;
+    //if (m_anim)
+    //    delete m_anim;
 }
 
 void SpriteAnimation::Update(double &dt)
 {
-    if (m_anim->animActive == true)
+    if (m_anim && m_anim->animActive == true)
     {
-        m_currentTime += (float)dt;
+        m_anim->m_currentTime += (float)dt;
 
         int numFrame = 0;
         if (m_anim->startFrame <= m_anim->endFrame)
@@ -40,26 +40,26 @@ void SpriteAnimation::Update(double &dt)
 
         if (oppositeWay)
         {
-            m_currentFrame = Math::Max(m_anim->startFrame, m_anim->endFrame - static_cast<int>(m_currentTime / frameTime));
+            m_currentFrame = Math::Max(m_anim->startFrame, m_anim->endFrame - static_cast<int>(m_anim->m_currentTime / frameTime));
         }
         else
         {
             if (m_anim->startFrame <= m_anim->endFrame)
-                m_currentFrame = Math::Min(m_anim->endFrame, m_anim->startFrame + static_cast<int>(m_currentTime / frameTime));
+                m_currentFrame = Math::Min(m_anim->endFrame, m_anim->startFrame + static_cast<int>(m_anim->m_currentTime / frameTime));
             else         //this is for animation to play backwards
-                m_currentFrame = Math::Min(m_anim->startFrame, m_anim->endFrame + static_cast<int>(m_currentTime / frameTime));
+                m_currentFrame = Math::Min(m_anim->startFrame, m_anim->endFrame + static_cast<int>(m_anim->m_currentTime / frameTime));
         }
 
-        if (m_currentTime >= m_anim->animTime)
+        if (m_anim->m_currentTime >= m_anim->animTime)
         {
             if (unlimitedTimes == false && m_anim->repeatCount <= 0)
             {
                 m_anim->animActive = false;
-                m_currentTime = 0.f;
+                m_anim->m_currentTime = 0.f;
             }
             else
             {
-                m_currentTime = 0.f;
+                m_anim->m_currentTime = 0.f;
                 if (unlimitedTimes == false)
                     --m_anim->repeatCount;
                 if (doReversal)
@@ -82,7 +82,7 @@ void SpriteAnimation::Update(double &dt)
     }
     else if (m_anim->repeatCount > 0 || unlimitedTimes == true)
     {
-        m_currentTime = 0.f;
+        m_anim->m_currentTime = 0.f;
         m_anim->animActive = true;
         if (unlimitedTimes == false)
             --m_anim->repeatCount;

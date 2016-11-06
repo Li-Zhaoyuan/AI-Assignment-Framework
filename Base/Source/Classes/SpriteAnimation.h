@@ -3,6 +3,7 @@
 
 #include "Mesh.h"
 #include "Vector3.h"
+#include "../Gathering of Components/AnimationComponent.h"
 
 struct Animation
 {
@@ -37,14 +38,16 @@ public:
     int m_row;
     int m_col;
 
-    float m_currentTime;
+    //float m_currentTime;
     int m_currentFrame;
 
     bool doReversal;
     bool oppositeWay;
     bool unlimitedTimes;
 
-    Animation *m_anim;
+    //Animation *m_anim;
+
+    AnimationComponent *m_anim;
 
     //bool isItBillBoard;
     //void doRotation(const Vector3 &playerPos);
