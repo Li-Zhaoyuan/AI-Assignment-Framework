@@ -2,6 +2,8 @@
 #include "../Systems/Scene_System.h"
 #include "GraphicsEntity.h"
 #include <sstream>
+#include "../Gathering of Components/PhysicsComponent.h"
+#include "../Gathering of Components/MeshComponent.h"
 
 SceneA::SceneA()
 {
@@ -77,22 +79,42 @@ void SceneA::Render()
 
     zeGraphics->RenderMesh(0, false);
 
-    modelStack->PushMatrix();
-    modelStack->Translate(-50, -50, 0);
-    modelStack->Scale(50, 50, 10);
-    zeGraphics->RenderMesh(2, false);
-    modelStack->PopMatrix();
+    //modelStack->PushMatrix();
+    //modelStack->Translate(-50, -50, 0);
+    //modelStack->Scale(50, 50, 10);
+    //zeGraphics->RenderMesh(2, false);
+    //modelStack->PopMatrix();
 
-    modelStack->PushMatrix();
-    modelStack->Scale(100, 100, 1);
-    zeGraphics->RenderText("Sek Heng Stuff", Color(0, 1, 0));
-    modelStack->PopMatrix();
+    //modelStack->PushMatrix();
+    //modelStack->Scale(100, 100, 1);
+    //zeGraphics->RenderText("Sek Heng Stuff", Color(0, 1, 0));
+    //modelStack->PopMatrix();
+
+    for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+    {
+        switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
+        {
+        case true: 
+        {
+            modelStack->PushMatrix();
+            PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+            MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
+            modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
+            modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
+            zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
+            modelStack->PopMatrix();
+        }
+            break;
+        default:
+            break;
+        }
+    }
 
     //zeGraphics->SetHUD(true);
     viewStack->LoadIdentity();
     std::ostringstream ss;
     ss << "FPS:" << fps;
-    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 25, -390, -290);
     //zeGraphics->SetHUD(false);
 }
 

@@ -148,3 +148,8 @@ bool GameEntity::turnOnComponent(const size_t &zeNum)
     }
     return false;
 }
+
+bool GameEntity::seeComponentActive(const size_t &zeNum)
+{
+    return ComponentActive[zeNum];
+}

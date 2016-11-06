@@ -27,6 +27,8 @@ public: //Do go and investigate union
     bool turnOnComponent(const size_t &zeNum);
     bool removeComponent(const size_t &zeNum);
 
+    bool seeComponentActive(const size_t &zeNum);
+
 protected:
     //bool ComponentActive[MAX_NUM_COMPONENTS];   //Referring to Data Locality Pattern here.
     //GenericComponent *ComponentsItHeld[MAX_NUM_COMPONENTS];
