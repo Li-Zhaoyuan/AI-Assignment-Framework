@@ -20,7 +20,7 @@ void StateMachineComponent::Init()
 
 void StateMachineComponent::Update(double dt)
 {
-    if (!HistoryOfStates.empty())
+    //if (!HistoryOfStates.empty())
         HistoryOfStates.back()->Update(dt);
 }
 
@@ -34,9 +34,17 @@ void StateMachineComponent::Exit()
 
 void StateMachineComponent::addStates(StateComponent &zeStates, const size_t &zeID)
 {
-    allRegisteredStates.push_back(&zeStates);
-    if (HistoryOfStates.empty())
-        HistoryOfStates.push_back(&zeStates);
+    while (allRegisteredStates.size() <= zeID)
+    {
+        allRegisteredStates.resize(allRegisteredStates.size() * 2, nullptr);
+    }
+    if (!allRegisteredStates[zeID])
+    {
+        allRegisteredStates[zeID] = &zeStates;
+        if (HistoryOfStates.empty())
+            HistoryOfStates.push_back(&zeStates);
+        zeStates.setEntityOwner(owner_of_component);
+    }
 }
 
 bool StateMachineComponent::transitToPreviousState()
@@ -62,4 +70,22 @@ void StateMachineComponent::switchState(const std::string &zeName)
             HistoryOfStates.push_back(*it);
         }
     }
+}
+
+StateComponent &StateMachineComponent::getSpecificStates(const size_t &zeNum)
+{
+    return *allRegisteredStates[zeNum];
+}
+
+StateComponent &StateMachineComponent::getSpecificStates(const std::string &zeName)
+{
+    std::vector<StateComponent*>::iterator it = allRegisteredStates.begin();
+    for (std::vector<StateComponent*>::iterator it = allRegisteredStates.begin(), end = allRegisteredStates.end(); it != end; ++it)
+    {
+        if ((*it)->getName() == zeName)
+        {
+            break;
+        }
+    }
+    return **it;
 }

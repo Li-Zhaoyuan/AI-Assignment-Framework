@@ -26,7 +26,7 @@ bool GameEntity::addComponent(const size_t &zeCompID, GenericComponent *zeCompon
 //    }
     if (!ComponentsItHeld[zeCompID])
     {
-        while (ComponentsItHeld.size() < zeCompID)
+        while (ComponentsItHeld.size() <= zeCompID)
         {
             ComponentsItHeld.resize(ComponentsItHeld.size() * 2, nullptr);
             ComponentActive.resize(ComponentActive.size() * 2, false);
@@ -36,6 +36,7 @@ bool GameEntity::addComponent(const size_t &zeCompID, GenericComponent *zeCompon
         whatComponentAreThr.insert(zeCompID);
         zeComponent->Init();
         zeComponent->setEntityOwner(this);
+        return true;
     }
     return false;
 }

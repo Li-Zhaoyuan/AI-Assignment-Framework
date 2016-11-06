@@ -28,7 +28,7 @@ public:
     unsigned indexSize;
 
     Material material;
-    unsigned textureID;
+    //unsigned textureID;
     //Week 4 Texture Array
     unsigned textureArray[MAX_TEXTURES];
 };

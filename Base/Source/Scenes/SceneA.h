@@ -19,4 +19,5 @@ private:
     CameraBS camera_;
     float m_worldHeight, m_worldWidth;
     float fps;
+    std::vector<GameEntity*> m_GoList;
 };

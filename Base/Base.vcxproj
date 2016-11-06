@@ -17,6 +17,7 @@
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
     <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MyMeshComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\PhysicsComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\SpriteComponent.cpp" />
     <ClCompile Include="Source\GenericECS\GenericComponent.cpp" />
     <ClCompile Include="Source\GenericECS\GenericEntity.cpp" />
@@ -52,11 +53,13 @@
     <ClInclude Include="Source\Classes\singletontemplate.h" />
     <ClInclude Include="Source\Classes\SpriteAnimation.h" />
     <ClInclude Include="Source\Commands\CommandSystem.h" />
+    <ClInclude Include="Source\Gathering of Components\AnimationComponent.h" />
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
     <ClInclude Include="Source\Gathering of Components\ID_Component.h" />
     <ClInclude Include="Source\Gathering of Components\MeshComponent.h" />
     <ClInclude Include="Source\Gathering of Components\MyMeshComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\PhysicsComponent.h" />
     <ClInclude Include="Source\Gathering of Components\SpriteComponent.h" />
     <ClInclude Include="Source\GenericECS\GenericComponent.h" />
     <ClInclude Include="Source\GenericECS\GenericEntity.h" />

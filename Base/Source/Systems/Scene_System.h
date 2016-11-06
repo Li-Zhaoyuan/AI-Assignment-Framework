@@ -31,18 +31,20 @@ public:
     virtual void Init();    
     virtual void Update(double dt);
 
-    virtual void AddScene(SceneEntity&);
-    virtual void RemoveScene(SceneEntity&);
+    void AddScene(SceneEntity&);
+    void RemoveScene(SceneEntity&);
 
-	virtual void SwitchScene(const std::string&);
-	virtual bool SwitchToPreviousScene();
+ void SwitchScene(const std::string&);
+ bool SwitchToPreviousScene();
 
     SceneEntity &getCurrScene();
     SceneEntity &getGraphicsScene();
 
-	virtual void setGraphics_Scene(SceneEntity&);
-    virtual void clearEverything();
+    void setGraphics_Scene(SceneEntity&);
+    void clearEverything();
     virtual void Exit();
+
+    SceneEntity &getSpecificScene(const std::string &zeName);
 
 private:
 	std::stack<SceneEntity* > SceneHistory;

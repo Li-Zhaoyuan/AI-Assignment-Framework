@@ -105,3 +105,8 @@ void Scene_System::Exit()
 {
     clearEverything();
 }
+
+SceneEntity &Scene_System::getSpecificScene(const std::string &zeName)
+{
+    return *theSceneList[zeName];
+}

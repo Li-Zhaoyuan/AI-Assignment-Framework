@@ -98,6 +98,11 @@ void SceneA::Render()
 
 void SceneA::Exit()
 {
-
+    for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+    {
+        delete *it;
+        *it = nullptr;
+    }
+    m_GoList.clear();
 }
 

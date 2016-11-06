@@ -24,6 +24,8 @@ public:
     bool transitToPreviousState();
 
     static ID_Component ID_;
+    StateComponent &getSpecificStates(const size_t &zeNum);
+    StateComponent &getSpecificStates(const std::string &zeName);
 
 protected:
     std::vector<StateComponent*> allRegisteredStates, HistoryOfStates;
