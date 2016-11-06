@@ -1,4 +1,4 @@
-Name,ObjectType,ObjectFile,ColorR,ColorG,ColorB,texture1,texture2,numRows,numColumns
-text,Text,,,,,Image//ExportedFont.tga,,,
-cube,cube,,1,1,1,,,,
-greenCube,cube,,0,1,0,,,,
+Name,ColorR,ColorG,ColorB,ObjectType,ObjectFile,texture1,texture2,numRows,numColumns
+text,,,,Text,,Image//ExportedFont.tga,,,
+cube,1,1,1,cube,,,,,
+greenCube,0,1,0,cube,,,,,

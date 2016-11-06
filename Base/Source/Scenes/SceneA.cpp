@@ -32,6 +32,16 @@ void SceneA::Init()
     ortho.SetToOrtho(-400, 400, -300, 300, -100, 100);
     projectionStack->LoadMatrix(ortho);
     // The very reason why we can't see any thing
+
+    GameEntity *myFirstEntity = new GameEntity();
+    myFirstEntity->setName("Dummy entity");
+    MeshComponent *myFirstMesh = new MeshComponent();
+    myFirstMesh->onNotify(zeGraphics->getMeshID("greenCube"));
+    myFirstEntity->addComponent(MeshComponent::g_CompID_.getValue(), myFirstMesh);
+    PhysicsComponent *myFirstPhysic = new PhysicsComponent();
+    myFirstPhysic->setSize(Vector3(100, 100, 1));
+    myFirstEntity->addComponent(PhysicsComponent::g_ID_, myFirstPhysic);
+    m_GoList.push_back(myFirstEntity);
 }
 
 void SceneA::Update(float dt)

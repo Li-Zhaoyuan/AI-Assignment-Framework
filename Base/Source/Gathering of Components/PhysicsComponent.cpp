@@ -2,12 +2,20 @@
 
 PhysicsComponent::PhysicsComponent()
 {
-    size_.Set(1, 1, 1);
+    Init();
 }
 
 PhysicsComponent::~PhysicsComponent()
 {
 
+}
+
+void PhysicsComponent::Init()
+{
+    size_.Set(1, 1, 1);
+    accel_.SetZero();
+    pos_.SetZero();
+    vel_.SetZero();
 }
 
 void PhysicsComponent::Update(double dt)

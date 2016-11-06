@@ -9,6 +9,7 @@ public:
     PhysicsComponent();
     virtual ~PhysicsComponent();
 
+    virtual void Init();
     virtual void Update(double dt);
 
     void setPos(const Vector3 &zePos);
