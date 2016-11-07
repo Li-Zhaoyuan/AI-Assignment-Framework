@@ -12,6 +12,8 @@ public:
 
     virtual bool onNotify(const float &zeEvent);
 
+    float &getSpeed();
+
     static const unsigned char ID_ = 5;
 
 protected:

@@ -1,6 +1,7 @@
 #include "PatrolState.h"
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Classes/GameEntity.h"
+#include "../Gathering of Components/SpeedComponent.h"
 
 PatrolState::PatrolState()
 {
@@ -40,6 +41,8 @@ void PatrolState::Update(double dt)
     {
     case false:
     {
+        SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGO->getComponent(SpeedComponent::ID_));
+
         isMovingTowardsThatPos = true;
     }
         break;

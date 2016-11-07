@@ -20,3 +20,8 @@ bool SpeedComponent::onNotify(const float &zeEvent)
     speed_ = zeEvent;
     return true;
 }
+
+float &SpeedComponent::getSpeed()
+{
+    return speed_;
+}
