@@ -165,6 +165,12 @@
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Misc\NPCBuilder.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\PatrolState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -292,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="Source\Misc\NPCBuilder.h">
       <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\PatrolState.h">
+      <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
