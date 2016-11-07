@@ -16,5 +16,6 @@ public:
 protected:
     Vector3 *boundaryOfThePlace;
     Vector3 goToThatPoint;
+    bool isMovingTowardsThatPos;
     bool hasChangedName;
 };

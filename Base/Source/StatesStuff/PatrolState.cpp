@@ -1,5 +1,6 @@
 #include "PatrolState.h"
 #include "../Gathering of Components/PhysicsComponent.h"
+#include "../Classes/GameEntity.h"
 
 PatrolState::PatrolState()
 {
@@ -15,7 +16,7 @@ PatrolState::~PatrolState()
 void PatrolState::Init()
 {
     boundaryOfThePlace = nullptr;
-    hasChangedName = false;
+    hasChangedName = isMovingTowardsThatPos = false;
 }
 
 void PatrolState::Update(double dt)
@@ -33,9 +34,22 @@ void PatrolState::Update(double dt)
     default:
         break;
     }
+    GameEntity *zeGO = dynamic_cast<GameEntity*>(owner_of_component);
+    PhysicsComponent *zePhysic = dynamic_cast<PhysicsComponent*>(&zeGO->getComponent(PhysicsComponent::g_ID_));
+    switch (isMovingTowardsThatPos)
+    {
+    case false:
+    {
+        isMovingTowardsThatPos = true;
+    }
+        break;
+    default:
+        break;
+    }
 }
 
 void PatrolState::Exit()
 {
     hasChangedName = false;
+    isMovingTowardsThatPos = false;
 }
