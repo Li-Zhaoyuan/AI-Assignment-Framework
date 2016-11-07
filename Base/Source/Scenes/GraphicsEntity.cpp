@@ -724,6 +724,10 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
                     {
                         newMesh = MeshBuilder::GenerateCube(theName, theColor);
                     }
+                    else if (checkWhetherTheWordInThatString("SPHERE", theValues[num]))
+                    {
+                        newMesh = MeshBuilder::GenerateCircle(theName, theColor);
+                    }
                     else if (checkWhetherTheWordInThatString("SPRITE", theValues[num]))
                     {
                         unsigned row, col;

@@ -75,6 +75,7 @@
     <ClInclude Include="Source\Misc\LoadOBJ.h" />
     <ClInclude Include="Source\Misc\LoadTGA.h" />
     <ClInclude Include="Source\Misc\MeshBuilder.h" />
+    <ClInclude Include="Source\Misc\NPCBuilder.h" />
     <ClInclude Include="Source\Misc\shader.hpp" />
     <ClInclude Include="Source\Misc\Utility.h" />
     <ClInclude Include="Source\Scenes\GraphicsEntity.h" />
