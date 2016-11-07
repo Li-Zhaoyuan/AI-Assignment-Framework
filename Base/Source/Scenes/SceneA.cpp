@@ -4,9 +4,11 @@
 #include <sstream>
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
+//TODO: Be Removed
 #include "../StatesStuff/StateMachineComponent.h"
-#include "../StatesStuff/IdleState.h"   //TODO: Be Removed
+#include "../StatesStuff/IdleState.h"   
 #include "../Gathering of Components/HPandDPComponent.h"
+//TODO: Be Removed
 
 SceneA::SceneA()
 {
@@ -35,6 +37,7 @@ void SceneA::Init()
     ortho.SetToOrtho(-400, 400, -300, 300, -100, 100);
     projectionStack->LoadMatrix(ortho);
     // The very reason why we can't see any thing
+    boundaryOfRoom.Set(400, 300, 0);
 
     GameEntity *myFirstEntity = new GameEntity();
     myFirstEntity->setName("Dummy");

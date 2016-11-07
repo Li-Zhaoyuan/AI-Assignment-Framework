@@ -21,7 +21,22 @@ void PhysicsComponent::Init()
 
 void PhysicsComponent::Update(double dt)
 {
-
+    switch (accel_.IsZero())
+    {
+    case false:
+        vel_ += accel_ * (float)(dt);
+        break;
+    default:
+        break;
+    }
+    switch (vel_.IsZero())
+    {
+    case false:
+        pos_ += vel_ * (float)(dt);
+        break;
+    default:
+        break;
+    }
 }
 
 Vector3 &PhysicsComponent::getAccel()

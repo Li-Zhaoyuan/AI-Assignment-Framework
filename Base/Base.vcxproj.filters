@@ -165,10 +165,10 @@
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\StatesStuff\Devil_SearchState.cpp">
-      <Filter>Source Files\StatesStuff</Filter>
+    <ClCompile Include="Source\Misc\NPCBuilder.cpp">
+      <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Source\StatesStuff\Devil_AttackState.cpp">
+    <ClCompile Include="Source\StatesStuff\PatrolState.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
   </ItemGroup>
@@ -296,10 +296,10 @@
     <ClInclude Include="Source\Gathering of Components\HPandDPComponent.h">
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
-    <ClInclude Include="Source\StatesStuff\Devil_SearchState.h">
-      <Filter>Header Files\StatesStuff</Filter>
+    <ClInclude Include="Source\Misc\NPCBuilder.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Source\StatesStuff\Devil_AttackState.h">
+    <ClInclude Include="Source\StatesStuff\PatrolState.h">
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>

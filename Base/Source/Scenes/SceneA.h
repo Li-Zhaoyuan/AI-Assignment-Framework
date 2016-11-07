@@ -20,4 +20,7 @@ private:
     float m_worldHeight, m_worldWidth;
     float fps;
     std::vector<GameEntity*> m_GoList;
+    std::vector<GameEntity*> m_enemy, m_ally;
+
+    Vector3 boundaryOfRoom;
 };
