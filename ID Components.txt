@@ -2,3 +2,4 @@ Sprite and Mesh Component: 0
 State Machine Component: 1
 Physics Component: 2
 Animation Stuff: 3
+HPandDP Component: 4

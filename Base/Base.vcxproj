@@ -15,6 +15,7 @@
     <ClCompile Include="Source\Classes\GameEntity.cpp" />
     <ClCompile Include="Source\Commands\CommandSystem.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
+    <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MyMeshComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\PhysicsComponent.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="Source\Gathering of Components\AnimationComponent.h" />
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
+    <ClInclude Include="Source\Gathering of Components\HPandDPComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ID_Component.h" />
     <ClInclude Include="Source\Gathering of Components\MeshComponent.h" />
     <ClInclude Include="Source\Gathering of Components\MyMeshComponent.h" />

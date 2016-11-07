@@ -6,6 +6,7 @@
 #include "../Gathering of Components/MeshComponent.h"
 #include "../StatesStuff/StateMachineComponent.h"
 #include "../StatesStuff/IdleState.h"   //TODO: Be Removed
+#include "../Gathering of Components/HPandDPComponent.h"
 
 SceneA::SceneA()
 {
@@ -47,6 +48,7 @@ void SceneA::Init()
     StateMachineComponent *myFirstFSM = new StateMachineComponent();
     myFirstEntity->addComponent(StateMachineComponent::ID_.getValue(), myFirstFSM);
     myFirstFSM->addStates(*new IdleState(), IdleState::ID_);
+    myFirstEntity->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
 }
 
 void SceneA::Update(float dt)
@@ -120,11 +122,13 @@ void SceneA::Render()
             PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
             modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
-            modelStack->PushMatrix();
-            modelStack->Translate(0, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
-            modelStack->Scale(15, 15, 1);
-            zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
-            modelStack->PopMatrix();
+                // Debuggin Stuff
+                modelStack->PushMatrix();
+                modelStack->Translate(0, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
+                modelStack->Scale(15, 15, 1);
+                zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
+                modelStack->PopMatrix();
+                // Debuggin Stuff
             modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
             zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
             modelStack->PopMatrix();

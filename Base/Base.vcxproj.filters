@@ -162,6 +162,9 @@
     <ClCompile Include="Source\StatesStuff\IdleState.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -283,6 +286,9 @@
     </ClInclude>
     <ClInclude Include="Source\StatesStuff\IdleState.h">
       <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\HPandDPComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

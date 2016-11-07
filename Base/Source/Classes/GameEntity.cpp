@@ -37,7 +37,7 @@ bool GameEntity::addComponent(const size_t &zeCompID, GenericComponent *zeCompon
         zeComponent->setEntityOwner(this);
         return true;
     //}
-    return false;
+    //return false;
 }
 
 GenericComponent &GameEntity::getComponent(const size_t &zeNum)
