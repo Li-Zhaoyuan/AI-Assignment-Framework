@@ -19,4 +19,6 @@ private:
     CameraBS camera_;
     float m_worldHeight, m_worldWidth;
     float fps;
+	GameEntity* Devil;
+	
 };
