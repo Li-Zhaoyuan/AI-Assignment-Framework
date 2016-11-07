@@ -35,6 +35,7 @@
     <ClCompile Include="Source\Scenes\SceneA.cpp" />
     <ClCompile Include="Source\Scenes\SceneB.cpp" />
     <ClCompile Include="Source\Scenes\SceneTest1.cpp" />
+    <ClCompile Include="Source\StatesStuff\IdleState.cpp" />
     <ClCompile Include="Source\StatesStuff\StateMachineComponent.cpp" />
     <ClCompile Include="Source\Systems\ComponentSystem.cpp" />
     <ClCompile Include="Source\Systems\Scene_System.cpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="Source\Scenes\SceneA.h" />
     <ClInclude Include="Source\Scenes\SceneB.h" />
     <ClInclude Include="Source\Scenes\SceneTest1.h" />
+    <ClInclude Include="Source\StatesStuff\IdleState.h" />
     <ClInclude Include="Source\StatesStuff\StateComponent.h" />
     <ClInclude Include="Source\StatesStuff\StateMachineComponent.h" />
     <ClInclude Include="Source\Systems\ComponentSystem.h" />

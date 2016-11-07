@@ -13,7 +13,6 @@ public:
     virtual ~StateComponent() { FSM_ = nullptr; };
 protected:
     StateMachineComponent *FSM_;
-private:
     StateComponent() { FSM_ = nullptr; };
 };
 
