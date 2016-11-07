@@ -38,6 +38,8 @@
     <ClCompile Include="Source\Scenes\SceneA.cpp" />
     <ClCompile Include="Source\Scenes\SceneB.cpp" />
     <ClCompile Include="Source\Scenes\SceneTest1.cpp" />
+    <ClCompile Include="Source\StatesStuff\Devil_AttackState.cpp" />
+    <ClCompile Include="Source\StatesStuff\Devil_SearchState.cpp" />
     <ClCompile Include="Source\StatesStuff\IdleState.cpp" />
     <ClCompile Include="Source\StatesStuff\PatrolState.cpp" />
     <ClCompile Include="Source\StatesStuff\StateMachineComponent.cpp" />
@@ -86,6 +88,8 @@
     <ClInclude Include="Source\Scenes\SceneA.h" />
     <ClInclude Include="Source\Scenes\SceneB.h" />
     <ClInclude Include="Source\Scenes\SceneTest1.h" />
+    <ClInclude Include="Source\StatesStuff\Devil_AttackState.h" />
+    <ClInclude Include="Source\StatesStuff\Devil_SearchState.h" />
     <ClInclude Include="Source\StatesStuff\IdleState.h" />
     <ClInclude Include="Source\StatesStuff\PatrolState.h" />
     <ClInclude Include="Source\StatesStuff\StateComponent.h" />
