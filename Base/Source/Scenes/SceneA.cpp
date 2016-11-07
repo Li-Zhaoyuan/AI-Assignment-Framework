@@ -4,6 +4,8 @@
 #include <sstream>
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
+#include "../StatesStuff/StateMachineComponent.h"
+#include "../StatesStuff/IdleState.h"   //TODO: Be Removed
 
 SceneA::SceneA()
 {
@@ -34,14 +36,17 @@ void SceneA::Init()
     // The very reason why we can't see any thing
 
     GameEntity *myFirstEntity = new GameEntity();
-    myFirstEntity->setName("Dummy entity");
+    myFirstEntity->setName("Dummy");
     MeshComponent *myFirstMesh = new MeshComponent();
     myFirstMesh->onNotify(zeGraphics->getMeshID("greenCube"));
     myFirstEntity->addComponent(MeshComponent::g_CompID_.getValue(), myFirstMesh);
     PhysicsComponent *myFirstPhysic = new PhysicsComponent();
-    myFirstPhysic->setSize(Vector3(100, 100, 1));
+    myFirstPhysic->setSize(Vector3(50, 50, 1));
     myFirstEntity->addComponent(PhysicsComponent::g_ID_, myFirstPhysic);
     m_GoList.push_back(myFirstEntity);
+    StateMachineComponent *myFirstFSM = new StateMachineComponent();
+    myFirstEntity->addComponent(StateMachineComponent::ID_.getValue(), myFirstFSM);
+    myFirstFSM->addStates(*new IdleState(), IdleState::ID_);
 }
 
 void SceneA::Update(float dt)
@@ -55,6 +60,11 @@ void SceneA::Update(float dt)
     fps = 1 / dt;
     if (Application::IsKeyPressed(VK_NUMPAD2))
         Scene_System::accessing().SwitchScene("B");
+
+    for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+    {
+        (*it)->Update(dt);
+    }
 }
 
 void SceneA::Render()
@@ -110,6 +120,11 @@ void SceneA::Render()
             PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
             modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
+            modelStack->PushMatrix();
+            modelStack->Translate(0, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
+            modelStack->Scale(15, 15, 1);
+            zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
+            modelStack->PopMatrix();
             modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
             zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
             modelStack->PopMatrix();

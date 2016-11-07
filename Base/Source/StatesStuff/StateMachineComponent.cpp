@@ -50,6 +50,7 @@ void StateMachineComponent::addStates(StateComponent &zeStates, const size_t &ze
 bool StateMachineComponent::transitToPreviousState()
 {
     if (HistoryOfStates.size() > 1) {
+        HistoryOfStates.back()->Exit();
         HistoryOfStates.pop_back();
         return true;
     }
@@ -58,6 +59,7 @@ bool StateMachineComponent::transitToPreviousState()
 
 void StateMachineComponent::switchStates(const size_t &zeID)
 {
+    HistoryOfStates.back()->Exit();
     HistoryOfStates.push_back(allRegisteredStates[zeID]);
 }
 

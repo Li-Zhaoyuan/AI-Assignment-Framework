@@ -16,6 +16,7 @@ void PhysicsComponent::Init()
     accel_.SetZero();
     pos_.SetZero();
     vel_.SetZero();
+    rotationY = 0;
 }
 
 void PhysicsComponent::Update(double dt)
@@ -61,4 +62,14 @@ void PhysicsComponent::setVel(const Vector3 &zeVel)
 void PhysicsComponent::setAccel(const Vector3 &zeAccel)
 {
     accel_.Set(zeAccel.x, zeAccel.y, zeAccel.z);
+}
+
+void PhysicsComponent::setYrotation(const float &zeVal)
+{
+    rotationY = zeVal;
+}
+
+float &PhysicsComponent::getYrotation()
+{
+    return rotationY;
 }
