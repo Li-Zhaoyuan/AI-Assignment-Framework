@@ -8,6 +8,6 @@
 class NPCBuilder
 {
 public:
-    static GameEntity *BuildZombie(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &goList);
-    static GameEntity *BuildDog(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &goList);
+    static GameEntity *BuildZombie(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos = Vector3(0,0,0));
+    static GameEntity *BuildDog(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos = Vector3(0,0,0));
 };

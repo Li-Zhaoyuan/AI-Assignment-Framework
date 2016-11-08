@@ -180,6 +180,9 @@
     <ClCompile Include="Source\StatesStuff\Devil_AttackState.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\AllyEnemyComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="Source\StatesStuff\Devil_SearchState.h">
       <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\AllyEnemyComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

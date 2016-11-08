@@ -14,6 +14,7 @@
     <ClCompile Include="Source\Classes\CameraBS.cpp" />
     <ClCompile Include="Source\Classes\GameEntity.cpp" />
     <ClCompile Include="Source\Commands\CommandSystem.cpp" />
+    <ClCompile Include="Source\Gathering of Components\AllyEnemyComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Source\Classes\singletontemplate.h" />
     <ClInclude Include="Source\Classes\SpriteAnimation.h" />
     <ClInclude Include="Source\Commands\CommandSystem.h" />
+    <ClInclude Include="Source\Gathering of Components\AllyEnemyComponent.h" />
     <ClInclude Include="Source\Gathering of Components\AnimationComponent.h" />
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />

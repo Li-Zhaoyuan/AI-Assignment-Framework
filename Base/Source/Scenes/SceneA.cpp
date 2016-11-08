@@ -5,10 +5,11 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
 //TODO: Be Removed
-#include "../StatesStuff/StateMachineComponent.h"
-#include "../StatesStuff/IdleState.h"   
-#include "../Gathering of Components/HPandDPComponent.h"
+//#include "../StatesStuff/StateMachineComponent.h"
+//#include "../StatesStuff/IdleState.h"   
+//#include "../Gathering of Components/HPandDPComponent.h"
 //TODO: Be Removed
+#include "../Misc/NPCBuilder.h"
 
 SceneA::SceneA()
 {
@@ -34,24 +35,25 @@ void SceneA::Init()
 
     // The very reason why we can't see any thing
     Mtx44 ortho;
-    ortho.SetToOrtho(-400, 400, -300, 300, -100, 100);
+    ortho.SetToOrtho(-320, 320, -180, 180, -100, 100);
     projectionStack->LoadMatrix(ortho);
     // The very reason why we can't see any thing
-    boundaryOfRoom.Set(400, 300, 0);
+    boundaryOfRoom.Set(320, 180, 0);
 
-    GameEntity *myFirstEntity = new GameEntity();
-    myFirstEntity->setName("Dummy");
-    MeshComponent *myFirstMesh = new MeshComponent();
-    myFirstMesh->onNotify(zeGraphics->getMeshID("greenCube"));
-    myFirstEntity->addComponent(MeshComponent::g_CompID_.getValue(), myFirstMesh);
-    PhysicsComponent *myFirstPhysic = new PhysicsComponent();
-    myFirstPhysic->setSize(Vector3(50, 50, 1));
-    myFirstEntity->addComponent(PhysicsComponent::g_ID_, myFirstPhysic);
-    m_GoList.push_back(myFirstEntity);
-    StateMachineComponent *myFirstFSM = new StateMachineComponent();
-    myFirstEntity->addComponent(StateMachineComponent::ID_.getValue(), myFirstFSM);
-    myFirstFSM->addStates(*new IdleState(), IdleState::ID_);
-    myFirstEntity->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
+    //GameEntity *myFirstEntity = new GameEntity();
+    //myFirstEntity->setName("Zombie");
+    //MeshComponent *myFirstMesh = new MeshComponent();
+    //myFirstMesh->onNotify(zeGraphics->getMeshID("greenCube"));
+    //myFirstEntity->addComponent(MeshComponent::g_CompID_.getValue(), myFirstMesh);
+    //PhysicsComponent *myFirstPhysic = new PhysicsComponent();
+    //myFirstPhysic->setSize(Vector3(50, 50, 1));
+    //myFirstEntity->addComponent(PhysicsComponent::g_ID_, myFirstPhysic);
+    //m_GoList.push_back(myFirstEntity);
+    //StateMachineComponent *myFirstFSM = new StateMachineComponent();
+    //myFirstEntity->addComponent(StateMachineComponent::ID_.getValue(), myFirstFSM);
+    //myFirstFSM->addStates(*new IdleState(), IdleState::ID_);
+    //myFirstEntity->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
+    m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_GoList));
 }
 
 void SceneA::Update(float dt)
@@ -146,7 +148,7 @@ void SceneA::Render()
     viewStack->LoadIdentity();
     std::ostringstream ss;
     ss << "FPS:" << fps;
-    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 25, -390, -290);
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 15, -boundaryOfRoom.x, -boundaryOfRoom.y);
     //zeGraphics->SetHUD(false);
 }
 
@@ -158,5 +160,7 @@ void SceneA::Exit()
         *it = nullptr;
     }
     m_GoList.clear();
+    m_ally.clear();
+    m_enemy.clear();
 }
 

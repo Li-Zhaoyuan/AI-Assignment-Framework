@@ -4,3 +4,4 @@ Physics Component: 2
 Animation Stuff: 3
 HPandDP Component: 4
 Speed Component: 5
+AllyEnemy Component: 6
