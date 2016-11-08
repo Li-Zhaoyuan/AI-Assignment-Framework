@@ -17,15 +17,17 @@ public:
     void setVel(const Vector3 &zeVel);
     void setAccel(const Vector3 &zeAccel);
     void setYrotation(const float &zeVal);
+    void setBoundary(Vector3 &zeBound);
 
     Vector3 &getAccel();
     Vector3 &getVel();
     Vector3 &getPos();
     Vector3 &getSize();
+    Vector3 &getBoundary();
     float &getYrotation();
     const static unsigned short g_ID_ = 2;
 
 private:
-    Vector3 accel_, vel_, pos_, size_;
+    Vector3 accel_, vel_, pos_, size_, *boundary_;
     float rotationY;
 };

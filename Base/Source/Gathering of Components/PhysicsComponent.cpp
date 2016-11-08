@@ -17,6 +17,7 @@ void PhysicsComponent::Init()
     pos_.SetZero();
     vel_.SetZero();
     rotationY = 0;
+    boundary_ = nullptr;
 }
 
 void PhysicsComponent::Update(double dt)
@@ -87,4 +88,14 @@ void PhysicsComponent::setYrotation(const float &zeVal)
 float &PhysicsComponent::getYrotation()
 {
     return rotationY;
+}
+
+void PhysicsComponent::setBoundary(Vector3 &zeBound)
+{
+    boundary_ = &zeBound;
+}
+
+Vector3 &PhysicsComponent::getBoundary()
+{
+    return *boundary_;
 }
