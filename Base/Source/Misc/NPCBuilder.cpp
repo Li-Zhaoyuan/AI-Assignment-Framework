@@ -6,22 +6,34 @@
 #include "../Systems/Scene_System.h"
 #include "../Scenes/GraphicsEntity.h"
 #include "../StatesStuff/StateMachineComponent.h"
-
+#include "../Gathering of Components/AllyEnemyComponent.h"
+#include "../StatesStuff/IdleState.h"
+#include "../StatesStuff/PatrolState.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
     GameEntity *go = new GameEntity;
     go->setName(zeName);
     enemyList.push_back(go);
+
     MeshComponent *zeMesh = new MeshComponent();
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
     zeMesh->onNotify(zeGraphics->getMeshID("greenCube"));
     go->addComponent(MeshComponent::g_CompID_.getValue(), zeMesh);
+
     PhysicsComponent *zePhysics = new PhysicsComponent();
     zePhysics->setPos(zePos);
     zePhysics->setSize(Vector3(50, 50, 1));
     go->addComponent(PhysicsComponent::g_ID_, zePhysics);
-    StateMachineComponent *zeFSM;
+
+    StateMachineComponent *zeFSM = new StateMachineComponent;
+    go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
+    zeFSM->addStates(*new IdleState, IdleState::ID_);
+
+    AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
+    toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
+    go->addComponent(AllyEnemyComponent::ID_, toRecogniseEnemyAlly);
+
     return go;
 }
 GameEntity *NPCBuilder::BuildDog(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
