@@ -6,7 +6,6 @@
 PatrolState::PatrolState()
 {
     Init();
-    name_ = "PATROL";
 }
 
 PatrolState::~PatrolState()
@@ -18,6 +17,8 @@ void PatrolState::Init()
 {
     boundaryOfThePlace = nullptr;
     hasChangedName = isMovingTowardsThatPos = false;
+    originalOwnerName = "";
+    name_ = "PATROL";
 }
 
 void PatrolState::Update(double dt)
@@ -27,8 +28,9 @@ void PatrolState::Update(double dt)
     case false:
     {
         std::string zeName = owner_of_component->getName();
+        originalOwnerName = zeName;
         zeName.append(name_);
-        owner_of_component->setName(name_);
+        owner_of_component->setName(zeName);
         hasChangedName = true;
     }
     break;
@@ -41,7 +43,7 @@ void PatrolState::Update(double dt)
     {
     case false:
     {
-        SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGO->getComponent(SpeedComponent::ID_));
+        //SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGO->getComponent(SpeedComponent::ID_));
 
         isMovingTowardsThatPos = true;
     }
@@ -55,4 +57,5 @@ void PatrolState::Exit()
 {
     hasChangedName = false;
     isMovingTowardsThatPos = false;
+    owner_of_component->setName(originalOwnerName);
 }
