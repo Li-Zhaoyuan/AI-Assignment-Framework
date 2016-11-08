@@ -11,6 +11,9 @@ class StateComponent : public GenericComponent
 {
 public:
     virtual ~StateComponent() { FSM_ = nullptr; };
+
+    void setFSM(StateMachineComponent &zeFSM) { FSM_ = &zeFSM; }
+
 protected:
     StateMachineComponent *FSM_;
     StateComponent() { FSM_ = nullptr; };

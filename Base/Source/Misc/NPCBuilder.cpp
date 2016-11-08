@@ -5,6 +5,8 @@
 #include "../Gathering of Components/MeshComponent.h"
 #include "../Systems/Scene_System.h"
 #include "../Scenes/GraphicsEntity.h"
+#include "../StatesStuff/StateMachineComponent.h"
+
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -19,7 +21,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, const Vector3 &bo
     zePhysics->setPos(zePos);
     zePhysics->setSize(Vector3(50, 50, 1));
     go->addComponent(PhysicsComponent::g_ID_, zePhysics);
-
+    StateMachineComponent *zeFSM;
     return go;
 }
 GameEntity *NPCBuilder::BuildDog(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)

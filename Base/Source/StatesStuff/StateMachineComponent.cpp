@@ -44,6 +44,7 @@ void StateMachineComponent::addStates(StateComponent &zeStates, const size_t &ze
         if (HistoryOfStates.empty())
             HistoryOfStates.push_back(&zeStates);
         zeStates.setEntityOwner(owner_of_component);
+        zeStates.setFSM(*this);
     }
 }
 
