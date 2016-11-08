@@ -33,7 +33,7 @@ void SceneB::Init()
 
     // The very reason why we can't see any thing
     Mtx44 ortho;
-    ortho.SetToOrtho(-400, 400, -300, 300, -100, 100);
+	ortho.SetToOrtho(-320, 320, -180, 180, -100, 100);
     projectionStack->LoadMatrix(ortho);
     // The very reason why we can't see any thing
 	//Devil_SearchState
@@ -43,8 +43,9 @@ void SceneB::Init()
 	devilMesh->onNotify(zeGraphics->getMeshID("redCube"));
 	Devil->addComponent(MeshComponent::g_CompID_.getValue(), devilMesh);
 	PhysicsComponent *devilPhysic = new PhysicsComponent();
-	devilPhysic->setSize(Vector3(50, 50, 1));
+	devilPhysic->setSize(Vector3(25, 25, 1));
 	devilPhysic->setYrotation(0);
+	devilPhysic->setBoundary(*new Vector3(320, 180, 0));
 	Devil->addComponent(PhysicsComponent::g_ID_, devilPhysic);
 	
 	StateMachineComponent *devilFSM = new StateMachineComponent();
@@ -65,7 +66,7 @@ void SceneB::Update(float dt)
     fps = 1 / dt;
     if (Application::IsKeyPressed(VK_NUMPAD1))
         Scene_System::accessing().SwitchScene("A");
-
+	Devil->Update(dt);
 }
 
 void SceneB::Render()
@@ -115,6 +116,13 @@ void SceneB::Render()
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(Devil)->getComponent(PhysicsComponent::g_ID_));
 	MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(Devil)->getComponent(MeshComponent::g_CompID_.getValue()));
 	modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
+	// Debuggin Stuff
+	modelStack->PushMatrix();
+	modelStack->Translate(-25, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
+	modelStack->Scale(10, 10, 1);
+	zeGraphics->RenderText(Devil->getName(), Color(1, 0, 0));
+	modelStack->PopMatrix();
+	// Debuggin Stuff
 	modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
 	zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
 	modelStack->PopMatrix();
