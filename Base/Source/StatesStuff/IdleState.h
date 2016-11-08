@@ -16,4 +16,5 @@ public:
 
 private:
     bool hasNameChange;
+    std::string originalOwnerName;
 };

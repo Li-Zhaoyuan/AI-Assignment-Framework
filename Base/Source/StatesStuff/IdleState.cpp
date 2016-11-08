@@ -15,6 +15,7 @@ void IdleState::Init()
 {
     name_ = "IDLE";
     hasNameChange = false;
+    originalOwnerName = "";
 }
 
 void IdleState::Update(double dt)
@@ -24,6 +25,7 @@ void IdleState::Update(double dt)
     case false:
     {
         std::string newName = owner_of_component->getName();
+        originalOwnerName = newName;
         newName.append(name_);
         owner_of_component->setName(newName);
         hasNameChange = true;
@@ -37,4 +39,5 @@ void IdleState::Update(double dt)
 void IdleState::Exit()
 {
     hasNameChange = false;
+    owner_of_component->setName(originalOwnerName);
 }

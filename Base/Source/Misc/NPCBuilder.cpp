@@ -10,7 +10,7 @@
 #include "../StatesStuff/IdleState.h"
 #include "../StatesStuff/PatrolState.h"
 
-GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
+GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
     GameEntity *go = new GameEntity;
     go->setName(zeName);
@@ -18,12 +18,13 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, const Vector3 &bo
 
     MeshComponent *zeMesh = new MeshComponent();
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
-    zeMesh->onNotify(zeGraphics->getMeshID("greenCube"));
+    zeMesh->onNotify(zeGraphics->getMeshID("greenQuad"));
     go->addComponent(MeshComponent::g_CompID_.getValue(), zeMesh);
 
     PhysicsComponent *zePhysics = new PhysicsComponent();
     zePhysics->setPos(zePos);
     zePhysics->setSize(Vector3(50, 50, 1));
+    zePhysics->setBoundary(boundary);
     go->addComponent(PhysicsComponent::g_ID_, zePhysics);
 
     StateMachineComponent *zeFSM = new StateMachineComponent;
@@ -36,8 +37,30 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, const Vector3 &bo
 
     return go;
 }
-GameEntity *NPCBuilder::BuildDog(const std::string &zeName, const Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
+GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
     GameEntity *go = new GameEntity;
+    go->setName(zeName);
+    enemyList.push_back(go);
+
+    MeshComponent *zeMesh = new MeshComponent();
+    GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
+    zeMesh->onNotify(zeGraphics->getMeshID("whiteQuad"));
+    go->addComponent(MeshComponent::g_CompID_.getValue(), zeMesh);
+
+    PhysicsComponent *zePhysics = new PhysicsComponent();
+    zePhysics->setPos(zePos);
+    zePhysics->setSize(Vector3(50, 50, 1));
+    zePhysics->setBoundary(boundary);
+    go->addComponent(PhysicsComponent::g_ID_, zePhysics);
+
+    StateMachineComponent *zeFSM = new StateMachineComponent;
+    go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
+    zeFSM->addStates(*new PatrolState, PatrolState::ID_);
+
+    AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
+    toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
+    go->addComponent(AllyEnemyComponent::ID_, toRecogniseEnemyAlly);
+
     return go;
 }

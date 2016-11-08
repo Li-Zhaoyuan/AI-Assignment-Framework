@@ -40,20 +40,8 @@ void SceneA::Init()
     // The very reason why we can't see any thing
     boundaryOfRoom.Set(320, 180, 0);
 
-    //GameEntity *myFirstEntity = new GameEntity();
-    //myFirstEntity->setName("Zombie");
-    //MeshComponent *myFirstMesh = new MeshComponent();
-    //myFirstMesh->onNotify(zeGraphics->getMeshID("greenCube"));
-    //myFirstEntity->addComponent(MeshComponent::g_CompID_.getValue(), myFirstMesh);
-    //PhysicsComponent *myFirstPhysic = new PhysicsComponent();
-    //myFirstPhysic->setSize(Vector3(50, 50, 1));
-    //myFirstEntity->addComponent(PhysicsComponent::g_ID_, myFirstPhysic);
-    //m_GoList.push_back(myFirstEntity);
-    //StateMachineComponent *myFirstFSM = new StateMachineComponent();
-    //myFirstEntity->addComponent(StateMachineComponent::ID_.getValue(), myFirstFSM);
-    //myFirstFSM->addStates(*new IdleState(), IdleState::ID_);
-    //myFirstEntity->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
-    m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_GoList));
+    //m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_GoList));
+    m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally));
 }
 
 void SceneA::Update(float dt)

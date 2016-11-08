@@ -1,5 +1,6 @@
 Name,ColorR,ColorG,ColorB,ObjectType,ObjectFile,texture1,texture2,numRows,numColumns
 text,,,,Text,,Image//ExportedFont.tga,,,
 cube,1,1,1,cube,,,,,
-greenCube,0,1,0,cube,,,,,
+greenCube,0,1,0,quad,,,,,
 redCube,1,0,0,cube,,,,,
+whiteQuad,1,1,1,quad,,,,,
