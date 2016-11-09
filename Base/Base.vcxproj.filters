@@ -183,6 +183,9 @@
     <ClCompile Include="Source\Gathering of Components\AllyEnemyComponent.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StatesStuff\GoThereState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="Source\Gathering of Components\AllyEnemyComponent.h">
       <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\GoThereState.h">
+      <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
