@@ -2,7 +2,8 @@
 #include "../Misc/GlobalFunctions.h"
 #include "../Classes/GameEntity.h"
 #include "../Gathering of Components/PhysicsComponent.h"
-
+#include <exception>
+#include <iostream>
 
 GoThereState::GoThereState()
 {
@@ -52,6 +53,23 @@ void GoThereState::Exit()
 
 bool GoThereState::onNotify(const std::string &zeEvent)
 {
-    
+    try {
+        if (checkWhetherTheWordInThatString("GO", zeEvent))
+        {
+            std::string anotherStr = zeEvent.substr(3);
+            float x, y, z;
+            size_t posOfComma = anotherStr.find(',');
+            x = stof(anotherStr.substr(0, posOfComma));
+            anotherStr = anotherStr.substr(posOfComma);
+            y = stof(anotherStr.substr(0, posOfComma));
+            anotherStr = anotherStr.substr(posOfComma);
+            z = stof(anotherStr);
+            return true;
+        }
+    }
+    catch (std::exception ex)
+    {
+        std::cout << ex.what() << std::endl;
+    }
     return false;
 }

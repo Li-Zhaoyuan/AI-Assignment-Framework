@@ -94,3 +94,8 @@ StateComponent &StateMachineComponent::getSpecificStates(const std::string &zeNa
     }
     return **it;
 }
+
+StateComponent &StateMachineComponent::getCurrentState()
+{
+    return *HistoryOfStates.back();
+}

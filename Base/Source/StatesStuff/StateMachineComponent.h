@@ -26,6 +26,7 @@ public:
     static ID_Component ID_;
     StateComponent &getSpecificStates(const size_t &zeNum);
     StateComponent &getSpecificStates(const std::string &zeName);
+    StateComponent &getCurrentState();
 
 protected:
     std::vector<StateComponent*> allRegisteredStates, HistoryOfStates;
