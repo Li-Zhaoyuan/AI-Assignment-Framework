@@ -19,7 +19,7 @@ public:
     virtual void Exit();
 
     void addStates(StateComponent &zeStates, const size_t &zeID);
-    void switchStates(const size_t &zeID);
+    void switchState(const size_t &zeID);
     void switchState(const std::string &zeName);
     bool transitToPreviousState();
 

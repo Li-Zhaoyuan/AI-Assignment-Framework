@@ -58,7 +58,7 @@ bool StateMachineComponent::transitToPreviousState()
     return false;
 }
 
-void StateMachineComponent::switchStates(const size_t &zeID)
+void StateMachineComponent::switchState(const size_t &zeID)
 {
     HistoryOfStates.back()->Exit();
     HistoryOfStates.push_back(allRegisteredStates[zeID]);
@@ -70,7 +70,9 @@ void StateMachineComponent::switchState(const std::string &zeName)
     {
         if ((*it)->getName() == zeName)
         {
+            HistoryOfStates.back()->Exit();
             HistoryOfStates.push_back(*it);
+            break;
         }
     }
 }
