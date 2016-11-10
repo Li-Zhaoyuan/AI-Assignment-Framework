@@ -10,13 +10,15 @@ class StateMachineComponent;
 class StateComponent : public GenericComponent
 {
 public:
-    virtual ~StateComponent() { FSM_ = nullptr; };
+    virtual ~StateComponent() { FSM_ = nullptr; changedName = false; originalOwnerName = ""; };
 
     void setFSM(StateMachineComponent &zeFSM) { FSM_ = &zeFSM; }
 
 protected:
     StateMachineComponent *FSM_;
     StateComponent() { FSM_ = nullptr; };
+    std::string originalOwnerName;
+    bool changedName;
 };
 
 #endif

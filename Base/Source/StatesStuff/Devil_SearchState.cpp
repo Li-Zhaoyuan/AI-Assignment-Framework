@@ -39,7 +39,7 @@ void Devil_SearchState::Update(double dt)
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(devil)->getComponent(PhysicsComponent::g_ID_));
 
 	//int randomDir = rand() % 4 + 1;
-	timer += dt;
+	timer += (float)dt;
 	if (timer >= 0.5f)
 	{
 		searchVel.x = Math::RandFloatMinMax(-150.f, 150.f);

@@ -17,14 +17,14 @@ GoThereState::~GoThereState()
 
 void GoThereState::Init()
 {
-    updateName = false;
+    changedName = false;
     originalOwnerName = "";
     name_ = "GOING";
 }
 
 void GoThereState::Update(double dt)
 {
-    switch (updateName)
+    switch (changedName)
     {
     case false:
     {
@@ -32,7 +32,7 @@ void GoThereState::Update(double dt)
         std::string zeName = originalOwnerName;
         zeName.append(name_);
         owner_of_component->setName(zeName);
-        updateName = true;
+        changedName = true;
     }
         break;
     default:
@@ -47,7 +47,7 @@ void GoThereState::Update(double dt)
 
 void GoThereState::Exit()
 {
-    updateName = false;
+    changedName = false;
     owner_of_component->setName(originalOwnerName);
 }
 
@@ -70,6 +70,7 @@ bool GoThereState::onNotify(const std::string &zeEvent)
     catch (std::exception ex)
     {
         std::cout << ex.what() << std::endl;
+        FSM_->switchState(0);
     }
     return false;
 }

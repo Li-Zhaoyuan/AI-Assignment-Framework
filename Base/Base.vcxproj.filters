@@ -186,6 +186,9 @@
     <ClCompile Include="Source\StatesStuff\GoThereState.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StatesStuff\DogBarkState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -330,6 +333,9 @@
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\StatesStuff\GoThereState.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\DogBarkState.h">
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>

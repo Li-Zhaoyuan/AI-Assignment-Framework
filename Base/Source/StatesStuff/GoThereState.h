@@ -18,6 +18,4 @@ public:
 
 private:
     Vector3 goThatPos;
-    bool updateName;
-    std::string originalOwnerName;
 };

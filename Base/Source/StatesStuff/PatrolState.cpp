@@ -14,14 +14,14 @@ PatrolState::~PatrolState()
 
 void PatrolState::Init()
 {
-    hasChangedName = isMovingTowardsThatPos = false;
+    changedName = isMovingTowardsThatPos = false;
     originalOwnerName = "";
     name_ = "PATROL";
 }
 
 void PatrolState::Update(double dt)
 {
-    switch (hasChangedName)
+    switch (changedName)
     {
     case false:
     {
@@ -29,7 +29,7 @@ void PatrolState::Update(double dt)
         originalOwnerName = zeName;
         zeName.append(name_);
         owner_of_component->setName(zeName);
-        hasChangedName = true;
+        changedName = true;
     }
     break;
     default:
@@ -69,7 +69,7 @@ void PatrolState::Update(double dt)
 
 void PatrolState::Exit()
 {
-    hasChangedName = false;
+    changedName = false;
     isMovingTowardsThatPos = false;
     owner_of_component->setName(originalOwnerName);
 }

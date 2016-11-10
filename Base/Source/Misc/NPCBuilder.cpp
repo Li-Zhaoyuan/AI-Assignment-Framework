@@ -30,6 +30,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     StateMachineComponent *zeFSM = new StateMachineComponent;
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new IdleState, IdleState::ID_);
+    zeFSM->addStates(*new PatrolState, PatrolState::ID_);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);

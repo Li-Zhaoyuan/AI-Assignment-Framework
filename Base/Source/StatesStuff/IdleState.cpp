@@ -14,13 +14,13 @@ IdleState::~IdleState()
 void IdleState::Init()
 {
     name_ = "IDLE";
-    hasNameChange = false;
+    changedName = false;
     originalOwnerName = "";
 }
 
 void IdleState::Update(double dt)
 {
-    switch (hasNameChange)
+    switch (changedName)
     {
     case false:
     {
@@ -28,7 +28,7 @@ void IdleState::Update(double dt)
         originalOwnerName = newName;
         newName.append(name_);
         owner_of_component->setName(newName);
-        hasNameChange = true;
+        changedName = true;
     }
         break;
     default:
@@ -38,7 +38,7 @@ void IdleState::Update(double dt)
 
 void IdleState::Exit()
 {
-    hasNameChange = false;
+    changedName = false;
     owner_of_component->setName(originalOwnerName);
 }
 
