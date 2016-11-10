@@ -2,6 +2,9 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Classes/GameEntity.h"
 #include "../Gathering of Components/SpeedComponent.h"
+#include "../Gathering of Components/AllyEnemyComponent.h"
+#include <sstream>
+#include "../Misc/GlobalFunctions.h"
 
 PatrolState::PatrolState()
 {
@@ -17,6 +20,7 @@ void PatrolState::Init()
     changedName = isMovingTowardsThatPos = false;
     originalOwnerName = "";
     name_ = "PATROL";
+    influenceRadius = 0;
 }
 
 void PatrolState::Update(double dt)
@@ -63,6 +67,22 @@ void PatrolState::Update(double dt)
     default:
         if ((goToThatPoint - zePhysic->getPos()).LengthSquared() < 4.f)
             isMovingTowardsThatPos = false;
+        else
+        {
+            AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&zeGO->getComponent(AllyEnemyComponent::ID_));
+            for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
+            {
+                PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+                if ((zeEnemyPhysics->getPos() - zePhysic->getPos()).LengthSquared() <= influenceRadius * influenceRadius)
+                {
+                    if (checkWhetherTheWordInThatString("Dog", originalOwnerName))
+                    {
+                        FSM_->switchState(1);
+                    }
+                    break;
+                }
+            }
+        }
         break;
     }
 }
@@ -72,4 +92,9 @@ void PatrolState::Exit()
     changedName = false;
     isMovingTowardsThatPos = false;
     owner_of_component->setName(originalOwnerName);
+}
+
+void PatrolState::setInfluenceRadius(const float &zeRadius)
+{
+    influenceRadius = zeRadius;
 }

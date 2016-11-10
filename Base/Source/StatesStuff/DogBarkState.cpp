@@ -13,6 +13,7 @@ DogBarkState::~DogBarkState()
 void DogBarkState::Init()
 {
     changedName = false;
+    warnedEveryone = false;
 }
 
 void DogBarkState::Update(double dt)
@@ -29,10 +30,19 @@ void DogBarkState::Update(double dt)
     default:
         break;
     }
+    switch (warnedEveryone)
+    {
+    case false:
+        warnedEveryone = true;
+        break;
+    default:
+        break;
+    }
 }
 
 void DogBarkState::Exit()
 {
     changedName = false;
+    warnedEveryone = false;
 }
 

@@ -15,7 +15,10 @@ public:
 
     static const unsigned char ID_ = 0;
 
+    void setInfluenceRadius(const float &zeRadius);
+
 protected:
     Vector3 goToThatPoint;
     bool isMovingTowardsThatPos;
+    float influenceRadius;
 };

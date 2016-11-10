@@ -13,5 +13,5 @@ public:
     virtual void Exit();
 
 protected:
-
+    bool warnedEveryone;
 };
