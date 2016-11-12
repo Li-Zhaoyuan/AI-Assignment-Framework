@@ -98,3 +98,13 @@ void PatrolState::setInfluenceRadius(const float &zeRadius)
 {
     influenceRadius = zeRadius;
 }
+
+bool PatrolState::onNotify(const float &zeEvent)
+{
+    if (zeEvent > 0)
+    {
+        influenceRadius = zeEvent;
+        return true;
+    }
+    return false;
+}

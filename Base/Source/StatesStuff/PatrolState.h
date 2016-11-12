@@ -15,6 +15,7 @@ public:
 
     static const unsigned char ID_ = 0;
 
+    virtual bool onNotify(const float &zeEvent);
     void setInfluenceRadius(const float &zeRadius);
 
 protected:

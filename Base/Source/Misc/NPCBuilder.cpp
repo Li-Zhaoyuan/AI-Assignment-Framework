@@ -9,6 +9,8 @@
 #include "../Gathering of Components/AllyEnemyComponent.h"
 #include "../StatesStuff/IdleState.h"
 #include "../StatesStuff/PatrolState.h"
+#include "../StatesStuff/GoThereState.h"
+#include "../StatesStuff/GoThereState.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -23,14 +25,14 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
 
     PhysicsComponent *zePhysics = new PhysicsComponent();
     zePhysics->setPos(zePos);
-    zePhysics->setSize(Vector3(50, 50, 1));
+    zePhysics->setSize(Vector3(25, 25, 1));
     zePhysics->setBoundary(boundary);
     go->addComponent(PhysicsComponent::g_ID_, zePhysics);
 
     StateMachineComponent *zeFSM = new StateMachineComponent;
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new IdleState, IdleState::ID_);
-    zeFSM->addStates(*new PatrolState, PatrolState::ID_);
+    zeFSM->addStates(*new GoThereState, GoThereState::ID_);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
@@ -51,16 +53,18 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
 
     PhysicsComponent *zePhysics = new PhysicsComponent();
     zePhysics->setPos(zePos);
-    zePhysics->setSize(Vector3(50, 50, 1));
+    zePhysics->setSize(Vector3(20, 20, 1));
     zePhysics->setBoundary(boundary);
     go->addComponent(PhysicsComponent::g_ID_, zePhysics);
 
     StateMachineComponent *zeFSM = new StateMachineComponent;
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new PatrolState, PatrolState::ID_);
+    zeFSM->addStates(*new GoThereState, GoThereState::ID_);
+    zeFSM->getSpecificStates(GoThereState::ID_).onNotify(20);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
-    toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
+    toRecogniseEnemyAlly->setAllyList(allyList).setEnemyList(enemyList);
     go->addComponent(AllyEnemyComponent::ID_, toRecogniseEnemyAlly);
 
     return go;
