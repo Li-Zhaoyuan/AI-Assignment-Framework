@@ -44,7 +44,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
 {
     GameEntity *go = new GameEntity;
     go->setName(zeName);
-    enemyList.push_back(go);
+    allyList.push_back(go);
 
     MeshComponent *zeMesh = new MeshComponent();
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
