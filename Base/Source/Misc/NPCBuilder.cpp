@@ -10,7 +10,7 @@
 #include "../StatesStuff/IdleState.h"
 #include "../StatesStuff/PatrolState.h"
 #include "../StatesStuff/GoThereState.h"
-#include "../StatesStuff/GoThereState.h"
+#include "../StatesStuff/DogBarkState.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -60,8 +60,8 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     StateMachineComponent *zeFSM = new StateMachineComponent;
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new PatrolState, PatrolState::ID_);
-    zeFSM->addStates(*new GoThereState, GoThereState::ID_);
-    zeFSM->getSpecificStates(GoThereState::ID_).onNotify(20.f);
+    zeFSM->addStates(*new DogBarkState, DogBarkState::ID_);
+    zeFSM->getSpecificStates(PatrolState::ID_).onNotify(20.f);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(allyList).setEnemyList(enemyList);
