@@ -27,7 +27,6 @@ public:
     virtual bool onNotify(const std::string &zeEvent) { return false; };
     virtual bool onNotify(const int &zeEvent) { return false; };
     virtual bool onNotify(const float &zeEvent) { return false; };
-    virtual bool onNotify(const double &zeEvent) { return false; };
     virtual bool onNotify(const GenericComponent &zeEvent) { return false; };
 
     std::string getName();
