@@ -1,6 +1,8 @@
 #include "Devil_SearchState.h"
 #include "..\Gathering of Components\PhysicsComponent.h"
 #include "..\Classes\GameEntity.h"
+#include "../Gathering of Components/AllyEnemyComponent.h"
+#include "../Misc/GlobalFunctions.h"
 
 Devil_SearchState::Devil_SearchState()
 {
@@ -15,21 +17,22 @@ Devil_SearchState::~Devil_SearchState()
 void Devil_SearchState::Init()
 {
 	name_ = " : SEARCH";
-	hasNameChange = false;
+	changedName = false;
 	timer = 0;
 	searchVel.SetZero();
 }
 
 void Devil_SearchState::Update(double dt)
 {
-	switch (hasNameChange)
+	switch (changedName)
 	{
 	case false:
 	{
 		std::string newName = owner_of_component->getName();
+		originalOwnerName = newName;
 		newName.append(name_);
 		owner_of_component->setName(newName);
-		hasNameChange = true;
+		changedName = true;
 	}
 	break;
 	default:
@@ -42,8 +45,8 @@ void Devil_SearchState::Update(double dt)
 	timer += (float)dt;
 	if (timer >= 0.5f)
 	{
-		searchVel.x = Math::RandFloatMinMax(-150.f, 150.f);
-		searchVel.y = Math::RandFloatMinMax(-150.f, 150.f);
+		searchVel.x = Math::RandFloatMinMax(-50.f, 50.f);
+		searchVel.y = Math::RandFloatMinMax(-50.f, 50.f);
 		timer = 0;
 	}
 	
@@ -55,10 +58,26 @@ void Devil_SearchState::Update(double dt)
 		searchVel.y = -searchVel.y;
 	//zePhysicsStuff->getPos().x
 	zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
-	
+
+	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&devil->getComponent(AllyEnemyComponent::ID_));
+	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
+	{
+		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
+		{
+			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
+			{
+				zePhysicsStuff->setVel(Vector3(0, 0, 0));
+				FSM_->switchState(1);
+			}
+
+		}
+	}
 	
 }
 
 void Devil_SearchState::Exit()
 {
+	changedName = false;
+	owner_of_component->setName(originalOwnerName);
 }

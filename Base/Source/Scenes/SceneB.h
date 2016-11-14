@@ -19,6 +19,9 @@ private:
     CameraBS camera_;
     float m_worldHeight, m_worldWidth;
     float fps;
-	GameEntity* Devil;
+	Vector3 boundary;
+	//GameEntity* Devil;
+	std::vector<GameEntity*> m_GoList;
+	std::vector<GameEntity*> m_enemy, m_ally;
 	
 };

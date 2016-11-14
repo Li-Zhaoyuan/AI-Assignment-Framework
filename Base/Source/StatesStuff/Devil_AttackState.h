@@ -2,6 +2,7 @@
 #pragma once
 
 #include "StateComponent.h"
+#include "Vector3.h"
 
 class Devil_AttackState : public StateComponent
 {
@@ -14,5 +15,8 @@ public:
 	virtual void Exit();
 
 	const static unsigned char ID_ = 1;
-
+private:
+	float timer;
+	
+	Vector3 searchVel;
 };

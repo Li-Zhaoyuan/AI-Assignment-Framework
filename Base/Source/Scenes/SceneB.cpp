@@ -4,8 +4,11 @@
 #include <sstream>
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
+#include "../Gathering of Components/AllyEnemyComponent.h"
 #include "../StatesStuff/StateMachineComponent.h"
 #include "../StatesStuff/Devil_SearchState.h"   
+#include "../StatesStuff/Devil_AttackState.h"   
+#include "../StatesStuff/Guy_PatrolState.h"   
 #include "../Gathering of Components/HPandDPComponent.h"
 
 
@@ -32,12 +35,13 @@ void SceneB::Init()
     zeGraphics->m_renderPass = GraphicsEntity::RENDER_PASS_MAIN;
 
     // The very reason why we can't see any thing
+	boundary.Set(320, 180, 0);
     Mtx44 ortho;
 	ortho.SetToOrtho(-320, 320, -180, 180, -100, 100);
     projectionStack->LoadMatrix(ortho);
     // The very reason why we can't see any thing
 	//Devil_SearchState
-	Devil = new GameEntity();
+	GameEntity *Devil = new GameEntity();
 	Devil->setName("Devil");
 	MeshComponent *devilMesh = new MeshComponent();
 	devilMesh->onNotify(zeGraphics->getMeshID("redCube"));
@@ -45,14 +49,46 @@ void SceneB::Init()
 	PhysicsComponent *devilPhysic = new PhysicsComponent();
 	devilPhysic->setSize(Vector3(25, 25, 1));
 	devilPhysic->setYrotation(0);
-	devilPhysic->setBoundary(*new Vector3(320, 180, 0));
+	devilPhysic->setBoundary(boundary);
+	devilPhysic->setPos(Vector3(0, 0, 0));
 	Devil->addComponent(PhysicsComponent::g_ID_, devilPhysic);
 	
 	StateMachineComponent *devilFSM = new StateMachineComponent();
 	Devil->addComponent(StateMachineComponent::ID_.getValue(), devilFSM);
 	devilFSM->addStates(*new Devil_SearchState(), Devil_SearchState::ID_);
+	devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
 	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
+
+	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent;
+	DeviltoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
+	Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
+
+	m_GoList.push_back(Devil);
+	m_enemy.push_back(Devil);
+
+	GameEntity *Guy = new GameEntity();
+	Guy->setName("Guy");
+	MeshComponent *guyMesh = new MeshComponent();
+	guyMesh->onNotify(zeGraphics->getMeshID("redCube"));
+	Guy->addComponent(MeshComponent::g_CompID_.getValue(), guyMesh);
+	PhysicsComponent *guyPhysic = new PhysicsComponent();
+	guyPhysic->setSize(Vector3(25, 25, 1));
+	guyPhysic->setYrotation(0);
+	guyPhysic->setBoundary(boundary);
+	guyPhysic->setPos(Vector3(150, 0, 0));
+	Guy->addComponent(PhysicsComponent::g_ID_, guyPhysic);
+
+	StateMachineComponent *guyFSM = new StateMachineComponent();
+	Guy->addComponent(StateMachineComponent::ID_.getValue(), guyFSM);
+	guyFSM->addStates(*new Guy_PatrolState(), Guy_PatrolState::ID_);
+	Guy->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
 	
+	AllyEnemyComponent *GuytoRecogniseEnemyAlly = new AllyEnemyComponent;
+	GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
+	Guy->addComponent(AllyEnemyComponent::ID_, GuytoRecogniseEnemyAlly);
+
+	m_GoList.push_back(Guy);
+	m_ally.push_back(Guy);
 }
 
 void SceneB::Update(float dt)
@@ -66,7 +102,11 @@ void SceneB::Update(float dt)
     fps = 1 / dt;
     if (Application::IsKeyPressed(VK_NUMPAD1))
         Scene_System::accessing().SwitchScene("A");
-	Devil->Update(dt);
+	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+	{
+		(*it)->Update(dt);
+	}
+
 }
 
 void SceneB::Render()
@@ -107,25 +147,34 @@ void SceneB::Render()
     zeGraphics->RenderMesh(2, false);
     modelStack->PopMatrix();
 
-    modelStack->PushMatrix();
-    modelStack->Scale(100, 100, 1);
-    zeGraphics->RenderText("Zhao Yuan Stuff", Color(0, 1, 0));
-    modelStack->PopMatrix();
 
-	modelStack->PushMatrix();
-	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(Devil)->getComponent(PhysicsComponent::g_ID_));
-	MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(Devil)->getComponent(MeshComponent::g_CompID_.getValue()));
-	modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
-	// Debuggin Stuff
-	modelStack->PushMatrix();
-	modelStack->Translate(-25, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
-	modelStack->Scale(10, 10, 1);
-	zeGraphics->RenderText(Devil->getName(), Color(1, 0, 0));
-	modelStack->PopMatrix();
-	// Debuggin Stuff
-	modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
-	zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
-	modelStack->PopMatrix();
+	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+	{
+		switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
+		{
+		case true:
+		{
+					 modelStack->PushMatrix();
+					 PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+					 MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
+					 modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
+					 // Debuggin Stuff
+					 modelStack->PushMatrix();
+					 modelStack->Translate(-25, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
+					 modelStack->Scale(10, 10, 1);
+					 zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
+					 modelStack->PopMatrix();
+					 // Debuggin Stuff
+					 modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
+					 zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
+					 modelStack->PopMatrix();
+		}
+			break;
+		default:
+			break;
+		}
+	}
+
 
     //zeGraphics->SetHUD(true);
     viewStack->LoadIdentity();
@@ -137,7 +186,15 @@ void SceneB::Render()
 
 void SceneB::Exit()
 {
-	delete Devil;
-	Devil = nullptr;
+	/*delete Devil;
+	Devil = nullptr;*/
+	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+	{
+		delete *it;
+		*it = nullptr;
+	}
+	m_GoList.clear();
+	m_ally.clear();
+	m_enemy.clear();
 }
 

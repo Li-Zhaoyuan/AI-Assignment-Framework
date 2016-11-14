@@ -17,7 +17,7 @@ public:
 
 private:
 	float timer;
-	bool hasNameChange;
+	
 	Vector3 searchVel;
 
 };
