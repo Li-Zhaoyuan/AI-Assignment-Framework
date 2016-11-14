@@ -61,7 +61,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new PatrolState, PatrolState::ID_);
     zeFSM->addStates(*new DogBarkState, DogBarkState::ID_);
-    zeFSM->getSpecificStates(PatrolState::ID_).onNotify(20.f);
+    zeFSM->getSpecificStates(PatrolState::ID_).onNotify(50.f);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(allyList).setEnemyList(enemyList);

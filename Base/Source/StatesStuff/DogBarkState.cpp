@@ -18,6 +18,7 @@ void DogBarkState::Init()
 {
     changedName = false;
     warnedEveryone = false;
+    name_ = "BARK";
 }
 
 void DogBarkState::Update(double dt)
@@ -28,6 +29,8 @@ void DogBarkState::Update(double dt)
     {
         originalOwnerName = owner_of_component->getName();
         std::string zeName = originalOwnerName;
+        zeName.append(name_);
+        owner_of_component->setName(zeName);
         changedName = true;
     }
     break;
@@ -61,5 +64,6 @@ void DogBarkState::Exit()
 {
     changedName = false;
     warnedEveryone = false;
+    owner_of_component->setName(originalOwnerName);
 }
 

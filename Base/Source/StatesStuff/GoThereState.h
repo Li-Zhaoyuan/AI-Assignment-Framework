@@ -18,4 +18,5 @@ public:
 
 private:
     Vector3 goThatPos;
+    bool updatedSpeed;
 };

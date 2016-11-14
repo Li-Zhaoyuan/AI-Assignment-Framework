@@ -40,7 +40,7 @@ void SceneA::Init()
     // The very reason why we can't see any thing
     boundaryOfRoom.Set(320, 180, 0);
 
-    m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(-50, 0, 0)));
+    m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(-40, 0, 0)));
     m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(0,0,0)));
 }
 

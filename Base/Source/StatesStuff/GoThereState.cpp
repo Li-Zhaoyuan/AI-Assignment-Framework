@@ -20,6 +20,7 @@ void GoThereState::Init()
     changedName = false;
     originalOwnerName = "";
     name_ = "GOING";
+    updatedSpeed = false;
 }
 
 void GoThereState::Update(double dt)
@@ -41,14 +42,32 @@ void GoThereState::Update(double dt)
 
     GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));
-    if ((zeOwnerPos->getPos() - goThatPos).LengthSquared() < 4.f)
-        FSM_->switchState(0);
+    switch (updatedSpeed)
+    {
+    case false:
+    {
+        zeOwnerPos->setVel((goThatPos - zeOwnerPos->getPos()).Normalized() * 20);
+        updatedSpeed = true;
+    }
+        break;
+    default:
+        if ((zeOwnerPos->getPos() - goThatPos).LengthSquared() < 4.f)
+        {
+            FSM_->switchState(0);
+            zeOwnerPos->setVel(Vector3(0, 0, 0));
+        }
+        break;
+    }
 }
 
 void GoThereState::Exit()
 {
     changedName = false;
     owner_of_component->setName(originalOwnerName);
+    updatedSpeed = false;
+    GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
+    PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));
+    zeOwnerPos->setVel(Vector3(0, 0, 0));
 }
 
 bool GoThereState::onNotify(const std::string &zeEvent)

@@ -77,6 +77,7 @@ void PatrolState::Update(double dt)
                 {
                     if (checkWhetherTheWordInThatString("Dog", originalOwnerName))
                     {
+                        zePhysic->setVel(Vector3(0, 0, 0));
                         FSM_->switchState(1);
                     }
                     break;
