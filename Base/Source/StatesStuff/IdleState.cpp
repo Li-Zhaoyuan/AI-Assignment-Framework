@@ -44,11 +44,11 @@ void IdleState::Exit()
 
 bool IdleState::onNotify(const std::string &zeEvent)
 {
-    if (checkWhetherTheWordInThatString("GO", zeEvent))
-    {
-        FSM_->switchState(1);
-        //FSM_->
-        return true;
-    }
+    //if (checkWhetherTheWordInThatString("GO", zeEvent))
+    //{
+    //    FSM_->switchState(2);
+    //    FSM_->
+    //    return true;
+    //}
     return false;
 }

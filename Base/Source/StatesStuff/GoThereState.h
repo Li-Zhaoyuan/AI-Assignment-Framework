@@ -9,7 +9,7 @@ public:
     GoThereState();
     virtual ~GoThereState();
 
-    static const unsigned char ID_ = 1;
+    static const unsigned char ID_ = 2;
 
     virtual void Init();
     virtual void Update(double dt);

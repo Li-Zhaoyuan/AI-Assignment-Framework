@@ -4,6 +4,7 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include <exception>
 #include <iostream>
+#include "../Gathering of Components/SpeedComponent.h"
 
 GoThereState::GoThereState()
 {
@@ -42,11 +43,12 @@ void GoThereState::Update(double dt)
 
     GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));
+    SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeOwner->getComponent(SpeedComponent::ID_));
     switch (updatedSpeed)
     {
     case false:
     {
-        zeOwnerPos->setVel((goThatPos - zeOwnerPos->getPos()).Normalized() * 20);
+        zeOwnerPos->setVel((goThatPos - zeOwnerPos->getPos()).Normalized() * zeSpeed->getSpeed());
         updatedSpeed = true;
     }
         break;
@@ -79,10 +81,16 @@ bool GoThereState::onNotify(const std::string &zeEvent)
             float x, y, z;
             size_t posOfComma = anotherStr.find(',');
             x = stof(anotherStr.substr(0, posOfComma));
-            anotherStr = anotherStr.substr(posOfComma);
+            anotherStr = anotherStr.substr(posOfComma+1);
+            posOfComma = anotherStr.find(',');
             y = stof(anotherStr.substr(0, posOfComma));
-            anotherStr = anotherStr.substr(posOfComma);
+            anotherStr = anotherStr.substr(posOfComma+1);
             z = stof(anotherStr);
+            GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
+            PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));
+            x = Math::Clamp(x, -zeOwnerPos->getBoundary().x, zeOwnerPos->getBoundary().x);
+            y = Math::Clamp(y, -zeOwnerPos->getBoundary().y, zeOwnerPos->getBoundary().y);
+            goThatPos.Set(x, y, z);
             return true;
         }
     }
