@@ -1,8 +1,11 @@
 #include "Guy_PatrolState.h"
 #include "..\Gathering of Components\PhysicsComponent.h"
 #include "..\Classes\GameEntity.h"
+#include "../Gathering of Components/HPandDPComponent.h"
+
 #include <math.h>
 #define speed 30
+#define healthProcValue 50
 
 Guy_PatrolState::Guy_PatrolState()
 {
@@ -18,6 +21,7 @@ void Guy_PatrolState::Init()
 {
 	name_ = " : PATROL";
 	hasNameChange = false;
+	changedName = false;
 	rangeToStartPatrolling = 50;
 	timer = 0;
 	patrolAngle = 0;
@@ -29,7 +33,7 @@ void Guy_PatrolState::Init()
 
 void Guy_PatrolState::Update(double dt)
 {
-	switch (hasNameChange)
+	switch (changedName)
 	{
 	case false:
 	{
@@ -37,7 +41,7 @@ void Guy_PatrolState::Update(double dt)
 				  originalOwnerName = newName;
 				  newName.append(name_);
 				  owner_of_component->setName(newName);
-				  hasNameChange = true;
+				  changedName = true;
 	}
 		break;
 	default:
@@ -84,9 +88,13 @@ void Guy_PatrolState::Update(double dt)
 		zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
 		//radiusToPatrolPoint = (zePhysicsStuff->getPos() - pointToPatrol).Length();
 	}
+	HPandDPComponent* hpOfGuy = dynamic_cast<HPandDPComponent*>(&(guy)->getComponent(HPandDPComponent::ID_));
 	
-	
-
+	if (hpOfGuy->getHealth() < healthProcValue)
+	{
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		FSM_->switchState(1);
+	}
 	
 	//zePhysicsStuff->getPos().x
 	//zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));

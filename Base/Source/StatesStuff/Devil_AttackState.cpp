@@ -2,7 +2,9 @@
 #include "../Gathering of Components/AllyEnemyComponent.h"
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Misc/GlobalFunctions.h"
+#include "../Gathering of Components/HPandDPComponent.h"
 
+#define speed 40
 
 Devil_AttackState::Devil_AttackState()
 {
@@ -16,9 +18,9 @@ Devil_AttackState::~Devil_AttackState()
 
 void Devil_AttackState::Init()
 {
-	name_ = "DEVIL_ATTACK";
+	name_ = " : ATTACK";
 	changedName = false;
-
+	timer = 0;
 }
 
 void Devil_AttackState::Update(double dt)
@@ -40,7 +42,36 @@ void Devil_AttackState::Update(double dt)
 
 	GameEntity* devil = dynamic_cast<GameEntity*>(owner_of_component);
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(devil)->getComponent(PhysicsComponent::g_ID_));
-	
+	HPandDPComponent *zeOwnselfDP = dynamic_cast<HPandDPComponent*>(&(devil)->getComponent(HPandDPComponent::ID_));
+	zePhysicsStuff->setVel(Vector3(0, 0, 0));
+
+	timer += dt;
+	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&devil->getComponent(AllyEnemyComponent::ID_));
+	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
+	{
+		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+		HPandDPComponent *zeEnemyHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
+		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
+		{
+			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
+			{
+				Vector3 temp;
+				temp = (zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).Normalized() * speed;
+				zePhysicsStuff->setVel(temp);
+				if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 1000 && timer > 2)
+				{
+					zeEnemyHP->getHealth() -= zeOwnselfDP->getDamage();
+					timer = 0;
+				}
+			}
+			break;
+		}
+		else
+		{
+			zePhysicsStuff->setVel(Vector3(0, 0, 0));
+			FSM_->switchState(0);
+		}
+	}
 }
 
 void Devil_AttackState::Exit()

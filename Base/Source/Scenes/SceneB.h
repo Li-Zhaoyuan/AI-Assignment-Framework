@@ -20,7 +20,7 @@ private:
     float m_worldHeight, m_worldWidth;
     float fps;
 	Vector3 boundary;
-	//GameEntity* Devil;
+	GameEntity* m_allyBullet, *m_enemyBullet;
 	std::vector<GameEntity*> m_GoList;
 	std::vector<GameEntity*> m_enemy, m_ally;
 	

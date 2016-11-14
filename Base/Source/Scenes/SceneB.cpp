@@ -9,6 +9,7 @@
 #include "../StatesStuff/Devil_SearchState.h"   
 #include "../StatesStuff/Devil_AttackState.h"   
 #include "../StatesStuff/Guy_PatrolState.h"   
+#include "../StatesStuff/Guy_EscapeState.h"   
 #include "../Gathering of Components/HPandDPComponent.h"
 
 
@@ -59,9 +60,10 @@ void SceneB::Init()
 	devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
 	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
 
-	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent;
+	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
 	DeviltoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
 	Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
+
 
 	m_GoList.push_back(Devil);
 	m_enemy.push_back(Devil);
@@ -69,7 +71,7 @@ void SceneB::Init()
 	GameEntity *Guy = new GameEntity();
 	Guy->setName("Guy");
 	MeshComponent *guyMesh = new MeshComponent();
-	guyMesh->onNotify(zeGraphics->getMeshID("redCube"));
+	guyMesh->onNotify(zeGraphics->getMeshID("whiteQuad"));
 	Guy->addComponent(MeshComponent::g_CompID_.getValue(), guyMesh);
 	PhysicsComponent *guyPhysic = new PhysicsComponent();
 	guyPhysic->setSize(Vector3(25, 25, 1));
@@ -81,14 +83,20 @@ void SceneB::Init()
 	StateMachineComponent *guyFSM = new StateMachineComponent();
 	Guy->addComponent(StateMachineComponent::ID_.getValue(), guyFSM);
 	guyFSM->addStates(*new Guy_PatrolState(), Guy_PatrolState::ID_);
+	guyFSM->addStates(*new Guy_EscapeState(), Guy_EscapeState::ID_);
 	Guy->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
 	
 	AllyEnemyComponent *GuytoRecogniseEnemyAlly = new AllyEnemyComponent;
 	GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 	Guy->addComponent(AllyEnemyComponent::ID_, GuytoRecogniseEnemyAlly);
 
+
 	m_GoList.push_back(Guy);
 	m_ally.push_back(Guy);
+
+	//m_allyBullet, m_enemyBullet;
+
+	
 }
 
 void SceneB::Update(float dt)
@@ -106,7 +114,7 @@ void SceneB::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
-
+	
 }
 
 void SceneB::Render()
@@ -157,6 +165,7 @@ void SceneB::Render()
 					 modelStack->PushMatrix();
 					 PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 					 MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
+					 HPandDPComponent*zeHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
 					 modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
 					 // Debuggin Stuff
 					 modelStack->PushMatrix();
@@ -164,10 +173,18 @@ void SceneB::Render()
 					 modelStack->Scale(10, 10, 1);
 					 zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
 					 modelStack->PopMatrix();
+
+					 modelStack->PushMatrix();
+					 modelStack->Translate(-25, -(zePhysicsStuff->getSize().y / 2) - 5.f, 0);
+					 modelStack->Scale(10, 10, 1);
+					 zeGraphics->RenderText(std::to_string(zeHP->getHealth()), Color(1, 0, 0));
+					 modelStack->PopMatrix();
 					 // Debuggin Stuff
 					 modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
 					 zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
 					 modelStack->PopMatrix();
+
+					 
 		}
 			break;
 		default:
@@ -181,6 +198,8 @@ void SceneB::Render()
     std::ostringstream ss;
     ss << "FPS:" << fps;
     zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);
+
+	
     //zeGraphics->SetHUD(false);
 }
 
