@@ -5,6 +5,7 @@
 #include "../Gathering of Components/AllyEnemyComponent.h"
 #include <sstream>
 #include "../Misc/GlobalFunctions.h"
+#include "../Gathering of Components/SpeedComponent.h"
 
 PatrolState::PatrolState()
 {
@@ -41,26 +42,16 @@ void PatrolState::Update(double dt)
     }
     GameEntity *zeGO = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zePhysic = dynamic_cast<PhysicsComponent*>(&zeGO->getComponent(PhysicsComponent::g_ID_));
+    SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGO->getComponent(SpeedComponent::ID_));
     switch (isMovingTowardsThatPos)
     {
     case false:
     {
-        //SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGO->getComponent(SpeedComponent::ID_));
-        while (true)
-        {
-            int randomNum = 9; 
-            float theAngleToGo = 36;
-            float theRadianAngle = Math::DegreeToRadian((Math::RandIntMinMax(0, randomNum) * theAngleToGo));
-            goToThatPoint.Set(zePhysic->getPos().x + (50 * cos(theRadianAngle)), zePhysic->getPos().y + (50 * sin(theRadianAngle)), zePhysic->getPos().z);
-            if (
-                goToThatPoint.x < zePhysic->getBoundary().x && goToThatPoint.x > -zePhysic->getBoundary().x
-                && goToThatPoint.y < zePhysic->getBoundary().y && goToThatPoint.y > -zePhysic->getBoundary().y
-                )
-            {
-                zePhysic->setVel((goToThatPoint - zePhysic->getPos()).Normalize() * 15);
-                break;
-            }
-        }
+        int randomNum = 9; 
+        float theAngleToGo = 36;
+        float theRadianAngle = Math::DegreeToRadian((Math::RandIntMinMax(0, randomNum) * theAngleToGo));
+        goToThatPoint.Set(zePhysic->getPos().x + (50 * cos(theRadianAngle)), zePhysic->getPos().y + (50 * sin(theRadianAngle)), zePhysic->getPos().z);
+        goToThatPoint.Set(Math::Clamp(goToThatPoint.x, -zePhysic->getBoundary().x, zePhysic->getBoundary().x), Math::Clamp(goToThatPoint.y, -zePhysic->getBoundary().y, zePhysic->getBoundary().y), goToThatPoint.z);
         isMovingTowardsThatPos = true;
     }
         break;
