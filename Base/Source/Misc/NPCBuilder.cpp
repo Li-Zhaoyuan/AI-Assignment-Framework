@@ -12,11 +12,15 @@
 #include "../StatesStuff/GoThereState.h"
 #include "../StatesStuff/DogBarkState.h"
 #include "../StatesStuff/MeleeAttackState.h"
+#include <sstream>
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
     GameEntity *go = new GameEntity;
-    go->setName(zeName);
+    static size_t zeEntityNum = 0;
+    std::ostringstream ss;
+    ss << zeName << ++zeEntityNum;
+    go->setName(ss.str());
     enemyList.push_back(go);
 
     MeshComponent *zeMesh = new MeshComponent();
@@ -34,6 +38,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new IdleState, IdleState::ID_);
     zeFSM->addStates(*new GoThereState, GoThereState::ID_);
+    zeFSM->addStates(*new MeleeAttackState, MeleeAttackState::ID_);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
@@ -43,12 +48,20 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     go->addComponent(SpeedComponent::ID_, zeSpeed);
     zeSpeed->onNotify(20);
 
+    HPandDPComponent *zeHPandDP = new HPandDPComponent;
+    go->addComponent(HPandDPComponent::ID_, zeHPandDP);
+    zeHPandDP->setHealth(100);
+    zeHPandDP->setDamage(10);
+
     return go;
 }
 GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
     GameEntity *go = new GameEntity;
-    go->setName(zeName);
+    std::ostringstream ss;
+    static size_t zeIDNum = 0;
+    ss << zeName << zeIDNum;
+    go->setName(ss.str());
     allyList.push_back(go);
 
     MeshComponent *zeMesh = new MeshComponent();
@@ -69,6 +82,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     zeFSM->getSpecificStates(PatrolState::ID_).onNotify(60.f);
     zeFSM->getSpecificStates(DogBarkState::ID_).onNotify(25.f);
     zeFSM->addStates(*new GoThereState, GoThereState::ID_);
+    zeFSM->addStates(*new MeleeAttackState, MeleeAttackState::ID_);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(allyList).setEnemyList(enemyList);
@@ -78,5 +92,10 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     go->addComponent(SpeedComponent::ID_, zeSpeed);
     zeSpeed->onNotify(40);
 
+    HPandDPComponent *zeHPandDP = new HPandDPComponent;
+    go->addComponent(HPandDPComponent::ID_, zeHPandDP);
+    zeHPandDP->setHealth(25);
+    zeHPandDP->setDamage(5);
+    
     return go;
 }
