@@ -95,7 +95,7 @@ void SceneB::Init()
 	m_ally.push_back(Guy);
 
 	//m_allyBullet, m_enemyBullet;
-
+	background = zeGraphics->getMeshID("sceneBBackground");
 	
 }
 
@@ -147,13 +147,12 @@ void SceneB::Render()
     // Model matrix : an identity matrix (model will be at the origin)
     modelStack->LoadIdentity();
 
-    zeGraphics->RenderMesh(0, false);
 
-    //modelStack->PushMatrix();
-    //modelStack->Translate(-50, -50, 0);
-    //modelStack->Scale(50, 50, 10);
-    //zeGraphics->RenderMesh(2, false);
-    //modelStack->PopMatrix();
+    modelStack->PushMatrix();
+    modelStack->Translate(0, 0, -1);
+	modelStack->Scale(boundary.x*2, boundary.x *2, 1);
+	zeGraphics->RenderMesh(background, false);
+    modelStack->PopMatrix();
 
 
 	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
@@ -195,9 +194,9 @@ void SceneB::Render()
 
     //zeGraphics->SetHUD(true);
     viewStack->LoadIdentity();
-    std::ostringstream ss;
+    /*std::ostringstream ss;
     ss << "FPS:" << fps;
-    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);*/
 
 	
     //zeGraphics->SetHUD(false);
