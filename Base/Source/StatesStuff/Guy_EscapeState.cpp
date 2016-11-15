@@ -26,6 +26,7 @@ void Guy_EscapeState::Init()
 }
 
 void Guy_EscapeState::Update(double dt)
+
 {
 	switch (changedName)
 	{

@@ -11,6 +11,7 @@
 #include "../StatesStuff/PatrolState.h"
 #include "../StatesStuff/GoThereState.h"
 #include "../StatesStuff/DogBarkState.h"
+#include "../StatesStuff/MeleeAttackState.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
