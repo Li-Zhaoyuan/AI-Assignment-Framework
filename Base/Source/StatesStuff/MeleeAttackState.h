@@ -19,5 +19,5 @@ public:
 
 protected:
     GameEntity *zeVictim;
-    float influenceRadius;
+    float influenceRadius, attackDelay, timeCounter;
 };

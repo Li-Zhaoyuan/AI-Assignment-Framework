@@ -39,6 +39,8 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     zeFSM->addStates(*new IdleState, IdleState::ID_);
     zeFSM->addStates(*new GoThereState, GoThereState::ID_);
     zeFSM->addStates(*new MeleeAttackState, MeleeAttackState::ID_);
+    zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(20.f);
+    zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(2.f);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
@@ -60,7 +62,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     GameEntity *go = new GameEntity;
     std::ostringstream ss;
     static size_t zeIDNum = 0;
-    ss << zeName << zeIDNum;
+    ss << zeName << ++zeIDNum;
     go->setName(ss.str());
     allyList.push_back(go);
 
