@@ -4,8 +4,9 @@
 #include "../Gathering of Components/HPandDPComponent.h"
 
 #include <math.h>
-#define speed 30
+#define speed 50
 #define healthProcValue 50
+#define rangeToPatrolPoint 100
 
 Guy_PatrolState::Guy_PatrolState()
 {
@@ -20,15 +21,14 @@ Guy_PatrolState::~Guy_PatrolState()
 void Guy_PatrolState::Init()
 {
 	name_ = " : PATROL";
-	hasNameChange = false;
+	
 	changedName = false;
-	rangeToStartPatrolling = 50;
-	timer = 0;
-	patrolAngle = 0;
-	radiusToPatrolPoint = 50;
-	searchVel.SetZero();
-	pointToPatrol.SetZero();
-	originToPatrolPos.SetZero();
+	isAtWayPoint = false;
+	pointToPatrol.SetZero(); 
+	vel.SetZero();
+	currPoint = 0;
+	nextPoint = 0;
+	setWayPoints();
 }
 
 void Guy_PatrolState::Update(double dt)
@@ -49,53 +49,57 @@ void Guy_PatrolState::Update(double dt)
 	}
 	GameEntity* guy = dynamic_cast<GameEntity*>(owner_of_component);
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(guy)->getComponent(PhysicsComponent::g_ID_));
-
-	//int randomDir = rand() % 4 + 1;
-	originToPatrolPos = (zePhysicsStuff->getPos() - pointToPatrol);
-	radiusToPatrolPoint = (zePhysicsStuff->getPos() - pointToPatrol).Length();
-	if (radiusToPatrolPoint <= 40 && radiusToPatrolPoint > 0)
-	{
-		patrolAngle = asinf(originToPatrolPos.y / radiusToPatrolPoint);
-		searchVel = (zePhysicsStuff->getPos() - pointToPatrol).Normalized() * speed;
-		zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
-	}
-	else if (radiusToPatrolPoint == 0)
-	{
-		patrolAngle = asinf(originToPatrolPos.y / radiusToPatrolPoint);
-		Vector3 temp;
-		temp.Set(5, 5, 0);
-		searchVel = temp.Normalized() * speed;
-		
-		zePhysicsStuff->setVel(Vector3(searchVel.x , searchVel.y, 0));
-	}
-	else if (radiusToPatrolPoint <= rangeToStartPatrolling)
-	{
-
-		patrolAngle += dt;
-		float fX, fY;
-		fX = (pointToPatrol.x + cosf(patrolAngle) * radiusToPatrolPoint);
-		fY = (pointToPatrol.y + sinf(patrolAngle) * radiusToPatrolPoint);
-		zePhysicsStuff->setPos(Vector3(fX, fY, 0));
-		rangeToStartPatrolling = 55;
-		zePhysicsStuff->setVel(Vector3(0, 0, 0));
-		
-	}
-	else
-	{
-		patrolAngle = asinf(originToPatrolPos.y / radiusToPatrolPoint);
-		rangeToStartPatrolling = 50;
-		searchVel = -(zePhysicsStuff->getPos() - pointToPatrol).Normalized() * speed;
-		zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
-		//radiusToPatrolPoint = (zePhysicsStuff->getPos() - pointToPatrol).Length();
-	}
+	
 	HPandDPComponent* hpOfGuy = dynamic_cast<HPandDPComponent*>(&(guy)->getComponent(HPandDPComponent::ID_));
 	
 	if (hpOfGuy->getHealth() < healthProcValue)
 	{
 		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		isAtWayPoint = false;
+		//currPoint = 0;
 		FSM_->switchState(1);
 	}
+	if (isAtWayPoint == false)
+	{
+		if ((zePhysicsStuff->getPos() - wayPoints[currPoint]).LengthSquared() <= 10)
+		{
+			isAtWayPoint = true;
+		}
+		else
+		{
+			Vector3 temp;
+			temp = -(zePhysicsStuff->getPos() - wayPoints[currPoint]);
+			temp.Normalize();
+			temp *= speed;
+			vel.Set(temp.x, temp.y, temp.z);
+		}
+	}
+	if (isAtWayPoint == true)
+	{
+		nextPoint = currPoint + 1;
+		if (nextPoint == 4)
+		{
+			nextPoint = 0;
+		}
+		if ((zePhysicsStuff->getPos() - wayPoints[nextPoint]).LengthSquared() <= 10)
+		{
+			currPoint += 1;
+			if (currPoint == 4)
+			{
+				currPoint = 0;
+			}
+		}
+		else
+		{
+			Vector3 temp;
+			temp = -(zePhysicsStuff->getPos() - wayPoints[nextPoint]);
+			temp.Normalize();
+			temp *= speed;
+			vel.Set(temp.x, temp.y, temp.z);
+		}
+	}
 	
+	zePhysicsStuff->setVel(vel);
 	//zePhysicsStuff->getPos().x
 	//zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
 
@@ -106,4 +110,12 @@ void Guy_PatrolState::Exit()
 {
 	changedName = false;
 	owner_of_component->setName(originalOwnerName);
+}
+
+void Guy_PatrolState::setWayPoints()
+{
+	wayPoints[0].Set(pointToPatrol.x, pointToPatrol.y + rangeToPatrolPoint, 0);
+	wayPoints[1].Set(pointToPatrol.x, pointToPatrol.y - rangeToPatrolPoint, 0);
+	wayPoints[2].Set(pointToPatrol.x + rangeToPatrolPoint, pointToPatrol.y, 0);
+	wayPoints[3].Set(pointToPatrol.x - rangeToPatrolPoint, pointToPatrol.y, 0);
 }
