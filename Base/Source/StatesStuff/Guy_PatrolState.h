@@ -15,13 +15,11 @@ public:
 
 	const static unsigned char ID_ = 0;
 
+	void setWayPoints();
 private:
-	float timer;
-	float patrolAngle;
-	float rangeToStartPatrolling;
-	float radiusToPatrolPoint;
-	bool hasNameChange;
-
-	Vector3 searchVel, pointToPatrol, originToPatrolPos;
+	bool isAtWayPoint;
+	int currPoint, nextPoint;
+	Vector3 wayPoints[4];
+	Vector3 pointToPatrol, vel;
 
 };
