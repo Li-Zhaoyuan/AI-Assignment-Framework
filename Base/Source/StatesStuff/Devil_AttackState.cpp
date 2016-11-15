@@ -45,7 +45,7 @@ void Devil_AttackState::Update(double dt)
 	HPandDPComponent *zeOwnselfDP = dynamic_cast<HPandDPComponent*>(&(devil)->getComponent(HPandDPComponent::ID_));
 	zePhysicsStuff->setVel(Vector3(0, 0, 0));
 
-	timer += dt;
+	timer += (float)dt;
 	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&devil->getComponent(AllyEnemyComponent::ID_));
 	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
 	{

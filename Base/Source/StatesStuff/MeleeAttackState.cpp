@@ -3,6 +3,7 @@
 #include "../Gathering of Components/HPandDPComponent.h"
 #include "../Misc/GlobalFunctions.h"
 #include "MyMath.h"
+#include "../Gathering of Components/PhysicsComponent.h"
 
 MeleeAttackState::MeleeAttackState()
 {
@@ -39,6 +40,10 @@ void MeleeAttackState::Update(double dt)
     timeCounter += (float)dt;
     if (timeCounter >= attackDelay)
     {
+        GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+        PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
+        //PhysicsComponent *zeEnemyPhysic = dynamic_cast<PhysicsComponent*>(&)
+        //if ((zePhysics->getPos() - ))
         timeCounter = 0;
     }
 }
@@ -80,4 +85,10 @@ bool MeleeAttackState::onNotify(const float &zeEvent)
         return true;
     }
     return false;
+}
+
+bool MeleeAttackState::onNotify(GenericComponent &zeEvent)
+{
+    zeVictim = dynamic_cast<GameEntity*>(&zeEvent.getOwner());
+    return true;
 }

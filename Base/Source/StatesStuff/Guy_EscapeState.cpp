@@ -42,7 +42,7 @@ void Guy_EscapeState::Update(double dt)
 	default:
 		break;
 	}
-	timer += dt;
+	timer += (float)dt;
 	GameEntity* guy = dynamic_cast<GameEntity*>(owner_of_component);
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(guy)->getComponent(PhysicsComponent::g_ID_));
 

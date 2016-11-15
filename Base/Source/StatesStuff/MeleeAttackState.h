@@ -5,6 +5,8 @@
 
 class MeleeAttackState : public StateComponent
 {
+private:
+    friend  GenericComponent;
 public:
     MeleeAttackState();
     virtual ~MeleeAttackState();
@@ -16,6 +18,7 @@ public:
 
     virtual bool onNotify(const std::string &zeEvent);
     virtual bool onNotify(const float &zeEvent);
+    virtual bool onNotify(GenericComponent &zeEvent);
 
 protected:
     GameEntity *zeVictim;
