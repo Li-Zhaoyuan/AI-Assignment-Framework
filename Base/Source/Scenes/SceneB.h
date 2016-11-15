@@ -23,5 +23,6 @@ private:
 	GameEntity* m_allyBullet, *m_enemyBullet;
 	std::vector<GameEntity*> m_GoList;
 	std::vector<GameEntity*> m_enemy, m_ally;
+	size_t background;
 	
 };
