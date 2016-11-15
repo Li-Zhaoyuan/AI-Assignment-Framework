@@ -189,6 +189,15 @@
     <ClCompile Include="Source\StatesStuff\DogBarkState.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Guy_EscapeState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Guy_PatrolState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\MeleeAttackState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -336,6 +345,15 @@
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
     <ClInclude Include="Source\StatesStuff\DogBarkState.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Guy_EscapeState.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Guy_PatrolState.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\MeleeAttackState.h">
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>

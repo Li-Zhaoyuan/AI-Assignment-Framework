@@ -43,7 +43,10 @@
     <ClCompile Include="Source\StatesStuff\Devil_SearchState.cpp" />
     <ClCompile Include="Source\StatesStuff\DogBarkState.cpp" />
     <ClCompile Include="Source\StatesStuff\GoThereState.cpp" />
+    <ClCompile Include="Source\StatesStuff\Guy_EscapeState.cpp" />
+    <ClCompile Include="Source\StatesStuff\Guy_PatrolState.cpp" />
     <ClCompile Include="Source\StatesStuff\IdleState.cpp" />
+    <ClCompile Include="Source\StatesStuff\MeleeAttackState.cpp" />
     <ClCompile Include="Source\StatesStuff\PatrolState.cpp" />
     <ClCompile Include="Source\StatesStuff\StateMachineComponent.cpp" />
     <ClCompile Include="Source\Systems\ComponentSystem.cpp" />
@@ -96,7 +99,10 @@
     <ClInclude Include="Source\StatesStuff\Devil_SearchState.h" />
     <ClInclude Include="Source\StatesStuff\DogBarkState.h" />
     <ClInclude Include="Source\StatesStuff\GoThereState.h" />
+    <ClInclude Include="Source\StatesStuff\Guy_EscapeState.h" />
+    <ClInclude Include="Source\StatesStuff\Guy_PatrolState.h" />
     <ClInclude Include="Source\StatesStuff\IdleState.h" />
+    <ClInclude Include="Source\StatesStuff\MeleeAttackState.h" />
     <ClInclude Include="Source\StatesStuff\PatrolState.h" />
     <ClInclude Include="Source\StatesStuff\StateComponent.h" />
     <ClInclude Include="Source\StatesStuff\StateMachineComponent.h" />
