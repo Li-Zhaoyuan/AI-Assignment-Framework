@@ -16,3 +16,13 @@ void MeleeAttackState::Update(double dt)
 {
 
 }
+
+bool MeleeAttackState::onNotify(const int &zeEvent)
+{
+    if (zeEvent >= 0)
+    {
+
+        return true;
+    }
+    return false;
+}

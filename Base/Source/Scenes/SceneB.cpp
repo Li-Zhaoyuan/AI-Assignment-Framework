@@ -149,11 +149,11 @@ void SceneB::Render()
 
     zeGraphics->RenderMesh(0, false);
 
-    modelStack->PushMatrix();
-    modelStack->Translate(-50, -50, 0);
-    modelStack->Scale(50, 50, 10);
-    zeGraphics->RenderMesh(2, false);
-    modelStack->PopMatrix();
+    //modelStack->PushMatrix();
+    //modelStack->Translate(-50, -50, 0);
+    //modelStack->Scale(50, 50, 10);
+    //zeGraphics->RenderMesh(2, false);
+    //modelStack->PopMatrix();
 
 
 	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
