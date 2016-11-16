@@ -31,6 +31,8 @@ public:
     //unsigned textureID;
     //Week 4 Texture Array
     unsigned textureArray[MAX_TEXTURES];
+
+    static const unsigned char ID_ = 0;
 };
 
 #endif

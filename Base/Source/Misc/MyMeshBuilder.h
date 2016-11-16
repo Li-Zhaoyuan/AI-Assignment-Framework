@@ -7,6 +7,7 @@
 #include "MyMath.h"
 #include "LoadOBJ.h"
 #include "LoadHmap.h"
+#include "../Gathering of Components/SpriteComponent.h"
 
 class MyMeshBuilder
 {
@@ -26,7 +27,7 @@ public:
     //TSL
     static MyMeshComponent* GenerateSkyPlane(const std::string &MyMeshComponentName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTile, float vTile);
     static MyMeshComponent* GenerateTerrain(const std::string &MyMeshComponentName, const std::string &file_path, std::vector<unsigned char>&heightMap);
-    //static SpriteAnimation* GenerateSpriteAnimation(const std::string &MyMeshComponentName, unsigned numRow, unsigned numCol);
+    static SpriteComponent* GenerateSpriteAnimation(const std::string &MyMeshComponentName, unsigned numRow, unsigned numCol);
 
     //Extras
     static MyMeshComponent* GenerateCircle(const std::string &MyMeshComponentName, Color color, unsigned numSlices = 36); //numSizes refers to resolution

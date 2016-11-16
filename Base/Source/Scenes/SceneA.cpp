@@ -110,13 +110,15 @@ void SceneA::Render()
 
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
-        switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
+        //switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
+        switch ((*it)->seeComponentActive(MyMeshComponent::ID_))
         {
         case true: 
         {
             modelStack->PushMatrix();
             PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
+            //MyMeshComponent *zeMesh = dynamic_cast<MyMeshComponent*>(&(*it)->getComponent(MyMeshComponent::ID_));
             modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
                 // Debuggin Stuff
                 modelStack->PushMatrix();
@@ -127,6 +129,7 @@ void SceneA::Render()
                 // Debuggin Stuff
             modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
             zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
+            //zeGraphics->RenderMesh(*zeMesh, false);
             modelStack->PopMatrix();
         }
             break;
