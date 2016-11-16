@@ -21,6 +21,7 @@ A GraphicsEntity so that Shaders, objects and texture that is needed across all 
 #include "..\\Misc\\shader.hpp"
 #include "..\\Misc\\LoadTGA.h"
 #include "..\\Misc\\LoadOBJ.h"
+#include "../Misc/MyMeshBuilder.h"
 
 #ifndef MAX_NUM_LIGHTS
 #define MAX_NUM_LIGHTS 2
@@ -124,14 +125,19 @@ public:
     unsigned m_vertexArrayID;
     Light lights[MAX_NUM_LIGHTS];
 
-    void RenderText(Mesh& mesh, const std::string &text, Color &color);
+    //void RenderText(Mesh& mesh, const std::string &text, Color &color);
+    //void RenderTextOnScreen(Mesh& mesh, const std::string &text, Color &color, const float &size, const float &x, const float &y);
+    //void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &size, const float &x, const float &y);
+    //void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y);
+    //void RenderMesh(Mesh &mesh, const bool &enableLight);
+    void RenderText(MyMeshComponent& mesh, const std::string &text, Color &color);
+    void RenderTextOnScreen(MyMeshComponent& mesh, const std::string &text, Color &color, const float &size, const float &x, const float &y);
+    void RenderMeshIn2D(MyMeshComponent &mesh, const bool &enableLight, const float &size, const float &x, const float &y);
+    void RenderMeshIn2D(MyMeshComponent &mesh, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y);
+    void RenderMesh(MyMeshComponent &mesh, const bool &enableLight);
     void RenderText(const std::string &text, Color &color);
-    void RenderTextOnScreen(Mesh& mesh, const std::string &text, Color &color, const float &size, const float &x, const float &y);
     void RenderTextOnScreen(const std::string &text, Color &color, const float &size, const float &x, const float &y);
     void RenderTextOnScreen(const size_t &zeMeshID, const std::string &text, Color &color, const float &size, const float &x, const float &y);
-    void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &size, const float &x, const float &y);
-    void RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y);
-    void RenderMesh(Mesh &mesh, const bool &enableLight);
     void RenderMesh(const size_t &meshID, const bool &enableLight);
     //void RenderText(const std::string &meshName, const std::string &text, Color &color);
     //void RenderTextOnScreen(const std::string &meshName, const std::string &text, Color &color, const float &size, const float &x, const float &y);
@@ -149,14 +155,18 @@ public:
 	RENDER_PASS m_renderPass;
 
     size_t getMeshID(const std::string &zeName);
-    Mesh &getMeshRef(const std::string &zeName);
-    Mesh &getMeshRef(const size_t &zeNum);
+    //Mesh &getMeshRef(const std::string &zeName);
+    //Mesh &getMeshRef(const size_t &zeNum);
+    MyMeshComponent &getMeshRef(const std::string &zeName);
+    MyMeshComponent &getMeshRef(const size_t &zeNum);
 
 private:
     bool m_bIsInOrthogonalMode;
     bool loadingMeshDriven(const std::string &fileLocation);
-    Mesh *ExportedFont;
-    std::vector<Mesh*> anotherMeshList;
+    //Mesh *ExportedFont;
+    //std::vector<Mesh*> anotherMeshList;
+    MyMeshComponent *ExportedFont;
+    std::vector<MyMeshComponent*> anotherMeshList;
 };
 
 #endif

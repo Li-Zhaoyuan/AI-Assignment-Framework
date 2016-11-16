@@ -21,6 +21,7 @@ MyMeshComponent::MyMeshComponent(const std::string &zeName, GenericEntity *zeOwn
     {
         textureArray[i] = 0;
     }
+    name_ = zeName;
 }
 
 MyMeshComponent::~MyMeshComponent()

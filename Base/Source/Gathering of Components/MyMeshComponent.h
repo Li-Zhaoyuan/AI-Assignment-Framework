@@ -21,7 +21,7 @@ public:
     virtual void Render();
     void Render(unsigned offset, unsigned count);
 
-    const std::string name;
+    //const std::string name;
     DRAW_MODE mode;
     unsigned vertexBuffer;
     unsigned indexBuffer;

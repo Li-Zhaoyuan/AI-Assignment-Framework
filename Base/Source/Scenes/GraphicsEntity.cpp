@@ -152,8 +152,11 @@ void GraphicsEntity::Init()
 
 	// Create meshes that can be used in any scene here
 	// Other scene specific meshes should only be inited in the respective scene
-	Mesh* newMesh = MeshBuilder::GenerateAxes("reference", 1000.f, 1000.f, 1000.f);
+	//Mesh* newMesh = MeshBuilder::GenerateAxes("reference", 1000.f, 1000.f, 1000.f);
+ //   anotherMeshList.push_back(newMesh);
+    MyMeshComponent* newMesh = MyMeshBuilder::GenerateAxes("reference", 1000.f, 1000.f, 1000.f);
     anotherMeshList.push_back(newMesh);
+
 //	meshList.insert(std::pair<std::string, Mesh*>(newMesh->name, newMesh));
 //
 #ifdef _DEBUG
@@ -188,7 +191,7 @@ void GraphicsEntity::Render()
 
 void GraphicsEntity::Exit()
 {
-    for (std::vector<Mesh*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it)
+    for (std::vector<MyMeshComponent*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it)
     {
         delete *it;
         (*it) = nullptr;
@@ -201,7 +204,7 @@ void GraphicsEntity::Exit()
 	projectionStack = nullptr;
 }
 
-void GraphicsEntity::RenderText(Mesh& mesh, const std::string &text, Color &color)
+void GraphicsEntity::RenderText(/*Mesh& mesh*/MyMeshComponent &mesh, const std::string &text, Color &color)
 {
 	if (mesh.textureArray[0] <= 0/* || mesh.textureID <= 0*/)
 		return;
@@ -255,7 +258,7 @@ void GraphicsEntity::RenderText(const std::string &text, Color &color)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void GraphicsEntity::RenderTextOnScreen(Mesh& mesh, const std::string &text, Color &color, const float &size, const float &x, const float &y)
+void GraphicsEntity::RenderTextOnScreen(/*Mesh*/MyMeshComponent& mesh, const std::string &text, Color &color, const float &size, const float &x, const float &y)
 {
 	if (mesh.textureArray[0] <= 0)
 		return;
@@ -329,7 +332,7 @@ void GraphicsEntity::RenderTextOnScreen(const std::string &text, Color &color, c
 	viewStack->PopMatrix();
 }
 
-void GraphicsEntity::RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &size, const float &x, const float &y)
+void GraphicsEntity::RenderMeshIn2D(/*Mesh*/MyMeshComponent &mesh, const bool &enableLight, const float &size, const float &x, const float &y)
 {
 	viewStack->PushMatrix();
 	viewStack->LoadIdentity();
@@ -369,7 +372,7 @@ void GraphicsEntity::RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const f
 	viewStack->PopMatrix();
 }
 
-void GraphicsEntity::RenderMeshIn2D(Mesh &mesh, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y)
+void GraphicsEntity::RenderMeshIn2D(/*Mesh*/MyMeshComponent &mesh, const bool &enableLight, const float &sizeX, const float &sizeY, const float &x, const float &y)
 {
 	viewStack->PushMatrix();
 	viewStack->LoadIdentity();
@@ -414,7 +417,7 @@ void GraphicsEntity::RenderMesh(const size_t &meshID, const bool &enableLight)
     RenderMesh(*anotherMeshList[meshID], enableLight);
 }
 
-void GraphicsEntity::RenderMesh(Mesh &mesh, const bool &enableLight)
+void GraphicsEntity::RenderMesh(/*Mesh*/MyMeshComponent &mesh, const bool &enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
@@ -678,7 +681,7 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
     std::vector<std::string> theKeys, theValues;
     if (loadKeysAndDataFromCSVFile(fileLocation, theKeys, theValues))
     {
-        Mesh *newMesh = nullptr;
+        MyMeshComponent *newMesh = nullptr;
         std::string theName;
         Color theColor;
         std::map<std::string, GLuint> targaStuff;
@@ -706,7 +709,7 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
                     convertStringToUpperCaps(theValues[num]);
                     if (checkWhetherTheWordInThatString("TEXT", theValues[num]))
                     {
-                        newMesh = MeshBuilder::GenerateText(theName, 16, 16);
+                        newMesh = MyMeshBuilder::GenerateText(theName, 16, 16);
                         if (ExportedFont == nullptr)
                             ExportedFont = newMesh;
                     }
@@ -714,19 +717,19 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
                     {
                         std::vector<std::string>::iterator it = std::find(theKeys.begin(), theKeys.end(), "OBJECTFILE");
                         size_t pos = it - theKeys.begin();
-                        newMesh = MeshBuilder::GenerateOBJ(theName, theValues[num * pos]);
+                        newMesh = MyMeshBuilder::GenerateOBJ(theName, theValues[num * pos]);
                     }
                     else if (checkWhetherTheWordInThatString("QUAD", theValues[num]))
                     {
-                        newMesh = MeshBuilder::GenerateQuad(theName, theColor);
+                        newMesh = MyMeshBuilder::GenerateQuad(theName, theColor);
                     }
                     else if (checkWhetherTheWordInThatString("CUBE", theValues[num]))
                     {
-                        newMesh = MeshBuilder::GenerateCube(theName, theColor);
+                        newMesh = MyMeshBuilder::GenerateCube(theName, theColor);
                     }
                     else if (checkWhetherTheWordInThatString("SPHERE", theValues[num]))
                     {
-                        newMesh = MeshBuilder::GenerateCircle(theName, theColor);
+                        newMesh = MyMeshBuilder::GenerateCircle(theName, theColor);
                     }
                     else if (checkWhetherTheWordInThatString("SPRITE", theValues[num]))
                     {
@@ -737,8 +740,8 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
                         it = std::find(theKeys.begin(), theKeys.end(), "NUMCOLUMNS");
                         pos = it - theKeys.begin();
                         col = stoi(theValues[num * pos]);
-                        newMesh = MeshBuilder::GenerateSpriteAnimation(theName, row, col);
-                        SpriteAnimation *theSprite = dynamic_cast<SpriteAnimation*>(newMesh);
+                        //newMesh = MeshBuilder::GenerateSpriteAnimation(theName, row, col);
+                        //SpriteAnimation *theSprite = dynamic_cast<SpriteAnimation*>(newMesh);
                         //theSprite->m_anim = new Animation();
                         //theSprite->m_anim->Set(0, (row * col) - 1, 1, 1, true);
                     }
@@ -778,20 +781,20 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
 size_t GraphicsEntity::getMeshID(const std::string &zeName)
 {
     size_t num = 0;
-    for (std::vector<Mesh*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it, ++num)
+    for (std::vector<MyMeshComponent*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it, ++num)
     {
-        if (checkWhetherTheWordInThatString(zeName, (*it)->name))
+        if (checkWhetherTheWordInThatString(zeName, (*it)->getName()))
             break;
     }
     return num;
 }
 
-Mesh &GraphicsEntity::getMeshRef(const std::string &zeName)
+MyMeshComponent &GraphicsEntity::getMeshRef(const std::string &zeName)
 {
-    Mesh *nothing = nullptr;
-    for (std::vector<Mesh*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it)
+    MyMeshComponent *nothing = nullptr;
+    for (std::vector<MyMeshComponent*>::iterator it = anotherMeshList.begin(), end = anotherMeshList.end(); it != end; ++it)
     {
-        if ((*it)->name == zeName)
+        if ((*it)->getName() == zeName)
             return (**it);
     }
 #ifdef _DEBUG
@@ -800,7 +803,7 @@ Mesh &GraphicsEntity::getMeshRef(const std::string &zeName)
     return *nothing;
 }
 
-Mesh &GraphicsEntity::getMeshRef(const size_t &zeNum)
+MyMeshComponent &GraphicsEntity::getMeshRef(const size_t &zeNum)
 {
 #ifdef _DEBUG
     assert(zeNum < anotherMeshList.size() && zeNum >= 0);
