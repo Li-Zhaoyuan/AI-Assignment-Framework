@@ -11,14 +11,15 @@ SpriteComponent::SpriteComponent()
 SpriteComponent::SpriteComponent(const std::string &zeName, const size_t &zeRow, const size_t &zeCol)
 {
     name_ = zeName;
-    zeAnimTime = nullptr;
+    //zeAnimTime = nullptr;
     m_col = zeCol;
     m_row = zeRow;
+    m_currentFrame = 0;
 }
 
 SpriteComponent::~SpriteComponent()
 {
-    zeAnimTime = nullptr;
+    //zeAnimTime = nullptr;
 }
 
 void SpriteComponent::Render()
@@ -62,6 +63,7 @@ void SpriteComponent::Render()
 
 bool SpriteComponent::onNotify(GenericComponent &zeEvent)
 {
-    zeAnimTime = &zeEvent;
+    //zeAnimTime = &zeEvent;
+    AnimationComponent * zeAnim = dynamic_cast<AnimationComponent*>(&zeEvent);
     return true;
 }

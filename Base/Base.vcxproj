@@ -15,6 +15,7 @@
     <ClCompile Include="Source\Classes\GameEntity.cpp" />
     <ClCompile Include="Source\Commands\CommandSystem.cpp" />
     <ClCompile Include="Source\Gathering of Components\AllyEnemyComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\AnimationComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp" />

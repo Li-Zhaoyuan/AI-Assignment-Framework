@@ -201,6 +201,9 @@
     <ClCompile Include="Source\Misc\MyMeshBuilder.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\AnimationComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">

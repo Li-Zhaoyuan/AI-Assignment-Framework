@@ -5,10 +5,10 @@
 class AnimationComponent : public GenericComponent
 {
 public:
-    AnimationComponent() { m_currentTime = 0; };
-    virtual ~AnimationComponent() {};
+    AnimationComponent();
+    virtual ~AnimationComponent();
 
-    virtual void Update(double dt) { m_currentTime += (float)(dt); }
+    virtual void Update(double dt);
 
     void Set(int startFrame, int endFrame, int repeat, float time, bool active)
     {
@@ -25,4 +25,7 @@ public:
     float animTime, m_currentTime;
     bool animActive;
     const static unsigned char ID_ = 3;
+    bool doReversal;
+    bool oppositeWay;
+    bool unlimitedTimes;
 };

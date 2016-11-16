@@ -18,12 +18,12 @@ public:
     int m_col;
     int m_currentFrame;
 
-    bool doReversal;
-    bool oppositeWay;
-    bool unlimitedTimes;
+    //bool doReversal;
+    //bool oppositeWay;
+    //bool unlimitedTimes;
 
 protected:
-    GenericComponent *zeAnimTime;
+    //GenericComponent *zeAnimTime;
 };
 
 #endif
