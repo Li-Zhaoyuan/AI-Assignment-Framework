@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Classes\Camera.cpp" />
     <ClCompile Include="Source\Misc\DepthFBO.cpp" />
     <ClCompile Include="Source\Misc\GlobalFunctions.cpp" />
+    <ClCompile Include="Source\Misc\MyMeshBuilder.cpp" />
     <ClCompile Include="Source\Misc\NPCBuilder.cpp" />
     <ClCompile Include="Source\Scenes\GraphicsEntity.cpp" />
     <ClCompile Include="Source\Misc\LoadHmap.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Source\Misc\LoadOBJ.h" />
     <ClInclude Include="Source\Misc\LoadTGA.h" />
     <ClInclude Include="Source\Misc\MeshBuilder.h" />
+    <ClInclude Include="Source\Misc\MyMeshBuilder.h" />
     <ClInclude Include="Source\Misc\NPCBuilder.h" />
     <ClInclude Include="Source\Misc\shader.hpp" />
     <ClInclude Include="Source\Misc\Utility.h" />

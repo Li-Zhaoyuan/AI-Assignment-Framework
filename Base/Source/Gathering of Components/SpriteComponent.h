@@ -1,7 +1,7 @@
 #ifndef SPRITE_COMPONENT_H
 #define SPRITE_COMPONENT_H
 
-#include "MyMeshComponent.h"
+#include "../Gathering of Components/MyMeshComponent.h"
 
 class SpriteComponent : public MyMeshComponent
 {
