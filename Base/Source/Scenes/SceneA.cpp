@@ -45,6 +45,16 @@ void SceneA::Init()
     m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(140,100, 0)));
     m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(140, -150, 0)));
     m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(-200, 20, 0)));
+
+#ifdef _DEBUG
+    TestingOutSprite = new GameEntity;
+    MeshComponent *zeSpriteComp = new MeshComponent;
+    zeSpriteComp->onNotify(zeGraphics->getMeshID("DogSprite"));
+    TestingOutSprite->addComponent(MeshComponent::g_CompID_.getValue(), zeSpriteComp);
+    AnimationComponent *zeAnim = new AnimationComponent;
+    zeAnim->Set(0, 8, 20, 0.5, true);
+    TestingOutSprite->addComponent(AnimationComponent::ID_, zeAnim);
+#endif
 }
 
 void SceneA::Update(float dt)
@@ -53,6 +63,7 @@ void SceneA::Update(float dt)
     // TODO: Remove it when it is not debugging
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
     zeGraphics->Update(dt);
+    TestingOutSprite->Update(dt);
     // TODO: Remove it when it is not debugging
 #endif
     fps = 1 / dt;
@@ -108,12 +119,16 @@ void SceneA::Render()
     //zeGraphics->RenderText("Sek Heng Stuff", Color(0, 1, 0));
     //modelStack->PopMatrix();
 
+#ifdef _DEBUG
+    //zeGraphics->RenderMesh(dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()))->getMeshID(), false);
+
+#endif
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
         //switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
         switch ((*it)->seeComponentActive(MyMeshComponent::ID_))
         {
-        case true: 
+        case false /*true*/: 
         {
             modelStack->PushMatrix();
             PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
@@ -156,5 +171,9 @@ void SceneA::Exit()
     m_GoList.clear();
     m_ally.clear();
     m_enemy.clear();
+
+#ifdef _DEBUG
+    delete TestingOutSprite;
+#endif
 }
 

@@ -65,5 +65,11 @@ bool SpriteComponent::onNotify(GenericComponent &zeEvent)
 {
     //zeAnimTime = &zeEvent;
     AnimationComponent * zeAnim = dynamic_cast<AnimationComponent*>(&zeEvent);
+    //int numFrame = 0;
+    //numFrame = Math::Max(zeAnim->startFrame + 1, zeAnim->endFrame - zeAnim->startFrame + 1);
+    //float frameTime = 0;
+    //frameTime = (zeAnim->animTime / static_cast<float>(numFrame));
+
+    m_currentFrame = Math::Min(zeAnim->endFrame, zeAnim->startFrame + static_cast<int>(zeAnim->m_currentTime / zeAnim->frameTime));
     return true;
 }

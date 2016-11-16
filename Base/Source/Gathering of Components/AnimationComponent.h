@@ -28,4 +28,7 @@ public:
     bool doReversal;
     bool oppositeWay;
     bool unlimitedTimes;
+
+    float frameTime;
+    int numFrame;
 };

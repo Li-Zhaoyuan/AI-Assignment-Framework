@@ -7,6 +7,8 @@ AnimationComponent::AnimationComponent()
     doReversal = false;
     oppositeWay = false;
     unlimitedTimes = false;
+    frameTime = 0;
+    numFrame = 0;
 }
 AnimationComponent::~AnimationComponent() 
 {
@@ -19,7 +21,6 @@ void AnimationComponent::Update(double dt)
     {
         m_currentTime += (float)dt;
 
-        int numFrame = 0;
         if (startFrame <= endFrame)
         {
             numFrame = Math::Max(startFrame + 1, endFrame - startFrame + 1);
@@ -30,7 +31,6 @@ void AnimationComponent::Update(double dt)
             numFrame = Math::Max(endFrame + 1, startFrame - endFrame + 1);
         }
 
-        float frameTime = 0;
         frameTime = (animTime / static_cast<float>(numFrame));
 
         //if (oppositeWay)

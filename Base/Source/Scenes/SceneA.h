@@ -23,4 +23,7 @@ private:
     std::vector<GameEntity*> m_enemy, m_ally;
 
     Vector3 boundaryOfRoom;
+#ifdef _DEBUG
+    GameEntity *TestingOutSprite;
+#endif
 };

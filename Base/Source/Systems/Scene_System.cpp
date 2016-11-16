@@ -86,7 +86,7 @@ void Scene_System::clearEverything()
 {
     for (auto it : theSceneList)
     {
-        it.second->Exit();
+        //it.second->Exit();
         delete it.second;
         it.second = nullptr;
     }
