@@ -740,7 +740,7 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
                         it = std::find(theKeys.begin(), theKeys.end(), "NUMCOLUMNS");
                         pos = it - theKeys.begin();
                         col = stoi(theValues[num * pos]);
-                        //newMesh = MeshBuilder::GenerateSpriteAnimation(theName, row, col);
+                        newMesh = MyMeshBuilder::GenerateSpriteAnimation(theName, row, col);
                         //SpriteAnimation *theSprite = dynamic_cast<SpriteAnimation*>(newMesh);
                         //theSprite->m_anim = new Animation();
                         //theSprite->m_anim->Set(0, (row * col) - 1, 1, 1, true);
