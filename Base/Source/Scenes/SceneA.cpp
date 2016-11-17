@@ -63,7 +63,7 @@ void SceneA::Update(float dt)
     // TODO: Remove it when it is not debugging
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
     zeGraphics->Update(dt);
-    TestingOutSprite->Update(dt);
+    //TestingOutSprite->Update(dt);
     // TODO: Remove it when it is not debugging
 #endif
     fps = 1 / dt;
@@ -120,19 +120,19 @@ void SceneA::Render()
     //modelStack->PopMatrix();
 
 #ifdef _DEBUG
-    MeshComponent *zeSprite = dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()));
-    zeGraphics->getMeshRef(zeSprite->getMeshID()).onNotify(TestingOutSprite->getComponent(AnimationComponent::ID_));
-    modelStack->PushMatrix();
-    modelStack->Scale(50, 50, 1);
-    zeGraphics->RenderMesh(dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()))->getMeshID(), false);
-    modelStack->PopMatrix();
+    //MeshComponent *zeSprite = dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()));
+    //zeGraphics->getMeshRef(zeSprite->getMeshID()).onNotify(TestingOutSprite->getComponent(AnimationComponent::ID_));
+    //modelStack->PushMatrix();
+    //modelStack->Scale(50, 50, 1);
+    //zeGraphics->RenderMesh(dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()))->getMeshID(), false);
+    //modelStack->PopMatrix();
 #endif
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
         //switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
         switch ((*it)->seeComponentActive(MyMeshComponent::ID_))
         {
-        case false /*true*/: 
+        case true: 
         {
             modelStack->PushMatrix();
             PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));

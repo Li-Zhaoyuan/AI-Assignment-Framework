@@ -87,11 +87,6 @@ void PatrolState::Exit()
     owner_of_component->setName(originalOwnerName);
 }
 
-void PatrolState::setInfluenceRadius(const float &zeRadius)
-{
-    influenceRadius = zeRadius;
-}
-
 bool PatrolState::onNotify(const float &zeEvent)
 {
     if (zeEvent > 0)

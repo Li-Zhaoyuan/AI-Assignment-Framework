@@ -365,6 +365,9 @@
     <ClInclude Include="Source\Misc\MyMeshBuilder.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="Source\StatesStuff\ZombieTarget.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\GPass.fragmentshader">

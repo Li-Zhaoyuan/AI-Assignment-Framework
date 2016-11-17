@@ -109,6 +109,7 @@
     <ClInclude Include="Source\StatesStuff\PatrolState.h" />
     <ClInclude Include="Source\StatesStuff\StateComponent.h" />
     <ClInclude Include="Source\StatesStuff\StateMachineComponent.h" />
+    <ClInclude Include="Source\StatesStuff\ZombieTarget.h" />
     <ClInclude Include="Source\Systems\ComponentSystem.h" />
     <ClInclude Include="Source\Systems\Scene_System.h" />
   </ItemGroup>

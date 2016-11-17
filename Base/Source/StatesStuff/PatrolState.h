@@ -16,10 +16,8 @@ public:
     static const unsigned char ID_ = 0;
 
     virtual bool onNotify(const float &zeEvent);
-    void setInfluenceRadius(const float &zeRadius);
 
 protected:
     Vector3 goToThatPoint;
     bool isMovingTowardsThatPos;
-    float influenceRadius;
 };

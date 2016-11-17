@@ -88,8 +88,8 @@ bool GoThereState::onNotify(const std::string &zeEvent)
             z = stof(anotherStr);
             GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
             PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));
-            x = Math::Clamp(x, -zeOwnerPos->getBoundary().x, zeOwnerPos->getBoundary().x);
-            y = Math::Clamp(y, -zeOwnerPos->getBoundary().y, zeOwnerPos->getBoundary().y);
+            x = Math::Clamp(x, -zeOwnerPos->getBoundary().x + zeOwnerPos->getSize().x, zeOwnerPos->getBoundary().x - zeOwnerPos->getSize().x);
+            y = Math::Clamp(y, -zeOwnerPos->getBoundary().y + zeOwnerPos->getSize().y, zeOwnerPos->getBoundary().y - zeOwnerPos->getSize().y);
             goThatPos.Set(x, y, z);
             return true;
         }

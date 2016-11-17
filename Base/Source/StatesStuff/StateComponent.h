@@ -10,7 +10,7 @@ class StateMachineComponent;
 class StateComponent : public GenericComponent
 {
 public:
-    virtual ~StateComponent() { FSM_ = nullptr; changedName = false; originalOwnerName = ""; };
+    virtual ~StateComponent() { FSM_ = nullptr; changedName = false; originalOwnerName = ""; influenceRadius = 0; };
 
     void setFSM(StateMachineComponent &zeFSM) { FSM_ = &zeFSM; }
 
@@ -19,6 +19,7 @@ protected:
     StateComponent() { FSM_ = nullptr; };
     std::string originalOwnerName;
     bool changedName;
+    float influenceRadius;
 };
 
 #endif

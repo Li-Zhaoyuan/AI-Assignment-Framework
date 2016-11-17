@@ -17,5 +17,4 @@ public:
     virtual bool onNotify(const float &zeEvent);
 
 private:
-    float influenceRadius;
 };
