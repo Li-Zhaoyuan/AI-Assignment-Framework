@@ -120,8 +120,12 @@ void SceneA::Render()
     //modelStack->PopMatrix();
 
 #ifdef _DEBUG
-    //zeGraphics->RenderMesh(dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()))->getMeshID(), false);
-
+    MeshComponent *zeSprite = dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()));
+    zeGraphics->getMeshRef(zeSprite->getMeshID()).onNotify(TestingOutSprite->getComponent(AnimationComponent::ID_));
+    modelStack->PushMatrix();
+    modelStack->Scale(50, 50, 1);
+    zeGraphics->RenderMesh(dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()))->getMeshID(), false);
+    modelStack->PopMatrix();
 #endif
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {

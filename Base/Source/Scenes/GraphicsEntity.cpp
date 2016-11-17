@@ -736,10 +736,10 @@ bool GraphicsEntity::loadingMeshDriven(const std::string &fileLocation)
                         unsigned row, col;
                         std::vector<std::string>::iterator it = std::find(theKeys.begin(), theKeys.end(), "NUMROWS");
                         size_t pos = it - theKeys.begin();
-                        row = stoi(theValues[num * pos]);
+                        row = stoi(theValues[((num / numKeys)*numKeys) + pos]);
                         it = std::find(theKeys.begin(), theKeys.end(), "NUMCOLUMNS");
                         pos = it - theKeys.begin();
-                        col = stoi(theValues[num * pos]);
+                        col = stoi(theValues[((num / numKeys)*numKeys) + pos]);
                         newMesh = MyMeshBuilder::GenerateSpriteAnimation(theName, row, col);
                         //SpriteAnimation *theSprite = dynamic_cast<SpriteAnimation*>(newMesh);
                         //theSprite->m_anim = new Animation();
