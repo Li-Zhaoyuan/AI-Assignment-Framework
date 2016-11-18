@@ -51,6 +51,7 @@
     <ClCompile Include="Source\StatesStuff\MeleeAttackState.cpp" />
     <ClCompile Include="Source\StatesStuff\PatrolState.cpp" />
     <ClCompile Include="Source\StatesStuff\StateMachineComponent.cpp" />
+    <ClCompile Include="Source\StatesStuff\ZombieCharge.cpp" />
     <ClCompile Include="Source\StatesStuff\ZombieTarget.cpp" />
     <ClCompile Include="Source\Systems\ComponentSystem.cpp" />
     <ClCompile Include="Source\Systems\Scene_System.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Source\StatesStuff\PatrolState.h" />
     <ClInclude Include="Source\StatesStuff\StateComponent.h" />
     <ClInclude Include="Source\StatesStuff\StateMachineComponent.h" />
+    <ClInclude Include="Source\StatesStuff\ZombieCharge.h" />
     <ClInclude Include="Source\StatesStuff\ZombieTarget.h" />
     <ClInclude Include="Source\Systems\ComponentSystem.h" />
     <ClInclude Include="Source\Systems\Scene_System.h" />

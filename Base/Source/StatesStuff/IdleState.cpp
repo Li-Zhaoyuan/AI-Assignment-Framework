@@ -37,6 +37,19 @@ void IdleState::Update(double dt)
     default:
         break;
     }
+    GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+    PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
+    AllyEnemyComponent *zeEnemyStuff = dynamic_cast<AllyEnemyComponent*>(&zeGo->getComponent(AllyEnemyComponent::ID_));
+    for (std::vector<GameEntity*>::iterator it = zeEnemyStuff->m_enemyList->begin(), end = zeEnemyStuff->m_enemyList->end(); it != end; ++it)
+    {
+        PhysicsComponent *enemyPhy = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+        if ((zePhysics->getPos() - enemyPhy->getPos()).LengthSquared() <= influenceRadius * influenceRadius)
+        {
+            FSM_->switchState(1);
+            FSM_->getCurrentState().onNotify(*enemyPhy);
+            break;
+        }
+    }
 }
 
 void IdleState::Exit()

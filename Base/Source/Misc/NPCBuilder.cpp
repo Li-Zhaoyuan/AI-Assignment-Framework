@@ -14,6 +14,7 @@
 #include "../StatesStuff/MeleeAttackState.h"
 #include <sstream>
 #include "../Gathering of Components/SpriteComponent.h"
+#include "../StatesStuff/ZombieTarget.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -39,10 +40,13 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     StateMachineComponent *zeFSM = new StateMachineComponent;
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new IdleState, IdleState::ID_);
+    zeFSM->addStates(*new ZombieTarget, ZombieTarget::ID_);
     zeFSM->addStates(*new GoThereState, GoThereState::ID_);
     zeFSM->addStates(*new MeleeAttackState, MeleeAttackState::ID_);
     zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(20.f);
-    zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(2.f);
+    zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(-2.f);
+    zeFSM->getSpecificStates(IdleState::ID_).onNotify(40.f);
+    zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(40.f);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
