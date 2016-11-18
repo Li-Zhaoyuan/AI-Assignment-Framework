@@ -20,6 +20,8 @@ public:
     virtual bool onNotify(const float &zeEvent);
     virtual bool onNotify(GenericComponent &zeEvent);
 
+    float &getAttackRadius();
+
 protected:
     GameEntity *zeVictim;
     float attackDelay, timeCounter;

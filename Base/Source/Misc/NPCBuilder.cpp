@@ -15,6 +15,7 @@
 #include <sstream>
 #include "../Gathering of Components/SpriteComponent.h"
 #include "../StatesStuff/ZombieTarget.h"
+#include "../StatesStuff/ZombieCharge.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -43,6 +44,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     zeFSM->addStates(*new ZombieTarget, ZombieTarget::ID_);
     zeFSM->addStates(*new GoThereState, GoThereState::ID_);
     zeFSM->addStates(*new MeleeAttackState, MeleeAttackState::ID_);
+    zeFSM->addStates(*new ZombieCharge, ZombieCharge::ID_);
     zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(20.f);
     zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(-2.f);
     zeFSM->getSpecificStates(IdleState::ID_).onNotify(40.f);
@@ -99,7 +101,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
 
     SpeedComponent *zeSpeed = new SpeedComponent;
     go->addComponent(SpeedComponent::ID_, zeSpeed);
-    zeSpeed->onNotify(40);
+    zeSpeed->onNotify(5);
 
     HPandDPComponent *zeHPandDP = new HPandDPComponent;
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);

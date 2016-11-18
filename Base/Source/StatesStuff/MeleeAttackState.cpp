@@ -92,3 +92,8 @@ bool MeleeAttackState::onNotify(GenericComponent &zeEvent)
     zeVictim = dynamic_cast<GameEntity*>(&zeEvent.getOwner());
     return true;
 }
+
+float &MeleeAttackState::getAttackRadius()
+{
+    return influenceRadius;
+}

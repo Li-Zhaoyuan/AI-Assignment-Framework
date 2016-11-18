@@ -2,6 +2,8 @@
 #include "MyMath.h"
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Classes/GameEntity.h"
+#include "../Gathering of Components/SpeedComponent.h"
+#include "MeleeAttackState.h"
 
 ZombieTarget::ZombieTarget()
 {
@@ -41,7 +43,23 @@ void ZombieTarget::Update(double dt)
     }
     else
     {
-
+        SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGo->getComponent(SpeedComponent::ID_));
+        Vector3 sqOfDist = enemyPhysics->getPos() - zePhysics->getPos();
+        zePhysics->setVel(sqOfDist.Normalized() * zeSpeed->getSpeed());
+        switch (Math::RandIntMinMax(1, chancesOfAction))
+        {
+        case 1:
+            FSM_->switchState(5);
+            FSM_->getCurrentState().onNotify(*zeVictim);
+            break;
+        default:
+            MeleeAttackState *zeAttack = dynamic_cast<MeleeAttackState*>(&FSM_->getSpecificStates(MeleeAttackState::ID_));
+            if (sqOfDist.LengthSquared() <= zeAttack->getAttackRadius() * zeAttack->getAttackRadius())
+            {
+                FSM_->switchState(MeleeAttackState::ID_);
+            }
+            break;
+        }
     }
 }
 
