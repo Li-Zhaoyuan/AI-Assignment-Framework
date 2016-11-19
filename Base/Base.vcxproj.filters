@@ -210,6 +210,18 @@
     <ClCompile Include="Source\StatesStuff\ZombieCharge.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Guy_AttackState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Devil_HealState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Guy_StunState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Devil_EscapeState.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -375,6 +387,18 @@
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
     <ClInclude Include="Source\StatesStuff\ZombieCharge.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Devil_EscapeState.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Devil_HealState.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Guy_AttackState.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Guy_StunState.h">
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>

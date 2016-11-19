@@ -1,4 +1,4 @@
-#include "Guy_EscapeState.h"
+#include "Devil_EscapeState.h"
 #include "..\Gathering of Components\PhysicsComponent.h"
 #include "../Gathering of Components/AllyEnemyComponent.h"
 #include "..\Classes\GameEntity.h"
@@ -7,25 +7,25 @@
 #include <math.h>
 #define speed 60
 
-Guy_EscapeState::Guy_EscapeState()
+Devil_EscapeState::Devil_EscapeState()
 {
 	Init();
 }
 
-Guy_EscapeState::~Guy_EscapeState()
+Devil_EscapeState::~Devil_EscapeState()
 {
 
 }
 
-void Guy_EscapeState::Init()
+void Devil_EscapeState::Init()
 {
 	name_ = " : ESCAPE";
-	
+
 	timer = 0;
 	changedName = false;
 }
 
-void Guy_EscapeState::Update(double dt)
+void Devil_EscapeState::Update(double dt)
 
 {
 	switch (changedName)
@@ -43,18 +43,18 @@ void Guy_EscapeState::Update(double dt)
 		break;
 	}
 	timer += (float)dt;
-	GameEntity* guy = dynamic_cast<GameEntity*>(owner_of_component);
-	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(guy)->getComponent(PhysicsComponent::g_ID_));
+	GameEntity* devil = dynamic_cast<GameEntity*>(owner_of_component);
+	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(devil)->getComponent(PhysicsComponent::g_ID_));
 
 	//int randomDir = rand() % 4 + 1;
 	Vector3 temp;
-	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&guy->getComponent(AllyEnemyComponent::ID_));
+	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&devil->getComponent(AllyEnemyComponent::ID_));
 	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
 	{
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 1000)
 		{
-			if (checkWhetherTheWordInThatString("Devil", (*it)->getName()))
+			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
 			{
 				temp = -(zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).Normalized() * speed;
 				zePhysicsStuff->setVel(temp);
@@ -62,9 +62,9 @@ void Guy_EscapeState::Update(double dt)
 			}
 
 		}
-		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() >= 10000)
+		else
 		{
-			//FSM_->switchState(2);
+			FSM_->switchState(3);
 		}
 	}
 
@@ -72,7 +72,7 @@ void Guy_EscapeState::Update(double dt)
 
 	//zePhysicsStuff->getPos().x
 	//zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
-	HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&(guy)->getComponent(HPandDPComponent::ID_));
+	HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&(devil)->getComponent(HPandDPComponent::ID_));
 	if (zePhysicsStuff->getPos().x > zePhysicsStuff->getBoundary().x)
 	{
 		zePhysicsStuff->getPos().x -= zePhysicsStuff->getBoundary().x * 2;
@@ -91,25 +91,19 @@ void Guy_EscapeState::Update(double dt)
 		zePhysicsStuff->getPos().y += zePhysicsStuff->getBoundary().y * 2;
 	}
 
-	if (zeHP->getHealth() < 100 && timer > 0.5f)
+	/*if (zeHP->getHealth() < 100 && timer > 0.5f)
 	{
 		zeHP->getHealth() += 2;
-		if (zeHP->getHealth() > 100)
-			zeHP->getHealth() = 100;
 		timer = 0;
 	}
 	else if (zeHP->getHealth() == 100)
 	{
 		FSM_->switchState(0);
-	}
+	}*/
 
-	if (zeHP->getHealth() <= 0)
-	{
-
-	}
 }
 
-void Guy_EscapeState::Exit()
+void Devil_EscapeState::Exit()
 {
 	changedName = false;
 	owner_of_component->setName(originalOwnerName);
