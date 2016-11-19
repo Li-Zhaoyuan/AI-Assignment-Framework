@@ -10,7 +10,7 @@ ZombieTarget::ZombieTarget()
     name_ = "TARGET";
     changedName = false;
     originalOwnerName = "";
-    chancesOfAction = 0;
+    chancesOfAction = 1000;
 }
 
 ZombieTarget::~ZombieTarget()
@@ -49,13 +49,14 @@ void ZombieTarget::Update(double dt)
         switch (Math::RandIntMinMax(1, chancesOfAction))
         {
         case 1:
+            FSM_->getSpecificStates(5).onNotify(*zeVictim);
             FSM_->switchState(5);
-            FSM_->getCurrentState().onNotify(*zeVictim);
             break;
         default:
             MeleeAttackState *zeAttack = dynamic_cast<MeleeAttackState*>(&FSM_->getSpecificStates(MeleeAttackState::ID_));
             if (sqOfDist.LengthSquared() <= zeAttack->getAttackRadius() * zeAttack->getAttackRadius())
             {
+                FSM_->getSpecificStates(MeleeAttackState::ID_).onNotify(*zeVictim);
                 FSM_->switchState(MeleeAttackState::ID_);
             }
             break;

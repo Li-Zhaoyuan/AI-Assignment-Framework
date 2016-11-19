@@ -1,7 +1,6 @@
 #pragma once
 
 #include "StateComponent.h"
-#include "../Classes/GameEntity.h"
 
 class MeleeAttackState : public StateComponent
 {
@@ -16,13 +15,12 @@ public:
 
     static const unsigned char ID_ = 3;
 
-    virtual bool onNotify(const std::string &zeEvent);
     virtual bool onNotify(const float &zeEvent);
     virtual bool onNotify(GenericComponent &zeEvent);
 
     float &getAttackRadius();
 
 protected:
-    GameEntity *zeVictim;
+    GenericComponent *zeVictim;
     float attackDelay, timeCounter;
 };
