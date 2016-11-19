@@ -17,6 +17,7 @@
 #include "../StatesStuff/ZombieTarget.h"
 #include "../StatesStuff/ZombieCharge.h"
 #include "../StatesStuff/DogBite.h"
+#include "../Gathering of Components/DogAnimComp.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -80,7 +81,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
 
     MeshComponent *zeMesh = new MeshComponent();
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
-    zeMesh->onNotify(zeGraphics->getMeshID("whiteQuad"));
+    zeMesh->onNotify(zeGraphics->getMeshID("DogSprite"));
     go->addComponent(MeshComponent::g_CompID_.getValue(), zeMesh);
     //go->addComponent(MyMeshComponent::ID_, &zeMesh);
 
@@ -115,6 +116,8 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);
     zeHPandDP->setHealth(25);
     zeHPandDP->setDamage(3);
+
+    go->addComponent(DogAnimComp::ID_, new DogAnimComp());
     
     return go;
 }

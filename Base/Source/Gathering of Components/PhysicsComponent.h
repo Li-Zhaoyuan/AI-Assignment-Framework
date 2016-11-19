@@ -25,7 +25,7 @@ public:
     Vector3 &getSize();
     Vector3 &getBoundary();
     float &getYrotation();
-    const static unsigned short g_ID_ = 2;
+    const static unsigned char g_ID_ = 2;
 
 private:
     Vector3 accel_, vel_, pos_, size_, *boundary_;

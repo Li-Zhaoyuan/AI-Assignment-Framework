@@ -46,7 +46,7 @@ void Guy_StunState::Update(double dt)
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(guy)->getComponent(PhysicsComponent::g_ID_));
 	HPandDPComponent* hpOfGuy = dynamic_cast<HPandDPComponent*>(&(guy)->getComponent(HPandDPComponent::ID_));
 
-	timer += dt;
+	timer += (float)dt;
 
 	zePhysicsStuff->getVel().SetZero();
 

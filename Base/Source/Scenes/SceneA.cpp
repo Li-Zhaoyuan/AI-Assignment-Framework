@@ -55,6 +55,8 @@ void SceneA::Init()
     zeAnim->Set(0, 8, 20, 0.5, true);
     TestingOutSprite->addComponent(AnimationComponent::ID_, zeAnim);
 #endif
+    zeBackground = zeGraphics->getMeshID("SceneA");
+    healthBarID = zeGraphics->getMeshID("redCube");
 }
 
 void SceneA::Update(float dt)
@@ -127,6 +129,11 @@ void SceneA::Render()
     //zeGraphics->RenderMesh(dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()))->getMeshID(), false);
     //modelStack->PopMatrix();
 #endif
+    modelStack->PushMatrix();
+    modelStack->Translate(0, 0, -5);
+    modelStack->Scale(boundaryOfRoom.x * 2.f, boundaryOfRoom.y*2.f, 1);
+    zeGraphics->RenderMesh(zeBackground, false);
+    modelStack->PopMatrix();
     std::ostringstream ss;
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
@@ -139,6 +146,8 @@ void SceneA::Render()
             PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
             HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
+            if ((*it)->seeComponentActive(7))
+                zeGraphics->getMeshRef(zeMeshID->getMeshID()).onNotify((*it)->getComponent(7));
             //MyMeshComponent *zeMesh = dynamic_cast<MyMeshComponent*>(&(*it)->getComponent(MyMeshComponent::ID_));
             modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
                 // Debuggin Stuff
@@ -148,15 +157,17 @@ void SceneA::Render()
                 zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
                 modelStack->PopMatrix();
 
-                modelStack->PushMatrix();
-                modelStack->Translate(0, (-zePhysicsStuff->getSize().y / 2) - 5.f, 0);
-                modelStack->Scale(15, 15, 1);
-                ss.str("");
-                ss << zeHP->getHealth();
-                zeGraphics->RenderText(ss.str(), Color(1, 0, 0));
-                modelStack->PopMatrix();
+                if (zeHP->getHealth() > 0) {
+                    modelStack->PushMatrix();
+                    modelStack->Translate(0, (-zePhysicsStuff->getSize().y / 2) - 5.f, 0);
+                    modelStack->Scale(zeHP->getHealth()/2.5f, 10, 1);
+                    //ss.str("");
+                    //ss << zeHP->getHealth();
+                    zeGraphics->RenderMesh(healthBarID, false);
+                    modelStack->PopMatrix();
+                }
                 // Debuggin Stuff
-            modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
+            modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, 1);
             zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
             //zeGraphics->RenderMesh(*zeMesh, false);
             modelStack->PopMatrix();
