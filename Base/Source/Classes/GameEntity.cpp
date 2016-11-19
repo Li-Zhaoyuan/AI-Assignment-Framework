@@ -152,3 +152,19 @@ bool GameEntity::seeComponentActive(const size_t &zeNum)
 {
     return ComponentActive[zeNum];
 }
+
+GenericComponent* GameEntity::eraseComponent(const size_t &zeNum)
+{
+#ifdef _DEBUG
+    assert(zeNum < ComponentsItHeld.size());
+#endif
+    if (ComponentsItHeld[zeNum])
+    {
+        GenericComponent *zeErased = ComponentsItHeld[zeNum];
+        ComponentsItHeld[zeNum] = nullptr;
+        ComponentActive[zeNum] = false;
+        whatComponentAreThr.erase(zeNum);
+        return zeErased;
+    }
+    return nullptr;
+}

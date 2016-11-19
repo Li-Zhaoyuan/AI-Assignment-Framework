@@ -24,7 +24,7 @@ public:
     int repeatCount;
     float animTime, m_currentTime;
     bool animActive;
-    const static unsigned char ID_ = 3;
+    const static unsigned char ID_ = 7;
     bool doReversal;
     bool oppositeWay;
     bool unlimitedTimes;
