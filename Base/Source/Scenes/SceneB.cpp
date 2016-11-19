@@ -255,11 +255,49 @@ void SceneB::Render()
 void SceneB::Exit()
 {
 	/*delete Devil;
-	Devil = nullptr;*/
+	Devil = nullptr;
+	GameEntity* m_allyBullet, *m_enemyBullet, *healthBars;
+	std::vector<GameEntity*> m_GoList, nonActiveBulletList, nonActiveAllyEnemies;
+	std::vector<GameEntity*> m_enemy, m_ally;*/
 	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
 	{
 		delete *it;
 		*it = nullptr;
+	}
+	for (std::vector<GameEntity*>::iterator it = nonActiveBulletList.begin(), end = nonActiveBulletList.end(); it != end; ++it)
+	{
+		delete *it;
+		*it = nullptr;
+	}
+	for (std::vector<GameEntity*>::iterator it = nonActiveAllyEnemies.begin(), end = nonActiveAllyEnemies.end(); it != end; ++it)
+	{
+		delete *it;
+		*it = nullptr;
+	}
+	for (std::vector<GameEntity*>::iterator it = m_enemy.begin(), end = m_enemy.end(); it != end; ++it)
+	{
+		delete *it;
+		*it = nullptr;
+	}
+	for (std::vector<GameEntity*>::iterator it = m_ally.begin(), end = m_ally.end(); it != end; ++it)
+	{
+		delete *it;
+		*it = nullptr;
+	}
+	if (m_allyBullet != nullptr)
+	{
+		delete m_allyBullet;
+		m_allyBullet = nullptr;
+	}
+	if (m_enemyBullet != nullptr)
+	{
+		delete m_enemyBullet;
+		m_enemyBullet = nullptr;
+	}
+	if (healthBars != nullptr)
+	{
+		delete healthBars;
+		healthBars = nullptr;
 	}
 	m_GoList.clear();
 	m_ally.clear();
