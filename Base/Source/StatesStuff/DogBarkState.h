@@ -15,8 +15,9 @@ public:
     static const unsigned char ID_ = 1;
 
     virtual bool onNotify(const float &zeEvent);
+    virtual bool onNotify(const int &zeEvent);
 
 protected:
     bool warnedEveryone;
-    float toRunAway;
+    int chancesToActivate;
 };

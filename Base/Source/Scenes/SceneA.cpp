@@ -4,10 +4,10 @@
 #include <sstream>
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
+#include "../Gathering of Components/HPandDPComponent.h"
 //TODO: Be Removed
 //#include "../StatesStuff/StateMachineComponent.h"
 //#include "../StatesStuff/IdleState.h"   
-//#include "../Gathering of Components/HPandDPComponent.h"
 //TODO: Be Removed
 #include "../Misc/NPCBuilder.h"
 
@@ -127,6 +127,7 @@ void SceneA::Render()
     //zeGraphics->RenderMesh(dynamic_cast<MeshComponent*>(&TestingOutSprite->getComponent(MeshComponent::g_CompID_.getValue()))->getMeshID(), false);
     //modelStack->PopMatrix();
 #endif
+    std::ostringstream ss;
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
         //switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
@@ -137,6 +138,7 @@ void SceneA::Render()
             modelStack->PushMatrix();
             PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
+            HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
             //MyMeshComponent *zeMesh = dynamic_cast<MyMeshComponent*>(&(*it)->getComponent(MyMeshComponent::ID_));
             modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
                 // Debuggin Stuff
@@ -144,6 +146,14 @@ void SceneA::Render()
                 modelStack->Translate(0, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
                 modelStack->Scale(15, 15, 1);
                 zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
+                modelStack->PopMatrix();
+
+                modelStack->PushMatrix();
+                modelStack->Translate(0, (-zePhysicsStuff->getSize().y / 2) - 5.f, 0);
+                modelStack->Scale(15, 15, 1);
+                ss.str("");
+                ss << zeHP->getHealth();
+                zeGraphics->RenderText(ss.str(), Color(1, 0, 0));
                 modelStack->PopMatrix();
                 // Debuggin Stuff
             modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
@@ -159,7 +169,8 @@ void SceneA::Render()
 
     //zeGraphics->SetHUD(true);
     viewStack->LoadIdentity();
-    std::ostringstream ss;
+    //std::ostringstream ss;
+    ss.str("");
     ss << "FPS:" << fps;
     zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 15, -boundaryOfRoom.x, -boundaryOfRoom.y);
     //zeGraphics->SetHUD(false);

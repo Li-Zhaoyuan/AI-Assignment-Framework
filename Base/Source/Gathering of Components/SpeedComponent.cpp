@@ -1,4 +1,5 @@
 #include "SpeedComponent.h"
+#include "MyMath.h"
 
 SpeedComponent::SpeedComponent()
 {
@@ -17,8 +18,12 @@ void SpeedComponent::Init()
 
 bool SpeedComponent::onNotify(const float &zeEvent)
 {
-    speed_ = zeEvent;
-    return true;
+    if (zeEvent > Math::EPSILON)
+    {
+        speed_ = zeEvent;
+        return true;
+    }
+    return false;
 }
 
 float &SpeedComponent::getSpeed()

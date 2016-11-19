@@ -2,23 +2,23 @@
 
 #include "StateComponent.h"
 
-class ZombieTarget : public StateComponent
+class DogBite : public StateComponent
 {
 public:
-    ZombieTarget();
-    virtual ~ZombieTarget();
+    DogBite();
+    virtual ~DogBite();
 
     virtual void Update(double dt);
     virtual void Exit();
 
-    virtual bool onNotify(const float &zeEvent);
+    static const unsigned char ID_ = 3;
+
     virtual bool onNotify(GenericComponent &zeEvent);
     virtual bool onNotify(const int &zeEvent);
-
-    static const unsigned char ID_ = 1;
+    virtual bool onNotify(const float &zeEvent);
 
 protected:
+    float timeCounter, attackDelay;
+    int chanceToActivate;
     GenericComponent *zeVictim;
-    int chancesOfAction;
-    float distToActivate, originalDistToActivate;
 };

@@ -1,26 +1,26 @@
-#include "MeleeAttackState.h"
-#include "../Gathering of Components/HPandDPComponent.h"
-#include "../Misc/GlobalFunctions.h"
+#include "DogBite.h"
 #include "MyMath.h"
-#include "../Gathering of Components/PhysicsComponent.h"
 #include "../Classes/GameEntity.h"
+#include "../Gathering of Components/PhysicsComponent.h"
+#include "../Gathering of Components/HPandDPComponent.h"
+#include <sstream>
 
-MeleeAttackState::MeleeAttackState()
+DogBite::DogBite()
 {
     zeVictim = nullptr;
-    influenceRadius = 0;
-    attackDelay = 0;
+    chanceToActivate = 100000;
     timeCounter = 0;
-    name_ = "MELEE"; 
+    attackDelay = 0;
+    name_ = "BITE";
     changedName = false;
 }
 
-MeleeAttackState::~MeleeAttackState()
+DogBite::~DogBite()
 {
-    zeVictim = nullptr;
+    Exit();
 }
 
-void MeleeAttackState::Update(double dt)
+void DogBite::Update(double dt)
 {
 #ifdef _DEBUG
     assert(zeVictim);
@@ -52,51 +52,38 @@ void MeleeAttackState::Update(double dt)
         default:
             break;
         }
-        PhysicsComponent *zeEnemyPhysic = dynamic_cast<PhysicsComponent*>(zeVictim);
-        if ((zePhysics->getPos() - zeEnemyPhysic->getPos()).LengthSquared() <= influenceRadius * influenceRadius)
+
+        GameEntity *zeEnemy = dynamic_cast<GameEntity*>(&zeVictim->getOwner());
+        switch (Math::RandIntMinMax(1, chanceToActivate))
         {
-            GameEntity *zeEnemy = dynamic_cast<GameEntity*>(&zeVictim->getOwner());
+        case 1:
+        {
             HPandDPComponent *zeMyDMG = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
             zeEnemy->getComponent(HPandDPComponent::ID_).onNotify(-zeMyDMG->getDamage());
-            timeCounter = 0;
         }
-        else {
-            if (checkWhetherTheWordInThatString("Zombie", originalOwnerName))
-            {
-                FSM_->getSpecificStates(1).onNotify(*zeVictim);
-                FSM_->switchState(1);
-            }
-            else
-                FSM_->switchState(0);
+            break;
+        default:
+            PhysicsComponent *zeEnemyPhy = dynamic_cast<PhysicsComponent*>(zeVictim);
+            Vector3 sqDist = zePhysics->getPos() - zeEnemyPhy->getPos();
+            sqDist.Normalize();
+            std::ostringstream ss;
+            ss << "GO:" << sqDist.x * influenceRadius << "," << sqDist.y * influenceRadius << "," << 0;
+            FSM_->getSpecificStates(1).onNotify(ss.str());
+            FSM_->switchState(1);
+            break;
         }
+        timeCounter = 0;
     }
 }
 
-void MeleeAttackState::Exit()
+void DogBite::Exit()
 {
-    zeVictim = nullptr; 
-    timeCounter = attackDelay;
+    zeVictim = nullptr;
     changedName = false;
     owner_of_component->setName(originalOwnerName);
 }
 
-bool MeleeAttackState::onNotify(const float &zeEvent)
-{
-    if (zeEvent > Math::EPSILON)
-    {
-        influenceRadius = zeEvent;
-        return true;
-    }
-    else if (zeEvent < -Math::EPSILON)
-    {
-        attackDelay = -zeEvent;
-        timeCounter = attackDelay;
-        return true;
-    }
-    return false;
-}
-
-bool MeleeAttackState::onNotify(GenericComponent &zeEvent)
+bool DogBite::onNotify(GenericComponent &zeEvent)
 {
     PhysicsComponent *zeVictimPhy = dynamic_cast<PhysicsComponent*>(&zeEvent);
     if (zeVictimPhy)
@@ -112,7 +99,27 @@ bool MeleeAttackState::onNotify(GenericComponent &zeEvent)
     return true;
 }
 
-float &MeleeAttackState::getAttackRadius()
+bool DogBite::onNotify(const int &zeEvent)
 {
-    return influenceRadius;
+    if (zeEvent > 0)
+    {
+        chanceToActivate = zeEvent;
+        return true;
+    }
+    return false;
+}
+
+bool DogBite::onNotify(const float &zeEvent)
+{
+    if (zeEvent > Math::EPSILON)
+    {
+        influenceRadius = zeEvent;
+        return true;
+    }
+    else if (zeEvent < -Math::EPSILON)
+    {
+        attackDelay = -zeEvent;
+        return true;
+    }
+    return false;
 }

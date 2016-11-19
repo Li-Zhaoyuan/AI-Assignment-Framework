@@ -7,7 +7,7 @@
 
 ZombieCharge::ZombieCharge()
 {
-    name_ = "TARGET";
+    name_ = "CHARGE";
     changedName = false;
     originalOwnerName = "";
     zeVictim = nullptr;
@@ -22,6 +22,9 @@ ZombieCharge::~ZombieCharge()
 
 void ZombieCharge::Update(double dt)
 {
+#ifdef _DEBUG
+    assert(zeVictim);
+#endif
     switch (changedName)
     {
     case false:
@@ -36,6 +39,27 @@ void ZombieCharge::Update(double dt)
     default:
         break;
     }
+
+    GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+    PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
+    PhysicsComponent *enemyPhysics = dynamic_cast<PhysicsComponent*>(zeVictim);
+    if ((zePhysics->getPos() - enemyPhysics->getPos()).LengthSquared() > influenceRadius * influenceRadius)
+    {
+        FSM_->switchState(1);
+    }
+    else
+    {
+        SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGo->getComponent(SpeedComponent::ID_));
+        Vector3 sqOfDist = enemyPhysics->getPos() - zePhysics->getPos();
+        MeleeAttackState *zeMelee = dynamic_cast<MeleeAttackState*>(&FSM_->getSpecificStates(MeleeAttackState::ID_));
+        if (sqOfDist.LengthSquared() <= zeMelee->getAttackRadius() * zeMelee->getAttackRadius())
+        {
+            FSM_->getSpecificStates(MeleeAttackState::ID_).onNotify(*zeVictim);
+            FSM_->switchState(MeleeAttackState::ID_);
+        }
+        else
+            zePhysics->setVel(sqOfDist.Normalize() * zeSpeed->getSpeed());
+    }
 }
 
 void ZombieCharge::Exit()
@@ -43,6 +67,9 @@ void ZombieCharge::Exit()
     owner_of_component->setName(originalOwnerName);
     changedName = false;
     zeVictim = nullptr;
+    GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+    SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGo->getComponent(SpeedComponent::ID_));
+    zeSpeed->onNotify(originalOwnerSpeed);
 }
 
 bool ZombieCharge::onNotify(GenericComponent &zeEvent)
@@ -57,6 +84,10 @@ bool ZombieCharge::onNotify(GenericComponent &zeEvent)
         GameEntity *zeVictimEntity = dynamic_cast<GameEntity*>(&zeEvent.getOwner());
         zeVictim = dynamic_cast<PhysicsComponent*>(&zeVictimEntity->getComponent(PhysicsComponent::g_ID_));
     }
+    GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+    SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGo->getComponent(SpeedComponent::ID_));
+    originalOwnerSpeed = zeSpeed->getSpeed();
+    zeSpeed->onNotify(originalOwnerSpeed * howManyTimesSpeed);
     return true;
 }
 
@@ -72,7 +103,7 @@ bool ZombieCharge::onNotify(const float &zeEvent)
 
 bool ZombieCharge::onNotify(const int &zeEvent)
 {
-    if (zeEvent > 1)
+    if (zeEvent >= 1)
     {
         howManyTimesSpeed = zeEvent;
         return true;

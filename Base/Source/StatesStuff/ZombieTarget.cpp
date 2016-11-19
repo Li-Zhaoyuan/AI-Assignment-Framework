@@ -10,7 +10,8 @@ ZombieTarget::ZombieTarget()
     name_ = "TARGET";
     changedName = false;
     originalOwnerName = "";
-    chancesOfAction = 0;
+    chancesOfAction = 1000;
+    originalDistToActivate = distToActivate = 0;
 }
 
 ZombieTarget::~ZombieTarget()
@@ -45,20 +46,27 @@ void ZombieTarget::Update(double dt)
     {
         SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGo->getComponent(SpeedComponent::ID_));
         Vector3 sqOfDist = enemyPhysics->getPos() - zePhysics->getPos();
-        zePhysics->setVel(sqOfDist.Normalized() * zeSpeed->getSpeed());
-        switch (Math::RandIntMinMax(1, chancesOfAction))
+        if (sqOfDist.LengthSquared() <= distToActivate * distToActivate)
         {
-        case 1:
-            FSM_->switchState(5);
-            FSM_->getCurrentState().onNotify(*zeVictim);
-            break;
-        default:
+            switch (Math::RandIntMinMax(1, chancesOfAction))
+            {
+            case 1:
+                FSM_->getSpecificStates(5).onNotify(*zeVictim);
+                FSM_->switchState(5);
+                break;
+            default:
+                break;
+            }
+            distToActivate = 0;
+        }
+        else {
             MeleeAttackState *zeAttack = dynamic_cast<MeleeAttackState*>(&FSM_->getSpecificStates(MeleeAttackState::ID_));
             if (sqOfDist.LengthSquared() <= zeAttack->getAttackRadius() * zeAttack->getAttackRadius())
             {
+                FSM_->getSpecificStates(MeleeAttackState::ID_).onNotify(*zeVictim);
                 FSM_->switchState(MeleeAttackState::ID_);
             }
-            break;
+            zePhysics->setVel(sqOfDist.Normalize() * zeSpeed->getSpeed());
         }
     }
 }
@@ -68,6 +76,7 @@ void ZombieTarget::Exit()
     zeVictim = nullptr;
     changedName = false;
     owner_of_component->setName(originalOwnerName);
+    distToActivate = originalDistToActivate;
 }
 
 bool ZombieTarget::onNotify(const float &zeEvent)
@@ -75,6 +84,12 @@ bool ZombieTarget::onNotify(const float &zeEvent)
     if (zeEvent > Math::EPSILON)
     {
         influenceRadius = zeEvent;
+        return true;
+    }
+    else if (zeEvent < -Math::EPSILON)
+    {
+        distToActivate = -zeEvent;
+        originalDistToActivate = -zeEvent;
         return true;
     }
     return false;

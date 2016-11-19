@@ -20,6 +20,7 @@ void DogBarkState::Init()
     changedName = false;
     warnedEveryone = false;
     name_ = "BARK";
+    chancesToActivate = 10000;
 }
 
 void DogBarkState::Update(double dt)
@@ -63,12 +64,21 @@ void DogBarkState::Update(double dt)
         {
             PhysicsComponent *enemyPhy = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             Vector3 theDistBetweenYouAndEnemy = (zePhysics->getPos() - enemyPhy->getPos());
-            if (theDistBetweenYouAndEnemy.LengthSquared() <= (toRunAway * toRunAway))
+            if (theDistBetweenYouAndEnemy.LengthSquared() <= (influenceRadius * influenceRadius))
             {
-                theDistBetweenYouAndEnemy.Normalized();
-                FSM_->switchState(2);            
-                ss << "GO:" << theDistBetweenYouAndEnemy.x * 50 << "," << theDistBetweenYouAndEnemy.y * 50 << "," << 0;
-                FSM_->getCurrentState().onNotify(ss.str());
+                switch (Math::RandIntMinMax(1,chancesToActivate))
+                {
+                case 1:
+                    FSM_->getSpecificStates(3).onNotify(*enemyPhy);
+                    FSM_->switchState(3);
+                    break;
+                default:
+                    theDistBetweenYouAndEnemy.Normalize();
+                    FSM_->switchState(2);
+                    ss << "GO:" << theDistBetweenYouAndEnemy.x * 50 << "," << theDistBetweenYouAndEnemy.y * 50 << "," << 0;
+                    FSM_->getCurrentState().onNotify(ss.str());
+                    break;
+                }
                 break;
             }
         }
@@ -88,7 +98,17 @@ bool DogBarkState::onNotify(const float &zeEvent)
 {
     if (zeEvent > Math::EPSILON)
     {
-        toRunAway = zeEvent;
+        influenceRadius = zeEvent;
+        return true;
+    }
+    return false;
+}
+
+bool DogBarkState::onNotify(const int &zeEvent)
+{
+    if (zeEvent >= 0)
+    {
+        chancesToActivate = zeEvent;
         return true;
     }
     return false;
