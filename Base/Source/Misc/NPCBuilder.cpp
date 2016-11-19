@@ -16,6 +16,7 @@
 #include "../Gathering of Components/SpriteComponent.h"
 #include "../StatesStuff/ZombieTarget.h"
 #include "../StatesStuff/ZombieCharge.h"
+#include "../StatesStuff/DogBite.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -45,9 +46,13 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     zeFSM->addStates(*new MeleeAttackState, MeleeAttackState::ID_);
     zeFSM->addStates(*new ZombieCharge, ZombieCharge::ID_);
     zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(20.f);
-    zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(-2.f);
+    zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(-1.f);
     zeFSM->getSpecificStates(IdleState::ID_).onNotify(40.f);
     zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(40.f);
+    zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(-25.f);
+    zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(2);
+    zeFSM->getSpecificStates(ZombieCharge::ID_).onNotify(30.f);
+    zeFSM->getSpecificStates(ZombieCharge::ID_).onNotify(2);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
@@ -92,7 +97,11 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     zeFSM->getSpecificStates(PatrolState::ID_).onNotify(60.f);
     zeFSM->getSpecificStates(DogBarkState::ID_).onNotify(25.f);
     zeFSM->addStates(*new GoThereState, GoThereState::ID_);
-    zeFSM->addStates(*new MeleeAttackState, MeleeAttackState::ID_);
+    zeFSM->addStates(*new DogBite, DogBite::ID_);
+    zeFSM->getSpecificStates(DogBite::ID_).onNotify(50.f);
+    zeFSM->getSpecificStates(DogBite::ID_).onNotify(-0.5f);
+    zeFSM->getSpecificStates(DogBite::ID_).onNotify(5);
+    zeFSM->getSpecificStates(DogBarkState::ID_).onNotify(5);
 
     AllyEnemyComponent *toRecogniseEnemyAlly = new AllyEnemyComponent;
     toRecogniseEnemyAlly->setAllyList(allyList).setEnemyList(enemyList);
@@ -100,12 +109,12 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
 
     SpeedComponent *zeSpeed = new SpeedComponent;
     go->addComponent(SpeedComponent::ID_, zeSpeed);
-    zeSpeed->onNotify(5);
+    zeSpeed->onNotify(15);
 
     HPandDPComponent *zeHPandDP = new HPandDPComponent;
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);
     zeHPandDP->setHealth(25);
-    zeHPandDP->setDamage(5);
+    zeHPandDP->setDamage(3);
     
     return go;
 }

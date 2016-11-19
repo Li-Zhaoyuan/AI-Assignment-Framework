@@ -210,6 +210,9 @@
     <ClCompile Include="Source\StatesStuff\ZombieCharge.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StatesStuff\DogBite.cpp">
+      <Filter>Source Files\StatesStuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -375,6 +378,9 @@
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
     <ClInclude Include="Source\StatesStuff\ZombieCharge.h">
+      <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\DogBite.h">
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
   </ItemGroup>
