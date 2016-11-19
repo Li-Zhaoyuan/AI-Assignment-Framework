@@ -15,13 +15,15 @@ public:
     virtual void Render();
     virtual void Exit();
 
+	virtual bool onNotify(const std::string &zeEvent);
+
 private:
     CameraBS camera_;
     float m_worldHeight, m_worldWidth;
     float fps;
 	Vector3 boundary;
-	GameEntity* m_allyBullet, *m_enemyBullet;
-	std::vector<GameEntity*> m_GoList;
+	GameEntity* m_allyBullet, *m_enemyBullet, *healthBars;
+	std::vector<GameEntity*> m_GoList, nonActiveBulletList, nonActiveAllyEnemies;
 	std::vector<GameEntity*> m_enemy, m_ally;
 	size_t background;
 	

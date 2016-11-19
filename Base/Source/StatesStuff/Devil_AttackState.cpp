@@ -3,6 +3,7 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Misc/GlobalFunctions.h"
 #include "../Gathering of Components/HPandDPComponent.h"
+#include "../StatesStuff/StateMachineComponent.h"
 
 #define speed 40
 
@@ -21,6 +22,7 @@ void Devil_AttackState::Init()
 	name_ = " : ATTACK";
 	changedName = false;
 	timer = 0;
+	chance = 0;
 }
 
 void Devil_AttackState::Update(double dt)
@@ -51,6 +53,7 @@ void Devil_AttackState::Update(double dt)
 	{
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 		HPandDPComponent *zeEnemyHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
+		StateMachineComponent *zeEnemyCurrState = dynamic_cast<StateMachineComponent*>(&(*it)->getComponent(StateMachineComponent::ID_.getValue()));
 		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
 		{
 			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
@@ -61,6 +64,13 @@ void Devil_AttackState::Update(double dt)
 				if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 1000 && timer > 2)
 				{
 					zeEnemyHP->getHealth() -= zeOwnselfDP->getDamage();
+					chance = Math::RandIntMinMax(1, 4);
+					if (chance == 1)
+					{
+						zeEnemyCurrState->switchState(2);
+						chance = 0;
+					}
+					//zeEnemyCurrState->switchState(2);
 					timer = 0;
 				}
 			}
@@ -72,6 +82,8 @@ void Devil_AttackState::Update(double dt)
 			FSM_->switchState(0);
 		}
 	}
+
+	
 }
 
 void Devil_AttackState::Exit()

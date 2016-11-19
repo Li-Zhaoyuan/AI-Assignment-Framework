@@ -17,6 +17,6 @@ public:
 	const static unsigned char ID_ = 1;
 private:
 	float timer;
-	
+	int chance;
 	Vector3 searchVel;
 };
