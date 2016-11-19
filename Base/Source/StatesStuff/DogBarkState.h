@@ -20,4 +20,5 @@ public:
 protected:
     bool warnedEveryone;
     int chancesToActivate;
+    float timeCounter;
 };

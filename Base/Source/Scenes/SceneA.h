@@ -26,4 +26,5 @@ private:
 #ifdef _DEBUG
     GameEntity *TestingOutSprite;
 #endif
+    unsigned char zeBackground, healthBarID;
 };

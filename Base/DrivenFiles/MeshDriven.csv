@@ -6,3 +6,4 @@ redCube,1,0,0,cube,,,,,
 whiteQuad,1,1,1,quad,,,,,
 sceneBBackground,1,1,1,quad,,Image//volcano_background.tga,,,
 DogSprite,,,,sprite,,Image//DogSprite.tga,,5,4
+SceneA,1,1,1,quad,,Image//SceneAbackground.tga,,,

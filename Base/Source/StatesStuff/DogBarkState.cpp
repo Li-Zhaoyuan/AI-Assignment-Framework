@@ -21,6 +21,7 @@ void DogBarkState::Init()
     warnedEveryone = false;
     name_ = "BARK";
     chancesToActivate = 10000;
+    timeCounter = 0;
 }
 
 void DogBarkState::Update(double dt)
@@ -60,6 +61,7 @@ void DogBarkState::Update(double dt)
         break;
     default:
     {
+        timeCounter += (float)dt;
         for (std::vector<GameEntity*>::iterator it = zeEnemyList->m_enemyList->begin(), end = zeEnemyList->m_enemyList->end(); it != end; ++it)
         {
             PhysicsComponent *enemyPhy = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
@@ -82,6 +84,8 @@ void DogBarkState::Update(double dt)
                 break;
             }
         }
+        if (timeCounter > 3)
+            FSM_->switchState(0);
     }
     break;
     }
@@ -92,6 +96,7 @@ void DogBarkState::Exit()
     changedName = false;
     warnedEveryone = false;
     owner_of_component->setName(originalOwnerName);
+    timeCounter = 0;
 }
 
 bool DogBarkState::onNotify(const float &zeEvent)
