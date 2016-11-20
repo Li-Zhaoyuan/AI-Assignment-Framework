@@ -11,6 +11,8 @@ public:
 
     virtual void Update(double dt);
 
+    static const unsigned char ID_ = 3;
+
 private:
-    static std::vector<GenericComponent*> allAnimations;
+    std::vector<GenericComponent*> allAnimations;
 };

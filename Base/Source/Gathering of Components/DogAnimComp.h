@@ -14,7 +14,5 @@ public:
     static const unsigned char ID_ = 3;
 
 private:
-    static std::vector<GenericComponent*> allAnimations;
-    GenericComponent *currAnimation;
-    bool hasThePointerBeenActivated;
+    std::vector<GenericComponent*> allAnimations;
 };
