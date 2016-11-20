@@ -216,6 +216,21 @@
     <ClCompile Include="Source\Gathering of Components\DogAnimComp.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Devil_EscapeState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Devil_HealState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Guy_AttackState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StatesStuff\Guy_StunState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\ZombieAnimComp.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -387,6 +402,21 @@
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
     <ClInclude Include="Source\Gathering of Components\DogAnimComp.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Devil_EscapeState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Devil_HealState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Guy_AttackState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StatesStuff\Guy_StunState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\ZombieAnimComp.h">
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
   </ItemGroup>

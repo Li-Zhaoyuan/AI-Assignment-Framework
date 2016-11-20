@@ -30,7 +30,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
 
     MeshComponent *zeMesh = new MeshComponent();
     GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
-    zeMesh->onNotify(zeGraphics->getMeshID("greenQuad"));
+    zeMesh->onNotify(zeGraphics->getMeshID("ZombieSprite"));
     go->addComponent(MeshComponent::g_CompID_.getValue(), zeMesh);
 
     PhysicsComponent *zePhysics = new PhysicsComponent();
