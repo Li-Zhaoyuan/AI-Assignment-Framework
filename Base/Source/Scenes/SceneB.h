@@ -22,8 +22,8 @@ private:
     float m_worldHeight, m_worldWidth;
     float fps;
 	Vector3 boundary;
-	GameEntity* m_allyBullet, *m_enemyBullet, *healthBars;
-	std::vector<GameEntity*> m_GoList, nonActiveBulletList, nonActiveAllyEnemies;
+	GameEntity* m_allyBullet, *m_enemyBullet;
+	std::vector<GameEntity*> m_GoList, nonActiveBulletList, listToDespawn, tempStorage;
 	std::vector<GameEntity*> m_enemy, m_ally;
 	size_t background;
 	

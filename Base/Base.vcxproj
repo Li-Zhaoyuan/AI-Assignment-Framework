@@ -16,6 +16,7 @@
     <ClCompile Include="Source\Commands\CommandSystem.cpp" />
     <ClCompile Include="Source\Gathering of Components\AllyEnemyComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\AnimationComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogAnimComp.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="Source\Commands\CommandSystem.h" />
     <ClInclude Include="Source\Gathering of Components\AllyEnemyComponent.h" />
     <ClInclude Include="Source\Gathering of Components\AnimationComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\CollisionComponent.h" />
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DogAnimComp.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />

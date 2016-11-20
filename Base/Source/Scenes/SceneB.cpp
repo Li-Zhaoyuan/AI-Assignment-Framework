@@ -15,6 +15,7 @@
 #include "../StatesStuff/Guy_StunState.h"
 #include "../StatesStuff/Guy_AttackState.h"
 #include "../Gathering of Components/HPandDPComponent.h"
+#include "../Gathering of Components/CollisionComponent.h"
 #include "../Misc/GlobalFunctions.h"
 
 
@@ -63,6 +64,8 @@ void SceneB::Init()
 	Devil->addComponent(StateMachineComponent::ID_.getValue(), devilFSM);
 	devilFSM->addStates(*new Devil_SearchState(), Devil_SearchState::ID_);
 	devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
+	devilFSM->addStates(*new Devil_EscapeState(), Devil_EscapeState::ID_);
+	devilFSM->addStates(*new Devil_HealState(), Devil_HealState::ID_);
 	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
 
 	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
@@ -90,7 +93,7 @@ void SceneB::Init()
 	guyFSM->addStates(*new Guy_PatrolState(), Guy_PatrolState::ID_);
 	guyFSM->addStates(*new Guy_EscapeState(), Guy_EscapeState::ID_);
 	guyFSM->addStates(*new Guy_StunState(), Guy_StunState::ID_);
-	//guyFSM->addStates(*new Guy_AttackState(), Guy_AttackState::ID_);
+	guyFSM->addStates(*new Guy_AttackState(), Guy_AttackState::ID_);
 	Guy->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
 	
 	AllyEnemyComponent *GuytoRecogniseEnemyAlly = new AllyEnemyComponent;
@@ -101,7 +104,7 @@ void SceneB::Init()
 	m_GoList.push_back(Guy);
 	m_ally.push_back(Guy);
 
-	healthBars = new GameEntity();
+	/*healthBars = new GameEntity();
 	healthBars->setName("healthBars");
 	MeshComponent *healthBarMesh = new MeshComponent();
 	healthBarMesh->onNotify(zeGraphics->getMeshID("redCube"));
@@ -111,7 +114,7 @@ void SceneB::Init()
 	healthBarPhysic->setYrotation(0);
 	healthBarPhysic->setBoundary(boundary);
 	healthBarPhysic->setPos(Vector3(150, 0, 0));
-	healthBars->addComponent(PhysicsComponent::g_ID_, healthBarPhysic);
+	healthBars->addComponent(PhysicsComponent::g_ID_, healthBarPhysic);*/
 
 	for (int i = 0; i < 10; ++i)
 	{
@@ -129,6 +132,10 @@ void SceneB::Init()
 		AllyEnemyComponent *bullettoRecogniseEnemyAlly = new AllyEnemyComponent;
 		//GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 		bullet->addComponent(AllyEnemyComponent::ID_, bullettoRecogniseEnemyAlly);
+		bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
+		CollisionComponent *bulletCollision = new CollisionComponent;
+		bulletCollision->setDespawnList(listToDespawn).setEnemyList(m_enemy);
+		bullet->addComponent(CollisionComponent::ID_, bulletCollision);
 
 		nonActiveBulletList.push_back(bullet);
 	}
@@ -152,7 +159,37 @@ void SceneB::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
-	
+	//onNotify("hi");
+	if (!tempStorage.empty())
+	{
+		m_GoList.push_back(tempStorage.back());
+		tempStorage.pop_back();
+	}
+	while (!listToDespawn.empty())
+	{
+		GameEntity* despawn;
+		despawn = listToDespawn.back();
+		//int i = 0;
+		for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+		{
+			if (despawn == (*it))
+			{
+				listToDespawn.pop_back();
+				m_GoList.erase(it);
+				break;
+			}
+		}
+		/*for (std::vector<GameEntity*>::iterator it = despawningBullets.begin(), end = despawningBullets.end(); it != end; ++it)
+		{
+			for (std::vector<GameEntity*>::iterator it2 = m_GoList.begin(), end = m_GoList.end(); it2 != end; ++it2)
+			{
+				if ((*it) == (*it2))
+				{
+
+				}
+			}
+		}*/
+	}
 }
 
 void SceneB::Render()
@@ -191,11 +228,14 @@ void SceneB::Render()
 	modelStack->Scale(boundary.x*2, boundary.x *2, 1);
 	zeGraphics->RenderMesh(background, false);
     modelStack->PopMatrix();
-	PhysicsComponent *zePhysicsStuffForHealth = dynamic_cast<PhysicsComponent*>(&(healthBars)->getComponent(PhysicsComponent::g_ID_));
-	MeshComponent *zeMeshIDForHealth = dynamic_cast<MeshComponent*>(&(healthBars)->getComponent(MeshComponent::g_CompID_.getValue()));
+	//PhysicsComponent *zePhysicsStuffForHealth = dynamic_cast<PhysicsComponent*>(&(healthBars)->getComponent(PhysicsComponent::g_ID_));
+	//MeshComponent *zeMeshIDForHealth = dynamic_cast<MeshComponent*>(&(healthBars)->getComponent(MeshComponent::g_CompID_.getValue()));
 
 	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
 	{
+		PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+		MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
+		
 		switch ((*it)->seeComponentActive(MeshComponent::g_CompID_.getValue()))
 		{
 		case true:
@@ -203,8 +243,6 @@ void SceneB::Render()
 					 if (!checkWhetherTheWordInThatString("Bullet", (*it)->getName()))
 					 {
 						 modelStack->PushMatrix();
-						 PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
-						 MeshComponent *zeMeshID = dynamic_cast<MeshComponent*>(&(*it)->getComponent(MeshComponent::g_CompID_.getValue()));
 						 HPandDPComponent*zeHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
 						 modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
 						 // Debuggin Stuff
@@ -214,19 +252,25 @@ void SceneB::Render()
 						 zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
 						 modelStack->PopMatrix();
 
-						 /*modelStack->PushMatrix();
-						 modelStack->Translate(-25, -(zePhysicsStuff->getSize().y / 2) - 5.f, 0);
-						 modelStack->Scale(10, 10, 1);
-						 zeGraphics->RenderText(std::to_string(zeHP->getHealth()), Color(1, 0, 0));
-						 modelStack->PopMatrix();*/
 						 if (zeHP->getHealth() > 0)
 						 {
 							 modelStack->PushMatrix();
 							 modelStack->Translate(0, -(zePhysicsStuff->getSize().y / 2) - 5.f, 0);
 							 modelStack->Scale(zeHP->getHealth() / 4, 5, 1);
-							 zeGraphics->RenderMesh(zeMeshIDForHealth->getMeshID(), false);
+							 zeGraphics->RenderMesh(zeGraphics->getMeshID("redCube"), false);
 							 modelStack->PopMatrix();
 						 }
+						 // Debuggin Stuff
+						 modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
+						 zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
+						 modelStack->PopMatrix();
+					 }
+					 else
+					 {
+						 modelStack->PushMatrix();
+						 modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
+						 // Debuggin Stuff
+						
 						 // Debuggin Stuff
 						 modelStack->Scale(zePhysicsStuff->getSize().x, zePhysicsStuff->getSize().y, zePhysicsStuff->getSize().z);
 						 zeGraphics->RenderMesh(zeMeshID->getMeshID(), false);
@@ -269,39 +313,18 @@ void SceneB::Exit()
 		delete *it;
 		*it = nullptr;
 	}
-	for (std::vector<GameEntity*>::iterator it = nonActiveAllyEnemies.begin(), end = nonActiveAllyEnemies.end(); it != end; ++it)
+	/*for (std::vector<GameEntity*>::iterator it = nonActiveAllyEnemies.begin(), end = nonActiveAllyEnemies.end(); it != end; ++it)
 	{
 		delete *it;
 		*it = nullptr;
-	}
-	for (std::vector<GameEntity*>::iterator it = m_enemy.begin(), end = m_enemy.end(); it != end; ++it)
-	{
-		delete *it;
-		*it = nullptr;
-	}
-	for (std::vector<GameEntity*>::iterator it = m_ally.begin(), end = m_ally.end(); it != end; ++it)
-	{
-		delete *it;
-		*it = nullptr;
-	}
-	if (m_allyBullet != nullptr)
-	{
-		delete m_allyBullet;
-		m_allyBullet = nullptr;
-	}
-	if (m_enemyBullet != nullptr)
-	{
-		delete m_enemyBullet;
-		m_enemyBullet = nullptr;
-	}
-	if (healthBars != nullptr)
-	{
-		delete healthBars;
-		healthBars = nullptr;
-	}
+	}*/
+	
+	nonActiveBulletList.clear();
+	//nonActiveAllyEnemies.clear();
 	m_GoList.clear();
 	m_ally.clear();
 	m_enemy.clear();
+	listToDespawn.clear();
 }
 
 bool SceneB::onNotify(const std::string &zeEvent)
@@ -310,7 +333,7 @@ bool SceneB::onNotify(const std::string &zeEvent)
 	if (!nonActiveBulletList.empty())
 	{
 		bullet = nonActiveBulletList.back();
-		m_GoList.push_back(bullet);
+		tempStorage.push_back(bullet);
 		nonActiveBulletList.pop_back();
 	}
 	else
@@ -330,21 +353,48 @@ bool SceneB::onNotify(const std::string &zeEvent)
 		AllyEnemyComponent *bullettoRecogniseEnemyAlly = new AllyEnemyComponent();
 		//bullettoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 		bullet->addComponent(AllyEnemyComponent::ID_, bullettoRecogniseEnemyAlly);
+		bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
+		CollisionComponent *bulletCollision = new CollisionComponent;
+		bulletCollision->setDespawnList(listToDespawn).setEnemyList(m_enemy);
+		bullet->addComponent(CollisionComponent::ID_, bulletCollision);
 
-		m_GoList.push_back(bullet);
+		tempStorage.push_back(bullet);
 	}
-	//ally 
+	//std::string debugddd = "ally/GO:1,2,3/POS:4,5,6";
+	//ally/GO:X,Y,Z/POS:X,Y,Z 
+	AllyEnemyComponent *bullettoRecogniseEnemyAlly = dynamic_cast<AllyEnemyComponent*>(&bullet->getComponent(AllyEnemyComponent::ID_));
+	PhysicsComponent *bulletPhysic = dynamic_cast<PhysicsComponent*>(&bullet->getComponent(PhysicsComponent::g_ID_));
 	if (checkWhetherTheWordInThatString("ally", zeEvent))
-	{
-		AllyEnemyComponent *bullettoRecogniseEnemyAlly = dynamic_cast<AllyEnemyComponent*>(&bullet->getComponent(AllyEnemyComponent::ID_));
 		bullettoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
-		return true;
-	}
 	else if (checkWhetherTheWordInThatString("enemy", zeEvent))
-	{
-		AllyEnemyComponent *bullettoRecogniseEnemyAlly = dynamic_cast<AllyEnemyComponent*>(&bullet->getComponent(AllyEnemyComponent::ID_));
 		bullettoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
-		return true;
-	}
-	return false;
+	
+	Vector3 tempVel, tempPos;
+	
+	std::string anotherString = zeEvent.substr(8);
+	size_t posOfDelim = anotherString.find(',');
+
+	tempVel.x = stof(anotherString.substr(0, posOfDelim));
+	anotherString = anotherString.substr(posOfDelim + 1);
+	posOfDelim = anotherString.find(',');
+	tempVel.y = stof(anotherString.substr(0, posOfDelim));
+	anotherString = anotherString.substr(posOfDelim + 1);
+	posOfDelim = anotherString.find('/');
+	tempVel.z = stof(anotherString.substr(0, posOfDelim));
+	anotherString = anotherString.substr(posOfDelim + 5);
+	posOfDelim = anotherString.find(',');
+	
+	tempPos.x = stof(anotherString.substr(0, posOfDelim));
+	anotherString = anotherString.substr(posOfDelim + 1);
+	posOfDelim = anotherString.find(',');
+	tempPos.y = stof(anotherString.substr(0, posOfDelim));
+	anotherString = anotherString.substr(posOfDelim + 1);
+	tempPos.z = stof(anotherString);
+	bulletPhysic->getPos() = tempPos;
+	bulletPhysic->setVel(tempVel);
+	//posOfComma = anotherString.find(',');
+	return true;
+	
+	
+	//return false;
 }

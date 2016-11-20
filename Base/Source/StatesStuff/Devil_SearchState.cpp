@@ -2,6 +2,7 @@
 #include "..\Gathering of Components\PhysicsComponent.h"
 #include "..\Classes\GameEntity.h"
 #include "../Gathering of Components/AllyEnemyComponent.h"
+#include "../Gathering of Components/HPandDPComponent.h"
 #include "../Misc/GlobalFunctions.h"
 
 Devil_SearchState::Devil_SearchState()
@@ -24,6 +25,7 @@ void Devil_SearchState::Init()
 
 void Devil_SearchState::Update(double dt)
 {
+	
 	switch (changedName)
 	{
 	case false:
@@ -73,7 +75,23 @@ void Devil_SearchState::Update(double dt)
 
 		}
 	}
+	HPandDPComponent *zeOwnselfHP = dynamic_cast<HPandDPComponent*>(&devil->getComponent(HPandDPComponent::ID_));
 	
+	if (zeOwnselfHP->getHealth() < 50)
+	{
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+
+		//currPoint = 0;
+		FSM_->switchState(2);
+	}
+	if (zeOwnselfHP->getHealth() < 0)
+	{
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
+		zeOwnselfHP->getHealth() = 100;
+
+		FSM_->switchState(0);
+	}
 }
 
 void Devil_SearchState::Exit()

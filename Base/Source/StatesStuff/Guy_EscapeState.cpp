@@ -20,7 +20,7 @@ Guy_EscapeState::~Guy_EscapeState()
 void Guy_EscapeState::Init()
 {
 	name_ = " : ESCAPE";
-	
+	originalOwnerName = "";
 	timer = 0;
 	changedName = false;
 }
@@ -28,6 +28,7 @@ void Guy_EscapeState::Init()
 void Guy_EscapeState::Update(double dt)
 
 {
+	
 	switch (changedName)
 	{
 	case false:
@@ -52,7 +53,7 @@ void Guy_EscapeState::Update(double dt)
 	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
 	{
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
-		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 1000)
+		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
 		{
 			if (checkWhetherTheWordInThatString("Devil", (*it)->getName()))
 			{
@@ -106,6 +107,11 @@ void Guy_EscapeState::Update(double dt)
 	if (zeHP->getHealth() <= 0)
 	{
 
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
+		zeHP->getHealth() = 100;
+
+		FSM_->switchState(0);
 	}
 }
 

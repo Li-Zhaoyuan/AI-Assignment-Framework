@@ -2,7 +2,8 @@
 #include "..\Gathering of Components\PhysicsComponent.h"
 #include "..\Classes\GameEntity.h"
 #include "../Gathering of Components/HPandDPComponent.h"
-
+#include "../Gathering of Components/AllyEnemyComponent.h"
+#include "../Misc/GlobalFunctions.h"
 #include <math.h>
 #define speed 50
 #define healthProcValue 50
@@ -21,7 +22,7 @@ Guy_PatrolState::~Guy_PatrolState()
 void Guy_PatrolState::Init()
 {
 	name_ = " : PATROL";
-	
+	originalOwnerName = "";
 	changedName = false;
 	isAtWayPoint = false;
 	pointToPatrol.SetZero(); 
@@ -33,6 +34,7 @@ void Guy_PatrolState::Init()
 
 void Guy_PatrolState::Update(double dt)
 {
+	
 	switch (changedName)
 	{
 	case false:
@@ -100,10 +102,38 @@ void Guy_PatrolState::Update(double dt)
 	}
 	
 	zePhysicsStuff->setVel(vel);
+	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&guy->getComponent(AllyEnemyComponent::ID_));
+	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
+	{
+		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
+		{
+			if (checkWhetherTheWordInThatString("Devil", (*it)->getName()))
+			{
+				zePhysicsStuff->setVel(Vector3(0, 0, 0));
+				FSM_->switchState(3);
+			}
+
+		}
+	}
 	//zePhysicsStuff->getPos().x
 	//zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
 
+	if (hpOfGuy->getHealth() <= 0)
+	{
 
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
+		hpOfGuy->getHealth() = 100;
+		/*changedName = false;
+		isAtWayPoint = false;
+		pointToPatrol.SetZero();
+		vel.SetZero();
+		currPoint = 0;
+		nextPoint = 0;
+		setWayPoints();*/
+		FSM_->switchState(0);
+	}
 }
 
 void Guy_PatrolState::Exit()

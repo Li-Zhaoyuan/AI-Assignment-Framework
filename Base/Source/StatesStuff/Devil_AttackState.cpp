@@ -5,7 +5,7 @@
 #include "../Gathering of Components/HPandDPComponent.h"
 #include "../StatesStuff/StateMachineComponent.h"
 
-#define speed 40
+#define speed 60
 
 Devil_AttackState::Devil_AttackState()
 {
@@ -27,6 +27,7 @@ void Devil_AttackState::Init()
 
 void Devil_AttackState::Update(double dt)
 {
+	
 	switch (changedName)
 	{
 	case false:
@@ -64,8 +65,9 @@ void Devil_AttackState::Update(double dt)
 				if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 1000 && timer > 2)
 				{
 					zeEnemyHP->getHealth() -= zeOwnselfDP->getDamage();
+					//zePhysicsStuff->setVel(Vector3(0, 0, 0));
 					chance = Math::RandIntMinMax(1, 4);
-					if (chance == 1)
+					if (chance > 1)
 					{
 						zeEnemyCurrState->switchState(2);
 						chance = 0;
@@ -73,6 +75,11 @@ void Devil_AttackState::Update(double dt)
 					//zeEnemyCurrState->switchState(2);
 					timer = 0;
 				}
+				if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 1000)
+				{
+					zePhysicsStuff->setVel(Vector3(0, 0, 0));
+				}
+
 			}
 			break;
 		}
@@ -83,7 +90,22 @@ void Devil_AttackState::Update(double dt)
 		}
 	}
 
-	
+	if (zeOwnselfDP->getHealth() < 50)
+	{
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		
+		//currPoint = 0;
+		FSM_->switchState(2);
+	}
+	//zeOwnselfDP->getHealth() = 100;
+	if (zeOwnselfDP->getHealth() < 0)
+	{
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
+		zeOwnselfDP->getHealth() = 100;
+
+		FSM_->switchState(0);
+	}
 }
 
 void Devil_AttackState::Exit()

@@ -21,13 +21,14 @@ Guy_StunState::~Guy_StunState()
 void Guy_StunState::Init()
 {
 	name_ = " : STUNNED";
-
+	originalOwnerName = "";
 	changedName = false;
 	timer = 0;
 }
 
 void Guy_StunState::Update(double dt)
 {
+	
 	switch (changedName)
 	{
 	case false:
@@ -50,12 +51,20 @@ void Guy_StunState::Update(double dt)
 
 	zePhysicsStuff->getVel().SetZero();
 
-	if (timer > 3)
+	if (timer > 1)
 	{
 		FSM_->switchState(0);
 		timer = 0;
 	}
+	if (hpOfGuy->getHealth() <= 0)
+	{
 
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
+		hpOfGuy->getHealth() = 100;
+
+		FSM_->switchState(0);
+	}
 }
 
 void Guy_StunState::Exit()
