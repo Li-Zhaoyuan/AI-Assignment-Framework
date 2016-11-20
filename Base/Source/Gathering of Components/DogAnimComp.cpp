@@ -4,7 +4,7 @@
 #include "AnimationComponent.h"
 #include "../Misc/DetectMemoryLeak.h"
 
-std::vector<GenericComponent*> DogAnimComp::allAnimations;
+//std::vector<GenericComponent*> DogAnimComp::allAnimations;
 
 DogAnimComp::DogAnimComp()
 {
@@ -38,8 +38,6 @@ DogAnimComp::DogAnimComp()
         allAnimations.push_back(Animation1);
         Animation1->setName("DOWN");
     }
-    currAnimation = allAnimations[0];
-    hasThePointerBeenActivated = false;
 }
 
 DogAnimComp::~DogAnimComp()
@@ -55,7 +53,6 @@ DogAnimComp::~DogAnimComp()
         }
         allAnimations.clear();
     }
-    currAnimation = nullptr;
 }
 
 void DogAnimComp::Update(double dt)
@@ -63,16 +60,6 @@ void DogAnimComp::Update(double dt)
     //currAnimation->Update(dt);
     GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
-    AnimationComponent *zeAnim = dynamic_cast<AnimationComponent*>(currAnimation);
-    switch (hasThePointerBeenActivated)
-    {
-    case false:
-        zeGo->addComponent(AnimationComponent::ID_, currAnimation);
-        hasThePointerBeenActivated = true;
-        break;
-    default:
-        break;
-    }
     if (zePhysics->getVel().x < -Math::EPSILON)
         //zeGo->getComponent(AnimationComponent::ID_) = *dynamic_cast<AnimationComponent*>(allAnimations[1]);
         zeGo->addComponent(AnimationComponent::ID_, allAnimations[1]);

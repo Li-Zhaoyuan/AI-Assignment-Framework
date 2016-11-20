@@ -2,6 +2,7 @@ Sprite and Mesh Component: 0
 State Machine Component: 1
 Physics Component: 2
 DogAnimComponent: 3
+ZombieAnimComponent: 3
 HPandDP Component: 4
 Speed Component: 5
 AllyEnemy Component: 6

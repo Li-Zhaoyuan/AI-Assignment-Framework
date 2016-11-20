@@ -25,6 +25,7 @@
     <ClCompile Include="Source\Gathering of Components\PhysicsComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\SpeedComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\SpriteComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\ZombieAnimComp.cpp" />
     <ClCompile Include="Source\GenericECS\GenericComponent.cpp" />
     <ClCompile Include="Source\GenericECS\GenericEntity.cpp" />
     <ClCompile Include="Source\Mains\Application.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="Source\Gathering of Components\PhysicsComponent.h" />
     <ClInclude Include="Source\Gathering of Components\SpeedComponent.h" />
     <ClInclude Include="Source\Gathering of Components\SpriteComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\ZombieAnimComp.h" />
     <ClInclude Include="Source\GenericECS\GenericComponent.h" />
     <ClInclude Include="Source\GenericECS\GenericEntity.h" />
     <ClInclude Include="Source\GenericECS\GenericSystem.h" />

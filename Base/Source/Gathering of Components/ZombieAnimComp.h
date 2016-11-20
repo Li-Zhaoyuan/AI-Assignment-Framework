@@ -3,11 +3,11 @@
 #include "../GenericECS/GenericComponent.h"
 #include <vector>
 
-class DogAnimComp : public GenericComponent
+class ZombieAnimComp : public GenericComponent
 {
 public:
-    DogAnimComp();
-    virtual ~DogAnimComp();
+    ZombieAnimComp();
+    virtual ~ZombieAnimComp();
 
     virtual void Update(double dt);
 
