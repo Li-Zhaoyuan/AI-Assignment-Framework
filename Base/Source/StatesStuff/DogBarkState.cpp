@@ -95,7 +95,8 @@ void DogBarkState::Exit()
 {
     changedName = false;
     warnedEveryone = false;
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
     timeCounter = 0;
 }
 

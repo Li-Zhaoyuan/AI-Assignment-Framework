@@ -64,7 +64,8 @@ void ZombieCharge::Update(double dt)
 
 void ZombieCharge::Exit()
 {
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
     changedName = false;
     zeVictim = nullptr;
     GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
