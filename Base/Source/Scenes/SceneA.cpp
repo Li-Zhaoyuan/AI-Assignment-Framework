@@ -104,7 +104,25 @@ void SceneA::Update(float dt)
         bLButtonState = false;
         std::cout << "LBUTTON UP" << std::endl;
     }
-    
+    static bool bRButtonState = false;
+    if (!bRButtonState && Application::IsMousePressed(1))
+    {
+        double mouseX, mouseY;
+        Application::GetCursorPos(&mouseX, &mouseY);
+        bRButtonState = true;
+        int gameWidth = Application::GetInstance().cA_WindowWidth;
+        int gameH = Application::GetInstance().cA_WindowHeight;
+        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x * 0.5f);
+        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y * 0.5f);
+        SpawnZombie(Vector3((float)mouseXinGameScreen, (float)mouseYinGameScreen, 0));
+        std::cout << "RBUTTON DOWN" << std::endl;
+    }
+    else if (bRButtonState && !Application::IsMousePressed(1))
+    {
+        bRButtonState = false;
+        std::cout << "RBUTTON UP" << std::endl;
+    }
+
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
         (*it)->Update(dt);
