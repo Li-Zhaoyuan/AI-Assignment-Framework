@@ -85,7 +85,8 @@ void DogBite::Exit()
 {
     zeVictim = nullptr;
     changedName = false;
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }
 
 bool DogBite::onNotify(GenericComponent &zeEvent)

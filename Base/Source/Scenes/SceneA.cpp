@@ -42,7 +42,7 @@ void SceneA::Init()
     // The very reason why we can't see any thing
     boundaryOfRoom.Set(320, 180, 0);
     //Calculating aspect ratio
-    m_worldHeight = boundaryOfRoom.y;
+    m_worldHeight = boundaryOfRoom.y * 2;
     m_worldWidth = m_worldHeight * ((float)Application::GetInstance().cA_WindowWidth / Application::GetInstance().cA_WindowHeight);
 
     m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(-55, 0, 0)));
@@ -79,8 +79,8 @@ void SceneA::Update(float dt)
     Application::GetCursorPos(&mouseX, &mouseY);
     int gameWidth = Application::GetInstance().cA_WindowWidth;
     int gameH = Application::GetInstance().cA_WindowHeight;
-    mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x * 0.5f);
-    mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y * 0.5f);
+    mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x );
+    mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y);
 #endif
     fps = 1 / dt;
     if (Application::IsKeyPressed(VK_NUMPAD2))
@@ -94,15 +94,15 @@ void SceneA::Update(float dt)
         bLButtonState = true;
         int gameWidth = Application::GetInstance().cA_WindowWidth;
         int gameH = Application::GetInstance().cA_WindowHeight;
-        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x * 0.5f);
-        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y * 0.5f);
+        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x);
+        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y);
         SpawnDog(Vector3((float)mouseXinGameScreen, (float)mouseYinGameScreen, 0));
-        std::cout << "LBUTTON DOWN" << std::endl;
+        //std::cout << "LBUTTON DOWN" << std::endl;
     }
     else if (bLButtonState && !Application::IsMousePressed(0))
     {
         bLButtonState = false;
-        std::cout << "LBUTTON UP" << std::endl;
+        //std::cout << "LBUTTON UP" << std::endl;
     }
     static bool bRButtonState = false;
     if (!bRButtonState && Application::IsMousePressed(1))
@@ -112,15 +112,15 @@ void SceneA::Update(float dt)
         bRButtonState = true;
         int gameWidth = Application::GetInstance().cA_WindowWidth;
         int gameH = Application::GetInstance().cA_WindowHeight;
-        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x * 0.5f);
-        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y * 0.5f);
+        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x);
+        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y);
         SpawnZombie(Vector3((float)mouseXinGameScreen, (float)mouseYinGameScreen, 0));
-        std::cout << "RBUTTON DOWN" << std::endl;
+        //std::cout << "RBUTTON DOWN" << std::endl;
     }
     else if (bRButtonState && !Application::IsMousePressed(1))
     {
         bRButtonState = false;
-        std::cout << "RBUTTON UP" << std::endl;
+        //std::cout << "RBUTTON UP" << std::endl;
     }
 
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)

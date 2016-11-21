@@ -59,7 +59,8 @@ void IdleState::Update(double dt)
 void IdleState::Exit()
 {
     changedName = false;
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }
 
 bool IdleState::onNotify(const float &zeEvent)

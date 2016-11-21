@@ -65,7 +65,8 @@ void GoThereState::Update(double dt)
 void GoThereState::Exit()
 {
     changedName = false;
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
     updatedSpeed = false;
     GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));

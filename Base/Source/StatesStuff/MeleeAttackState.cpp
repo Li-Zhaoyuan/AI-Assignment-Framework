@@ -88,7 +88,8 @@ void MeleeAttackState::Exit()
     zeVictim = nullptr; 
     timeCounter = attackDelay;
     changedName = false;
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }
 
 bool MeleeAttackState::onNotify(const float &zeEvent)

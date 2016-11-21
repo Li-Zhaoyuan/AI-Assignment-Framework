@@ -75,7 +75,8 @@ void ZombieTarget::Exit()
 {
     zeVictim = nullptr;
     changedName = false;
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
     distToActivate = originalDistToActivate;
 }
 

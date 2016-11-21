@@ -84,7 +84,8 @@ void PatrolState::Exit()
 {
     changedName = false;
     isMovingTowardsThatPos = false;
-    owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }
 
 bool PatrolState::onNotify(const float &zeEvent)
