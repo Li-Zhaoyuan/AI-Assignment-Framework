@@ -117,7 +117,7 @@ void Devil_EscapeState::Update(double dt)
 	{
 		FSM_->switchState(0);
 	}*/
-	if (zeHP->getHealth() < 0)
+	if (zeHP->getHealth() <= 0)
 	{
 		zePhysicsStuff->setVel(Vector3(0, 0, 0));
 		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
