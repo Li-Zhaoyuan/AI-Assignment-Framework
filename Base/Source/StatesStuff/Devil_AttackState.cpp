@@ -69,7 +69,8 @@ void Devil_AttackState::Update(double dt)
 					chance = Math::RandIntMinMax(1, 4);
 					if (chance > 2)
 					{
-						zeEnemyCurrState->switchState(2);
+						if (zeEnemyCurrState->getCurrentState().getName() != zeEnemyCurrState->getSpecificStates(2).getName())
+							zeEnemyCurrState->switchState(2);
 						chance = 0;
 					}
 					//zeEnemyCurrState->switchState(2);

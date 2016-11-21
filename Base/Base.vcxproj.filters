@@ -232,6 +232,12 @@
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
     <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\GuyAnimComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\DevilAnimComponent.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -423,6 +429,12 @@
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
     <ClInclude Include="Source\Gathering of Components\CollisionComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\GuyAnimComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\DevilAnimComponent.h">
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
   </ItemGroup>

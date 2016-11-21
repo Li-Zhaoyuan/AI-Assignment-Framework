@@ -16,6 +16,8 @@
 #include "../StatesStuff/Guy_AttackState.h"
 #include "../Gathering of Components/HPandDPComponent.h"
 #include "../Gathering of Components/CollisionComponent.h"
+#include "../Gathering of Components/DevilAnimComponent.h"
+#include "../Gathering of Components/GuyAnimComponent.h"
 #include "../Misc/GlobalFunctions.h"
 
 
@@ -51,10 +53,10 @@ void SceneB::Init()
 	GameEntity *Devil = new GameEntity();
 	Devil->setName("Devil");
 	MeshComponent *devilMesh = new MeshComponent();
-	devilMesh->onNotify(zeGraphics->getMeshID("greenQuad"));
+	devilMesh->onNotify(zeGraphics->getMeshID("DevilSprite"));
 	Devil->addComponent(MeshComponent::g_CompID_.getValue(), devilMesh);
 	PhysicsComponent *devilPhysic = new PhysicsComponent();
-	devilPhysic->setSize(Vector3(25, 25, 1));
+	devilPhysic->setSize(Vector3(30, 30, 1));
 	devilPhysic->setYrotation(0);
 	devilPhysic->setBoundary(boundary);
 	devilPhysic->setPos(Vector3(0, 0, 0));
@@ -71,7 +73,7 @@ void SceneB::Init()
 	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
 	DeviltoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
 	Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
-
+	Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());
 
 	m_GoList.push_back(Devil);
 	m_enemy.push_back(Devil);
@@ -79,10 +81,10 @@ void SceneB::Init()
 	GameEntity *Guy = new GameEntity();
 	Guy->setName("Guy");
 	MeshComponent *guyMesh = new MeshComponent();
-	guyMesh->onNotify(zeGraphics->getMeshID("whiteQuad"));
+	guyMesh->onNotify(zeGraphics->getMeshID("GuySprite"));
 	Guy->addComponent(MeshComponent::g_CompID_.getValue(), guyMesh);
 	PhysicsComponent *guyPhysic = new PhysicsComponent();
-	guyPhysic->setSize(Vector3(25, 25, 1));
+	guyPhysic->setSize(Vector3(20, 20, 1));
 	guyPhysic->setYrotation(0);
 	guyPhysic->setBoundary(boundary);
 	guyPhysic->setPos(Vector3(150, 0, 0));
@@ -99,7 +101,7 @@ void SceneB::Init()
 	AllyEnemyComponent *GuytoRecogniseEnemyAlly = new AllyEnemyComponent;
 	GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 	Guy->addComponent(AllyEnemyComponent::ID_, GuytoRecogniseEnemyAlly);
-
+	Guy->addComponent(GuyAnimComp::ID_, new GuyAnimComp());
 
 	m_GoList.push_back(Guy);
 	m_ally.push_back(Guy);
@@ -244,6 +246,8 @@ void SceneB::Render()
 					 {
 						 modelStack->PushMatrix();
 						 HPandDPComponent*zeHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
+						 if ((*it)->seeComponentActive(7))
+							 zeGraphics->getMeshRef(zeMeshID->getMeshID()).onNotify((*it)->getComponent(7));
 						 modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
 						 // Debuggin Stuff
 						 modelStack->PushMatrix();

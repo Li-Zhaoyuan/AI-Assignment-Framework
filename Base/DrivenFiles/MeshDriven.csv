@@ -7,7 +7,7 @@ whiteQuad,1,1,1,quad,,,,,
 sceneBBackground,1,1,1,quad,,Image//volcano_background.tga,,,
 DogSprite,,,,sprite,,Image//DogSprite.tga,,5,4
 SceneA,1,1,1,quad,,Image//SceneAbackground.tga,,,
-bullet,1,0,1,quad,,,,,
+bullet,1,0,1,quad,,Image//Fireball.tga,,,
 ZombieSprite,,,,sprite,,Image//ZombieSprite.tga,,2,2
-GuySprite,,,,sprite,,Image//guySprite.tga,,,
-DevilSprite,,,,sprite,,Image//devilSprite.tga,,,
+GuySprite,,,,sprite,,Image//FullGuySprite.tga,,2,2
+DevilSprite,,,,sprite,,Image//devilSpriteNew.tga,,4,3
