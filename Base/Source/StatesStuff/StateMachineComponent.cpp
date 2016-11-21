@@ -10,7 +10,10 @@ StateMachineComponent::StateMachineComponent()
 
 StateMachineComponent::~StateMachineComponent()
 {
-    Exit();
+    for (auto it : allRegisteredStates)
+        delete it;
+    allRegisteredStates.clear();
+    HistoryOfStates.clear();
 }
 
 void StateMachineComponent::Init()
@@ -26,10 +29,12 @@ void StateMachineComponent::Update(double dt)
 
 void StateMachineComponent::Exit()
 {
-    for (auto it : allRegisteredStates)
-        delete it;
-    allRegisteredStates.clear();
     HistoryOfStates.clear();
+    for (std::vector<StateComponent*>::iterator it = allRegisteredStates.begin(), end = allRegisteredStates.end(); it != end; ++it)
+    {
+        (*it)->Exit();
+    }
+    HistoryOfStates.push_back(allRegisteredStates[0]);
 }
 
 void StateMachineComponent::addStates(StateComponent &zeStates, const size_t &zeID)

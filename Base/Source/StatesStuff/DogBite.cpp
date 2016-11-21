@@ -7,17 +7,22 @@
 
 DogBite::DogBite()
 {
+    Init();
+}
+
+DogBite::~DogBite()
+{
+    Exit();
+}
+
+void DogBite::Init()
+{
     zeVictim = nullptr;
     chanceToActivate = 100000;
     timeCounter = 0;
     attackDelay = 0;
     name_ = "BITE";
     changedName = false;
-}
-
-DogBite::~DogBite()
-{
-    Exit();
 }
 
 void DogBite::Update(double dt)

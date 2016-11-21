@@ -8,17 +8,22 @@
 
 MeleeAttackState::MeleeAttackState()
 {
-    zeVictim = nullptr;
-    influenceRadius = 0;
-    attackDelay = 0;
-    timeCounter = 0;
-    name_ = "MELEE"; 
-    changedName = false;
+    Init();
 }
 
 MeleeAttackState::~MeleeAttackState()
 {
     zeVictim = nullptr;
+}
+
+void MeleeAttackState::Init()
+{
+    zeVictim = nullptr;
+    influenceRadius = 0;
+    attackDelay = 0;
+    timeCounter = 0;
+    name_ = "MELEE";
+    changedName = false;
 }
 
 void MeleeAttackState::Update(double dt)

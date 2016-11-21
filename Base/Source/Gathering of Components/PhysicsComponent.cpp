@@ -40,6 +40,14 @@ void PhysicsComponent::Update(double dt)
     }
 }
 
+void PhysicsComponent::Exit()
+{
+    vel_.SetZero();
+    accel_.SetZero();
+    pos_.SetZero();
+    rotationY = 0;
+}
+
 Vector3 &PhysicsComponent::getAccel()
 {
     return accel_;

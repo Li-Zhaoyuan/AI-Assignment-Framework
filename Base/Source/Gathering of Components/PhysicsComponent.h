@@ -11,6 +11,7 @@ public:
 
     virtual void Init();
     virtual void Update(double dt);
+    virtual void Exit();
 
     void setPos(const Vector3 &zePos);
     void setSize(const Vector3 &zeSize);

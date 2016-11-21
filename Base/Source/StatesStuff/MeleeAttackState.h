@@ -10,6 +10,7 @@ public:
     MeleeAttackState();
     virtual ~MeleeAttackState();
 
+    virtual void Init();
     virtual void Update(double dt);
     virtual void Exit();
 

@@ -11,6 +11,7 @@
 //TODO: Be Removed
 #include "../Misc/NPCBuilder.h"
 #include "../Gathering of Components/AllyEnemyComponent.h"
+#include "../Misc/GlobalFunctions.h"
 
 SceneA::SceneA()
 {
@@ -95,7 +96,26 @@ void SceneA::Update(float dt)
     switch (activeObjPos.empty())
     {
     case false:
+        for (std::vector<size_t>::iterator it = activeObjPos.begin(), end = activeObjPos.end(); it != end; ++it)
+        {
+            GameEntity *zeRemovedGo = m_InactiveList[(*it)];
+            m_InactiveList.erase(m_InactiveList.end() - (m_InactiveList.size() - (*it)));
+            m_GoList.push_back(zeRemovedGo);
+        }
         activeObjPos.clear();
+        break;
+    default:
+        break;
+    }
+    switch (tempStorage.empty())
+    {
+    case false:
+        while (tempStorage.empty() == false)
+        {
+            GameEntity *zeGo = tempStorage.back();
+            tempStorage.pop_back();
+            m_GoList.push_back(zeGo);
+        }
         break;
     default:
         break;
@@ -227,6 +247,12 @@ void SceneA::Exit()
         *it = nullptr;
     }
     m_InactiveList.clear();
+    for (auto it : tempStorage)
+    {
+        delete it;
+        it = nullptr;
+    }
+    tempStorage.clear();
 
     activeObjPos.clear();
     inactiveObjPos.clear();
@@ -260,10 +286,38 @@ bool SceneA::onNotify(GenericEntity &zeEvent)
 
 bool SceneA::SpawnDog(const Vector3 &zePos)
 {
-    return false;
+    for (std::vector<GameEntity*>::iterator it = m_InactiveList.begin(), end = m_InactiveList.end(); it != end; ++it)
+    {
+        if (checkWhetherTheWordInThatString("Dog", (*it)->getName()))
+        {
+            (*it)->getComponent(HPandDPComponent::ID_).Exit();
+            (*it)->getComponent(1).Exit();
+            PhysicsComponent *zePhysicz = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+            zePhysicz->Exit();
+            zePhysicz->setPos(zePos);
+            return true;
+            break;
+        }
+    }
+    tempStorage.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, zePos));
+    return true;
 }
 
 bool SceneA::SpawnZombie(const Vector3 &zePos)
 {
-    return false;
+    for (std::vector<GameEntity*>::iterator it = m_InactiveList.begin(), end = m_InactiveList.end(); it != end; ++it)
+    {
+        if (checkWhetherTheWordInThatString("Zombie", (*it)->getName()))
+        {
+            (*it)->getComponent(HPandDPComponent::ID_).Exit();
+            (*it)->getComponent(1).Exit();
+            PhysicsComponent *zePhysicz = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+            zePhysicz->Exit();
+            zePhysicz->setPos(zePos);
+            return true;
+            break;
+        }
+    }
+    tempStorage.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, zePos));
+    return true;
 }

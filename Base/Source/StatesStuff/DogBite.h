@@ -8,6 +8,7 @@ public:
     DogBite();
     virtual ~DogBite();
 
+    virtual void Init();
     virtual void Update(double dt);
     virtual void Exit();
 

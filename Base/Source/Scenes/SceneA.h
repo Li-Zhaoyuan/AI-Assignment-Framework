@@ -24,7 +24,7 @@ private:
     CameraBS camera_;
     float m_worldHeight, m_worldWidth;
     float fps;
-    std::vector<GameEntity*> m_GoList, m_InactiveList;
+    std::vector<GameEntity*> m_GoList, m_InactiveList, tempStorage;
     std::vector<GameEntity*> m_enemy, m_ally;
     std::vector<size_t> activeObjPos, inactiveObjPos;
 
