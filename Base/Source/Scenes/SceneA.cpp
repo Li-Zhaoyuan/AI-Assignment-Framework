@@ -29,9 +29,9 @@ void SceneA::Init()
     name_ = "A";
     camera_.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
-    //Calculating aspect ratio
-    m_worldHeight = 100.f;
-    m_worldWidth = m_worldHeight * (float)Application::GetInstance().cA_WindowWidth / Application::GetInstance().cA_WindowHeight;
+    ////Calculating aspect ratio
+    //m_worldHeight = 100.f;
+    //m_worldWidth = m_worldHeight * ((float)Application::GetInstance().cA_WindowWidth / Application::GetInstance().cA_WindowHeight);
     fps = 1;
     zeGraphics->m_renderPass = GraphicsEntity::RENDER_PASS_MAIN;
 
@@ -41,6 +41,9 @@ void SceneA::Init()
     projectionStack->LoadMatrix(ortho);
     // The very reason why we can't see any thing
     boundaryOfRoom.Set(320, 180, 0);
+    //Calculating aspect ratio
+    m_worldHeight = boundaryOfRoom.y;
+    m_worldWidth = m_worldHeight * ((float)Application::GetInstance().cA_WindowWidth / Application::GetInstance().cA_WindowHeight);
 
     m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(-55, 0, 0)));
     m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(0,20,0)));
@@ -56,7 +59,10 @@ void SceneA::Init()
     AnimationComponent *zeAnim = new AnimationComponent;
     zeAnim->Set(0, 8, 20, 0.5, true);
     TestingOutSprite->addComponent(AnimationComponent::ID_, zeAnim);
+
 #endif
+    mouseXinGameScreen = 0;
+    mouseYinGameScreen = 0;
     zeBackground = zeGraphics->getMeshID("SceneA");
     healthBarID = zeGraphics->getMeshID("redCube");
 }
@@ -69,11 +75,36 @@ void SceneA::Update(float dt)
     zeGraphics->Update(dt);
     //TestingOutSprite->Update(dt);
     // TODO: Remove it when it is not debugging
+    double mouseX, mouseY;
+    Application::GetCursorPos(&mouseX, &mouseY);
+    int gameWidth = Application::GetInstance().cA_WindowWidth;
+    int gameH = Application::GetInstance().cA_WindowHeight;
+    mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x * 0.5f);
+    mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y * 0.5f);
 #endif
     fps = 1 / dt;
     if (Application::IsKeyPressed(VK_NUMPAD2))
         Scene_System::accessing().SwitchScene("B");
 
+    static bool bLButtonState = false;
+    if (!bLButtonState && Application::IsMousePressed(0))
+    {
+        double mouseX, mouseY;
+        Application::GetCursorPos(&mouseX, &mouseY);
+        bLButtonState = true;
+        int gameWidth = Application::GetInstance().cA_WindowWidth;
+        int gameH = Application::GetInstance().cA_WindowHeight;
+        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x * 0.5f);
+        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y * 0.5f);
+        SpawnDog(Vector3((float)mouseXinGameScreen, (float)mouseYinGameScreen, 0));
+        std::cout << "LBUTTON DOWN" << std::endl;
+    }
+    else if (bLButtonState && !Application::IsMousePressed(0))
+    {
+        bLButtonState = false;
+        std::cout << "LBUTTON UP" << std::endl;
+    }
+    
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
         (*it)->Update(dt);
@@ -228,6 +259,12 @@ void SceneA::Render()
     ss.str("");
     ss << "FPS:" << fps;
     zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 15, -boundaryOfRoom.x, -boundaryOfRoom.y);
+
+#ifdef _DEBUG
+    ss.str("");
+    ss << mouseXinGameScreen << ":" << mouseYinGameScreen;
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 15, -boundaryOfRoom.x, -boundaryOfRoom.y+ 15);
+#endif
     //zeGraphics->SetHUD(false);
 }
 

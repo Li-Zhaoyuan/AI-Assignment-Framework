@@ -33,4 +33,5 @@ private:
     GameEntity *TestingOutSprite;
 #endif
     unsigned char zeBackground, healthBarID;
+    double mouseXinGameScreen, mouseYinGameScreen;
 };

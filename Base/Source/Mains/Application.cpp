@@ -49,6 +49,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 void resize_callback(GLFWwindow* window, int w, int h)
 {
+    Application::GetInstance().cA_WindowWidth = w;
+    Application::GetInstance().cA_WindowHeight = h;
 	glViewport(0, 0, w, h);
 	//Scene_System::accessing().cSS_InputManager->SetScreenSize((float)w, (float)h);
 
@@ -57,6 +59,15 @@ void resize_callback(GLFWwindow* window, int w, int h)
 bool Application::IsKeyPressed(unsigned short key)
 {
 	return ((GetAsyncKeyState(key) & 0x8001) != 0);
+}
+
+bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - Middle
+{
+    return glfwGetMouseButton(m_window, key) != 0;
+}
+void Application::GetCursorPos(double *xpos, double *ypos)
+{
+    glfwGetCursorPos(m_window, xpos, ypos);
 }
 
 Application::Application()
@@ -131,7 +142,7 @@ void Application::Init()
 	m_dAccumulatedTime_ThreadOne = 0.0;
 	m_dAccumulatedTime_ThreadTwo = 0.0;
 
-	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     Math::InitRNG();
     Scene_System::accessing().setGraphics_Scene(*new GraphicsEntity());

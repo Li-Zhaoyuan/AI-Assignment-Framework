@@ -20,6 +20,8 @@ public:
 	void Exit();
 
 	static bool IsKeyPressed(unsigned short key);
+    static bool IsMousePressed(unsigned short key);
+    static void GetCursorPos(double *xpos, double *ypos);
 
 	// Stored Window Values
 	int cA_WindowHeight, cA_WindowWidth;
