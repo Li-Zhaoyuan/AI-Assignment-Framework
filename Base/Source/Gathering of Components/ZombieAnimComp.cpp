@@ -28,6 +28,11 @@ ZombieAnimComp::~ZombieAnimComp()
     zeGo->eraseComponent(AnimationComponent::ID_);
     if (!allAnimations.empty())
     {
+        for (std::vector<GenericComponent*>::iterator it = allAnimations.begin(), end = allAnimations.end(); it != end; ++it)
+        {
+            delete *it;
+            *it = nullptr;
+        }
         allAnimations.clear();
     }
 }

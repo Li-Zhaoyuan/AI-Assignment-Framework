@@ -7,7 +7,7 @@ HPandDPComponent::HPandDPComponent()
 
 HPandDPComponent::HPandDPComponent(const int &zeHealth, const int &zeDMG)
 {
-    health_ = zeHealth;
+    originalHealth_ = health_ = zeHealth;
     damage_ = zeDMG;
 }
 
@@ -20,6 +20,12 @@ void HPandDPComponent::Init()
 {
     health_ = 0; 
     damage_ = 0;
+    originalHealth_ = 0;
+}
+
+void HPandDPComponent::Exit()
+{
+    health_ = originalHealth_;
 }
 
 void HPandDPComponent::setDamage(const int &zeDMG)
@@ -30,6 +36,7 @@ void HPandDPComponent::setDamage(const int &zeDMG)
 void HPandDPComponent::setHealth(const int &zeHealth)
 {
     health_ = zeHealth;
+    originalHealth_ = zeHealth;
 }
 
 bool HPandDPComponent::onNotify(const int &zeEvent)

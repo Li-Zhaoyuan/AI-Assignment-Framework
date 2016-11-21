@@ -40,7 +40,7 @@ public:
     virtual bool onNotify(const int &zeEvent) { return false; };
     virtual bool onNotify(const float &zeEvent) { return false; };
     virtual bool onNotify(const double &zeEvent) { return false; };
-    virtual bool onNotify(const GenericEntity &zeEvent) { return false; };
+    virtual bool onNotify(GenericEntity &zeEvent) { return false; };
 
     std::string getName() { return name_; };
     void setName(const std::string &zeName) { name_ = zeName; };

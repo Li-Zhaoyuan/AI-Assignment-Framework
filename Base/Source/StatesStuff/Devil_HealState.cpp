@@ -56,7 +56,7 @@ void Devil_HealState::Update(double dt)
 			FSM_->switchState(2);
 		}
 	}
-	timer += dt;
+	timer += (float)dt;
 	if (zeHP->getHealth() < 100 && timer > 0.5f)
 	{
 		zeHP->getHealth() += 5;

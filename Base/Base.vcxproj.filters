@@ -231,6 +231,9 @@
     <ClCompile Include="Source\StatesStuff\Guy_StunState.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -418,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="Source\StatesStuff\Guy_StunState.h">
       <Filter>Header Files\StatesStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\CollisionComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

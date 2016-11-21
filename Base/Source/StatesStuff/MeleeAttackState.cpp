@@ -4,6 +4,7 @@
 #include "MyMath.h"
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Classes/GameEntity.h"
+#include "../Systems/Scene_System.h"
 
 MeleeAttackState::MeleeAttackState()
 {
@@ -56,8 +57,13 @@ void MeleeAttackState::Update(double dt)
         if ((zePhysics->getPos() - zeEnemyPhysic->getPos()).LengthSquared() <= influenceRadius * influenceRadius)
         {
             GameEntity *zeEnemy = dynamic_cast<GameEntity*>(&zeVictim->getOwner());
+            HPandDPComponent *enemyHealth = dynamic_cast<HPandDPComponent*>(&zeEnemy->getComponent(HPandDPComponent::ID_));
             HPandDPComponent *zeMyDMG = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
-            zeEnemy->getComponent(HPandDPComponent::ID_).onNotify(-zeMyDMG->getDamage());
+            enemyHealth->onNotify(-zeMyDMG->getDamage());
+            if (enemyHealth->getHealth() <= 0) {
+                FSM_->switchState(0);
+                Scene_System::accessing().getCurrScene().onNotify(*zeEnemy);
+            }
             timeCounter = 0;
         }
         else {

@@ -256,7 +256,7 @@ void SceneB::Render()
 						 {
 							 modelStack->PushMatrix();
 							 modelStack->Translate(0, -(zePhysicsStuff->getSize().y / 2) - 5.f, 0);
-							 modelStack->Scale(zeHP->getHealth() / 4, 5, 1);
+							 modelStack->Scale(zeHP->getHealth() / 4.f, 5, 1);
 							 zeGraphics->RenderMesh(zeGraphics->getMeshID("redCube"), false);
 							 modelStack->PopMatrix();
 						 }

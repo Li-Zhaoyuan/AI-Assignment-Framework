@@ -10,6 +10,7 @@ public:
     virtual ~HPandDPComponent();
 
     virtual void Init();
+    virtual void Exit();
     
     void setHealth(const int &zeHealth);
     void setDamage(const int &zeDMG);
@@ -22,5 +23,5 @@ public:
     int &getDamage();
 
 private:
-    int health_, damage_;
+    int health_, damage_, originalHealth_;
 };

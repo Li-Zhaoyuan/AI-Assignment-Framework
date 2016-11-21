@@ -10,6 +10,7 @@
 //#include "../StatesStuff/IdleState.h"   
 //TODO: Be Removed
 #include "../Misc/NPCBuilder.h"
+#include "../Gathering of Components/AllyEnemyComponent.h"
 
 SceneA::SceneA()
 {
@@ -75,6 +76,29 @@ void SceneA::Update(float dt)
     for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
     {
         (*it)->Update(dt);
+    }
+
+    switch (inactiveObjPos.empty())
+    {
+    case false:
+        for (std::vector<size_t>::iterator it = inactiveObjPos.begin(), end = inactiveObjPos.end(); it != end; ++it)
+        {
+            GameEntity *zeRemovedGo = m_GoList[(*it)];
+            m_GoList.erase(m_GoList.end() - (m_GoList.size() - (*it)));
+            m_InactiveList.push_back(zeRemovedGo);
+        }
+        inactiveObjPos.clear();
+        break;
+    default:
+        break;
+    }
+    switch (activeObjPos.empty())
+    {
+    case false:
+        activeObjPos.clear();
+        break;
+    default:
+        break;
     }
 }
 
@@ -197,9 +221,49 @@ void SceneA::Exit()
     m_GoList.clear();
     m_ally.clear();
     m_enemy.clear();
+    for (std::vector<GameEntity*>::iterator it = m_InactiveList.begin(), end = m_InactiveList.end(); it != end; ++it)
+    {
+        delete *it;
+        *it = nullptr;
+    }
+    m_InactiveList.clear();
+
+    activeObjPos.clear();
+    inactiveObjPos.clear();
 
 #ifdef _DEBUG
     delete TestingOutSprite;
 #endif
 }
 
+bool SceneA::onNotify(GenericEntity &zeEvent)
+{
+    for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+    {
+        if ((*it)->getName() == zeEvent.getName())
+        {
+            inactiveObjPos.push_back(it - m_GoList.begin());
+            AllyEnemyComponent *zeAlly = dynamic_cast<AllyEnemyComponent*>(&(*it)->getComponent(AllyEnemyComponent::ID_));
+            for (std::vector<GameEntity*>::iterator it2 = zeAlly->m_allyList->begin(), end2 = zeAlly->m_allyList->end(); it2 != end2; ++it2)
+            {
+                if ((*it2)->getName() == zeEvent.getName())
+                {
+                    zeAlly->m_allyList->erase(it2);
+                    break;
+                }
+            }
+            break;
+        }
+    }   
+    return true;
+}
+
+bool SceneA::SpawnDog(const Vector3 &zePos)
+{
+    return false;
+}
+
+bool SceneA::SpawnZombie(const Vector3 &zePos)
+{
+    return false;
+}
