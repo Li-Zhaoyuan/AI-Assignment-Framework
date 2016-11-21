@@ -46,3 +46,8 @@ Common/Debug/Common.tlog/cl.command.1.tlog
 Common/Debug/Common.tlog/lib.command.1.tlog
 Common/Debug/vc120.idb
 *.suo
+Base/Debug/Base.log
+Base/Debug/vc120.pdb
+Common/Debug/Common.log
+Debug/Base.ilk
+Debug/Base.pdb

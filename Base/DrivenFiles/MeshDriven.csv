@@ -9,4 +9,5 @@ DogSprite,,,,sprite,,Image//DogSprite.tga,,5,4
 SceneA,1,1,1,quad,,Image//SceneAbackground.tga,,,
 bullet,1,0,1,quad,,,,,
 ZombieSprite,,,,sprite,,Image//ZombieSprite.tga,,2,2
-
+GuySprite,,,,sprite,,Image//guySprite.tga,,,
+DevilSprite,,,,sprite,,Image//devilSprite.tga,,,
