@@ -59,7 +59,7 @@ void Devil_AttackState::Update(double dt)
 		dir = (zeEnemyPhysics->getPos() - zePhysicsStuff->getPos());
 		if (dir.LengthSquared() <= closest)
 		{
-			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
+			//if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
 			{
 				closest = dir.LengthSquared();
 				closestTarget = (*it);

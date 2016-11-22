@@ -3,6 +3,8 @@
 #include "MyMath.h"
 #include "../Gathering of Components/AllyEnemyComponent.h"
 #include "../Gathering of Components/PhysicsComponent.h"
+#include "../Gathering of Components/CollisionComponent.h"
+#include <sstream>
 
 IdleState::IdleState()
 {
@@ -70,4 +72,25 @@ bool IdleState::onNotify(const float &zeEvent)
         influenceRadius = zeEvent;
     }
     return false;
+}
+
+bool IdleState::onNotify(GenericComponent &zeEvent)
+{
+	CollisionComponent *zeBullet = dynamic_cast<CollisionComponent*>(&zeEvent);
+	if (zeBullet && checkWhetherTheWordInThatString("Zombie", originalOwnerName))
+	{
+		FSM_->switchState(2);
+		std::ostringstream ss;
+		GameEntity *zeGo = dynamic_cast<GameEntity*>(&zeBullet->getOwner());
+		PhysicsComponent *zeBulletPos = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
+		GameEntity *ownGo = dynamic_cast<GameEntity*>(owner_of_component);
+		PhysicsComponent *ownPhysics = dynamic_cast<PhysicsComponent*>(&ownGo->getComponent(PhysicsComponent::g_ID_));
+		Vector3 zeOppDir = -zeBulletPos->getVel();
+		zeOppDir.Normalize();
+		zeOppDir *= 70;
+		ss << "GO:" << zeOppDir.x + ownPhysics->getPos().x << "," << zeOppDir.y + ownPhysics->getPos().y << "," << zeOppDir.z + ownPhysics->getPos().z;
+		FSM_->getCurrentState().onNotify(ss.str());
+		return true;
+	}
+	return false;
 }

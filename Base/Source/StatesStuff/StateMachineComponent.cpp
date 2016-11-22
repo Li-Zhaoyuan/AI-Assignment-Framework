@@ -106,3 +106,9 @@ StateComponent &StateMachineComponent::getCurrentState()
 {
     return *HistoryOfStates.back();
 }
+
+bool StateMachineComponent::onNotify(GenericComponent &zeEvent)
+{
+	HistoryOfStates.back()->onNotify(zeEvent);
+	return true;
+}

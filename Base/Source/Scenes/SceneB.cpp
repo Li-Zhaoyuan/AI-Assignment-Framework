@@ -125,6 +125,7 @@ void SceneB::Update(float dt)
 			if (despawn == (*it))
 			{
 				listToDespawn.pop_back();
+				nonActiveBulletList.push_back(*it);
 				m_GoList.erase(it);
 				break;
 			}
@@ -136,7 +137,7 @@ void SceneB::Update(float dt)
 	if (timerForW > 15.f && maxDevils <= 10)
 	{
 		m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundary, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0)));
-		if (maxDevils < 5)
+		if (maxDevils < 3)
 			m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundary, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0)));
 		timerForW = 0.f;
 		maxDevils += 1;

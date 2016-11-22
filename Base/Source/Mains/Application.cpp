@@ -146,9 +146,9 @@ void Application::Init()
 
     Math::InitRNG();
     Scene_System::accessing().setGraphics_Scene(*new GraphicsEntity());
+    Scene_System::accessing().AddScene(*(new SceneTest1));
     Scene_System::accessing().AddScene(*new SceneA);
     Scene_System::accessing().AddScene(*new SceneB);
-    Scene_System::accessing().AddScene(*(new SceneTest1));
 }
 
 void Application::Run()

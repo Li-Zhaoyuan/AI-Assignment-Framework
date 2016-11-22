@@ -28,6 +28,8 @@ public:
     StateComponent &getSpecificStates(const std::string &zeName);
     StateComponent &getCurrentState();
 
+	virtual bool onNotify(GenericComponent &zeEvent);
+
 protected:
     std::vector<StateComponent*> allRegisteredStates, HistoryOfStates;
 };

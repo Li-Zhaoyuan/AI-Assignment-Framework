@@ -73,7 +73,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
 
     SpeedComponent *zeSpeed = new SpeedComponent;
     go->addComponent(SpeedComponent::ID_, zeSpeed);
-    zeSpeed->onNotify(20);
+    zeSpeed->onNotify(70);
 
     HPandDPComponent *zeHPandDP = new HPandDPComponent;
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);
@@ -216,7 +216,7 @@ GameEntity *NPCBuilder::BuildBullet(const std::string &zeName, Vector3 &boundary
 	AllyEnemyComponent *bullettoRecogniseEnemyAlly = new AllyEnemyComponent;
 	//GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 	bullet->addComponent(AllyEnemyComponent::ID_, bullettoRecogniseEnemyAlly);
-	bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 49));
+	bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(0, 49));
 	CollisionComponent *bulletCollision = new CollisionComponent;
 	bulletCollision->setDespawnList(listtodespawn).setEnemyList(enemyList);
 	bullet->addComponent(CollisionComponent::ID_, bulletCollision);

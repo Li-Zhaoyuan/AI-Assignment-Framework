@@ -108,7 +108,7 @@ void Guy_PatrolState::Update(double dt)
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
 		{
-			if (checkWhetherTheWordInThatString("Devil", (*it)->getName()))
+			//if (checkWhetherTheWordInThatString("Devil", (*it)->getName()))
 			{
 				zePhysicsStuff->setVel(Vector3(0, 0, 0));
 				FSM_->switchState(3);

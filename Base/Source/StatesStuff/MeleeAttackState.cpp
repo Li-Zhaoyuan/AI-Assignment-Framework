@@ -110,18 +110,22 @@ bool MeleeAttackState::onNotify(const float &zeEvent)
 
 bool MeleeAttackState::onNotify(GenericComponent &zeEvent)
 {
-    PhysicsComponent *zeVictimPhy = dynamic_cast<PhysicsComponent*>(&zeEvent);
-    if (zeVictimPhy)
-    {
-        zeVictim = zeVictimPhy;
-    }
-    else
-    {
-        GameEntity *zeVictimEntity = dynamic_cast<GameEntity*>(&zeEvent.getOwner());
-        zeVictim = dynamic_cast<PhysicsComponent*>(&zeVictimEntity->getComponent(PhysicsComponent::g_ID_));
-    }
-    timeCounter = attackDelay;
-    return true;
+	if (!zeVictim)
+	{
+		PhysicsComponent *zeVictimPhy = dynamic_cast<PhysicsComponent*>(&zeEvent);
+		if (zeVictimPhy)
+		{
+			zeVictim = zeVictimPhy;
+		}
+		else
+		{
+			GameEntity *zeVictimEntity = dynamic_cast<GameEntity*>(&zeEvent.getOwner());
+			zeVictim = dynamic_cast<PhysicsComponent*>(&zeVictimEntity->getComponent(PhysicsComponent::g_ID_));
+		}
+		timeCounter = attackDelay;
+		return true;
+	}
+	return false;
 }
 
 float &MeleeAttackState::getAttackRadius()

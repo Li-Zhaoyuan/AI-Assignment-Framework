@@ -41,6 +41,7 @@ void CollisionComponent::Update(double dt)
 		{
 			despawnList->push_back(ownself);
 			zeEnemyHP->getHealth() -= zeDamage->getDamage();
+			(*it)->getComponent(1).onNotify(*this);
 			break;
 		}
 		if (zePhysics->getPos().x > zePhysics->getBoundary().x

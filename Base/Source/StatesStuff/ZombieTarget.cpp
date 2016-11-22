@@ -99,17 +99,20 @@ bool ZombieTarget::onNotify(const float &zeEvent)
 
 bool ZombieTarget::onNotify(GenericComponent &zeEvent)
 {
-    PhysicsComponent *zeVictimPhy = dynamic_cast<PhysicsComponent*>(&zeEvent);
-    if (zeVictimPhy)
-    {
-        zeVictim = zeVictimPhy;
-    }
-    else
-    {
-        GameEntity *zeVictimEntity = dynamic_cast<GameEntity*>(&zeEvent.getOwner());
-        zeVictim = dynamic_cast<PhysicsComponent*>(&zeVictimEntity->getComponent(PhysicsComponent::g_ID_));
-    }
-    return true;
+	if (!zeVictim) {
+		PhysicsComponent *zeVictimPhy = dynamic_cast<PhysicsComponent*>(&zeEvent);
+		if (zeVictimPhy)
+		{
+			zeVictim = zeVictimPhy;
+		}
+		else
+		{
+			GameEntity *zeVictimEntity = dynamic_cast<GameEntity*>(&zeEvent.getOwner());
+			zeVictim = dynamic_cast<PhysicsComponent*>(&zeVictimEntity->getComponent(PhysicsComponent::g_ID_));
+		}
+		return true;
+	}
+	return false;
 }
 
 bool ZombieTarget::onNotify(const int &zeEvent)

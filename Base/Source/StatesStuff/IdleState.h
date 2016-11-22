@@ -15,6 +15,7 @@ public:
     const static unsigned char ID_ = 0;
 
     virtual bool onNotify(const float &zeEvent);
+	virtual bool onNotify(GenericComponent &zeEvent);
 
 private:
 };
