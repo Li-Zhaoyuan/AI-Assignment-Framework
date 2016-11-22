@@ -89,13 +89,13 @@ void SceneA::Update(float dt)
     static bool bLButtonState = false;
     if (!bLButtonState && Application::IsMousePressed(0))
     {
-        double mouseX, mouseY;
-        Application::GetCursorPos(&mouseX, &mouseY);
+        //double mouseX, mouseY;
+        //Application::GetCursorPos(&mouseX, &mouseY);
         bLButtonState = true;
-        int gameWidth = Application::GetInstance().cA_WindowWidth;
-        int gameH = Application::GetInstance().cA_WindowHeight;
-        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x);
-        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y);
+        //int gameWidth = Application::GetInstance().cA_WindowWidth;
+        //int gameH = Application::GetInstance().cA_WindowHeight;
+        //mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x);
+        //mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y);
         SpawnDog(Vector3((float)mouseXinGameScreen, (float)mouseYinGameScreen, 0));
         //std::cout << "LBUTTON DOWN" << std::endl;
     }
@@ -107,13 +107,13 @@ void SceneA::Update(float dt)
     static bool bRButtonState = false;
     if (!bRButtonState && Application::IsMousePressed(1))
     {
-        double mouseX, mouseY;
-        Application::GetCursorPos(&mouseX, &mouseY);
+        //double mouseX, mouseY;
+        //Application::GetCursorPos(&mouseX, &mouseY);
         bRButtonState = true;
-        int gameWidth = Application::GetInstance().cA_WindowWidth;
-        int gameH = Application::GetInstance().cA_WindowHeight;
-        mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x);
-        mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y);
+        //int gameWidth = Application::GetInstance().cA_WindowWidth;
+        //int gameH = Application::GetInstance().cA_WindowHeight;
+        //mouseXinGameScreen = ((float)mouseX / gameWidth * m_worldWidth) - (boundaryOfRoom.x);
+        //mouseYinGameScreen = ((float)(gameH - mouseY) / gameH * m_worldHeight) - (boundaryOfRoom.y);
         SpawnZombie(Vector3((float)mouseXinGameScreen, (float)mouseYinGameScreen, 0));
         //std::cout << "RBUTTON DOWN" << std::endl;
     }
