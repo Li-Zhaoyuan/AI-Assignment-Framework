@@ -62,7 +62,7 @@ void MeleeAttackState::Update(double dt)
         default:
             break;
         }
-        PhysicsComponent *zeEnemyPhysic = dynamic_cast<PhysicsComponent*>(zeVictim);
+        PhysicsComponent *zeEnemyPhysic = dynamic_cast<PhysicsComponent*>(&zeEnemy->getComponent(PhysicsComponent::g_ID_));
         if ((zePhysics->getPos() - zeEnemyPhysic->getPos()).LengthSquared() <= influenceRadius * influenceRadius)
         {
             HPandDPComponent *zeMyDMG = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
