@@ -80,7 +80,7 @@ void Devil_SearchState::Update(double dt)
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
 		{
-			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
+			if (!checkWhetherTheWordInThatString("Bullet", (*it)->getName()))
 			{
 				zePhysicsStuff->setVel(Vector3(0, 0, 0));
 				enemyLastSeen = zeEnemyPhysics->getPos();

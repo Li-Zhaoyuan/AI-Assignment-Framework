@@ -57,7 +57,7 @@ void Devil_AttackState::Update(double dt)
 	{
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 		dir = (zeEnemyPhysics->getPos() - zePhysicsStuff->getPos());
-		if (dir.LengthSquared() <= closest)
+		if (dir.LengthSquared() <= closest && !checkWhetherTheWordInThatString("Bullet", (*it)->getName()))
 		{
 			//if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
 			{
@@ -89,7 +89,7 @@ void Devil_AttackState::Update(double dt)
 			chance = Math::RandIntMinMax(1, 4);
 			if (chance > 2)
 			{
-				if (zeEnemyCurrState->getCurrentState().getName() != zeEnemyCurrState->getSpecificStates(2).getName())
+				if (zeEnemyCurrState->getCurrentState().getName() != zeEnemyCurrState->getSpecificStates(2).getName() && checkWhetherTheWordInThatString("Guy", (closestTarget)->getName()))
 					zeEnemyCurrState->switchState(2);
 				chance = 0;
 			}

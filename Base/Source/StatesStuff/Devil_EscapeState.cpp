@@ -57,7 +57,7 @@ void Devil_EscapeState::Update(double dt)
 	{
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 		dir = (zeEnemyPhysics->getPos() - zePhysicsStuff->getPos());
-		if (dir.LengthSquared() <= closest && checkWhetherTheWordInThatString("Guy", (*it)->getName()))
+		if (dir.LengthSquared() <= closest /*&& checkWhetherTheWordInThatString("Guy", (*it)->getName())*/)
 		{
 			//if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
 			//{
