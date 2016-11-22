@@ -11,7 +11,8 @@ StateMachineComponent::StateMachineComponent()
 StateMachineComponent::~StateMachineComponent()
 {
     for (auto it : allRegisteredStates)
-        delete it;
+        if (it)
+            delete it;
     allRegisteredStates.clear();
     HistoryOfStates.clear();
 }
@@ -32,7 +33,8 @@ void StateMachineComponent::Exit()
     HistoryOfStates.clear();
     for (std::vector<StateComponent*>::iterator it = allRegisteredStates.begin(), end = allRegisteredStates.end(); it != end; ++it)
     {
-        (*it)->Exit();
+        if (*it)
+            (*it)->Exit();
     }
     HistoryOfStates.push_back(allRegisteredStates[0]);
 }
