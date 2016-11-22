@@ -72,6 +72,20 @@ void MeleeAttackState::Update(double dt)
                 }
                 FSM_->switchState(0);
             }
+            else if (checkWhetherTheWordInThatString("Guy", zeEnemy->getName()))
+            {
+                switch (Math::RandIntMinMax(1, 2))
+                {
+                case 1:
+                {
+                    StateMachineComponent *zeEnemyFSM = dynamic_cast<StateMachineComponent*>(&zeEnemy->getComponent(StateMachineComponent::ID_.getValue()));
+                    zeEnemyFSM->switchState(2);
+                }
+                    break;
+                default:
+                    break;
+                }
+            }
             timeCounter = 0;
         }
         else {
