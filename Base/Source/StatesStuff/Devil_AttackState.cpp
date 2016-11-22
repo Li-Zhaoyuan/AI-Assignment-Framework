@@ -55,7 +55,7 @@ void Devil_AttackState::Update(double dt)
 		PhysicsComponent *zeEnemyPhysics = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
 		HPandDPComponent *zeEnemyHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
 		StateMachineComponent *zeEnemyCurrState = dynamic_cast<StateMachineComponent*>(&(*it)->getComponent(StateMachineComponent::ID_.getValue()));
-		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 10000)
+		if ((zeEnemyPhysics->getPos() - zePhysicsStuff->getPos()).LengthSquared() <= 20000)
 		{
 			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
 			{
@@ -69,7 +69,8 @@ void Devil_AttackState::Update(double dt)
 					chance = Math::RandIntMinMax(1, 4);
 					if (chance > 2)
 					{
-						zeEnemyCurrState->switchState(2);
+						if (zeEnemyCurrState->getCurrentState().getName() != zeEnemyCurrState->getSpecificStates(2).getName())
+							zeEnemyCurrState->switchState(2);
 						chance = 0;
 					}
 					//zeEnemyCurrState->switchState(2);
@@ -98,7 +99,7 @@ void Devil_AttackState::Update(double dt)
 		FSM_->switchState(2);
 	}
 	//zeOwnselfDP->getHealth() = 100;
-	if (zeOwnselfDP->getHealth() < 0)
+	if (zeOwnselfDP->getHealth() <= 0)
 	{
 		zePhysicsStuff->setVel(Vector3(0, 0, 0));
 		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));

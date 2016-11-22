@@ -7,7 +7,7 @@
 #include <math.h>
 #define speed 50
 #define healthProcValue 50
-#define rangeToPatrolPoint 100
+#define rangeToPatrolPoint Math::RandFloatMinMax(50,150)
 
 Guy_PatrolState::Guy_PatrolState()
 {
@@ -118,7 +118,7 @@ void Guy_PatrolState::Update(double dt)
 	}
 	//zePhysicsStuff->getPos().x
 	//zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
-
+	
 	if (hpOfGuy->getHealth() <= 0)
 	{
 
@@ -134,6 +134,7 @@ void Guy_PatrolState::Update(double dt)
 		setWayPoints();*/
 		FSM_->switchState(0);
 	}
+	//setWayPoints();
 }
 
 void Guy_PatrolState::Exit()

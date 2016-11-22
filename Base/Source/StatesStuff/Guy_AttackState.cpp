@@ -7,7 +7,7 @@
 #include "..\\Systems\\Scene_System.h"
 
 #include <math.h>
-#define speed 30
+#define speed 35
 #define healthProcValue 50
 #define rangeToPatrolPoint 100
 
@@ -151,5 +151,5 @@ void Guy_AttackState::Exit()
 {
 	changedName = false;
 	owner_of_component->setName(originalOwnerName);
-	timer = 2.f;
+	//timer = 2.f;
 }

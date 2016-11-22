@@ -17,8 +17,10 @@
     <ClCompile Include="Source\Gathering of Components\AllyEnemyComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\AnimationComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\DevilAnimComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogAnimComp.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
+    <ClCompile Include="Source\Gathering of Components\GuyAnimComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MyMeshComponent.cpp" />
@@ -82,8 +84,10 @@
     <ClInclude Include="Source\Gathering of Components\AnimationComponent.h" />
     <ClInclude Include="Source\Gathering of Components\CollisionComponent.h" />
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\DevilAnimComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DogAnimComp.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
+    <ClInclude Include="Source\Gathering of Components\GuyAnimComponent.h" />
     <ClInclude Include="Source\Gathering of Components\HPandDPComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ID_Component.h" />
     <ClInclude Include="Source\Gathering of Components\MeshComponent.h" />

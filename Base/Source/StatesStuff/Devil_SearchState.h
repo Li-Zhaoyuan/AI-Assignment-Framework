@@ -18,6 +18,7 @@ public:
 private:
 	float timer;
 	
-	Vector3 searchVel;
+	Vector3 searchVel, enemyLastSeen;
+	
 
 };

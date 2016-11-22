@@ -56,6 +56,13 @@ void Guy_StunState::Update(double dt)
 		FSM_->switchState(0);
 		timer = 0;
 	}
+	if (hpOfGuy->getHealth() < healthProcValue)
+	{
+		zePhysicsStuff->setVel(Vector3(0, 0, 0));
+
+		//currPoint = 0;
+		FSM_->switchState(1);
+	}
 	if (hpOfGuy->getHealth() <= 0)
 	{
 

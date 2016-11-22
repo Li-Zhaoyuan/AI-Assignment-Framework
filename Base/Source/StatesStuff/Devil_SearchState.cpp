@@ -21,6 +21,7 @@ void Devil_SearchState::Init()
 	changedName = false;
 	timer = 0;
 	searchVel.SetZero();
+	enemyLastSeen.SetZero();
 }
 
 void Devil_SearchState::Update(double dt)
@@ -45,13 +46,25 @@ void Devil_SearchState::Update(double dt)
 
 	//int randomDir = rand() % 4 + 1;
 	timer += (float)dt;
-	if (timer >= 0.5f)
+	if (enemyLastSeen == Vector3(0, 0, 0))
 	{
-		searchVel.x = Math::RandFloatMinMax(-50.f, 50.f);
-		searchVel.y = Math::RandFloatMinMax(-50.f, 50.f);
-		timer = 0;
+
+		if (timer >= 0.5f)
+		{
+			searchVel.x = Math::RandFloatMinMax(-50.f, 50.f);
+			searchVel.y = Math::RandFloatMinMax(-50.f, 50.f);
+			timer = 0;
+		}
 	}
-	
+	else
+	{
+		searchVel = (enemyLastSeen - zePhysicsStuff->getPos()).Normalized() * 40.f;
+		
+		if ((enemyLastSeen - zePhysicsStuff->getPos()).LengthSquared() < 100)
+		{
+			enemyLastSeen.SetZero();
+		}
+	}
 	if ((zePhysicsStuff->getPos().x + zePhysicsStuff->getVel().x * dt) > zePhysicsStuff->getBoundary().x
 		|| (zePhysicsStuff->getPos().x + zePhysicsStuff->getVel().x * dt) < -zePhysicsStuff->getBoundary().x)
 		searchVel.x = -searchVel.x;
@@ -59,7 +72,7 @@ void Devil_SearchState::Update(double dt)
 		|| (zePhysicsStuff->getPos().y + zePhysicsStuff->getVel().y * dt) < -zePhysicsStuff->getBoundary().y)
 		searchVel.y = -searchVel.y;
 	//zePhysicsStuff->getPos().x
-	zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
+	zePhysicsStuff->setVel(searchVel);
 
 	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&devil->getComponent(AllyEnemyComponent::ID_));
 	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
@@ -70,6 +83,7 @@ void Devil_SearchState::Update(double dt)
 			if (checkWhetherTheWordInThatString("Guy", (*it)->getName()))
 			{
 				zePhysicsStuff->setVel(Vector3(0, 0, 0));
+				enemyLastSeen = zeEnemyPhysics->getPos();
 				FSM_->switchState(1);
 			}
 
@@ -84,7 +98,7 @@ void Devil_SearchState::Update(double dt)
 		//currPoint = 0;
 		FSM_->switchState(2);
 	}
-	if (zeOwnselfHP->getHealth() < 0)
+	if (zeOwnselfHP->getHealth() <= 0)
 	{
 		zePhysicsStuff->setVel(Vector3(0, 0, 0));
 		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));

@@ -19,8 +19,11 @@ public:
 
 private:
     CameraBS camera_;
+	int maxDevils;
     float m_worldHeight, m_worldWidth;
     float fps;
+	float timerForQ;
+	float timerForW;
 	Vector3 boundary;
 	GameEntity* m_allyBullet, *m_enemyBullet;
 	std::vector<GameEntity*> m_GoList, nonActiveBulletList, listToDespawn, tempStorage;

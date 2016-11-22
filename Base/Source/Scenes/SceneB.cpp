@@ -16,6 +16,8 @@
 #include "../StatesStuff/Guy_AttackState.h"
 #include "../Gathering of Components/HPandDPComponent.h"
 #include "../Gathering of Components/CollisionComponent.h"
+#include "../Gathering of Components/DevilAnimComponent.h"
+#include "../Gathering of Components/GuyAnimComponent.h"
 #include "../Misc/GlobalFunctions.h"
 
 
@@ -51,13 +53,13 @@ void SceneB::Init()
 	GameEntity *Devil = new GameEntity();
 	Devil->setName("Devil");
 	MeshComponent *devilMesh = new MeshComponent();
-	devilMesh->onNotify(zeGraphics->getMeshID("greenQuad"));
+	devilMesh->onNotify(zeGraphics->getMeshID("DevilSprite"));
 	Devil->addComponent(MeshComponent::g_CompID_.getValue(), devilMesh);
 	PhysicsComponent *devilPhysic = new PhysicsComponent();
-	devilPhysic->setSize(Vector3(25, 25, 1));
+	devilPhysic->setSize(Vector3(30, 30, 1));
 	devilPhysic->setYrotation(0);
 	devilPhysic->setBoundary(boundary);
-	devilPhysic->setPos(Vector3(0, 0, 0));
+	devilPhysic->setPos(Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0));
 	Devil->addComponent(PhysicsComponent::g_ID_, devilPhysic);
 	
 	StateMachineComponent *devilFSM = new StateMachineComponent();
@@ -66,12 +68,12 @@ void SceneB::Init()
 	devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
 	devilFSM->addStates(*new Devil_EscapeState(), Devil_EscapeState::ID_);
 	devilFSM->addStates(*new Devil_HealState(), Devil_HealState::ID_);
-	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
+	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
 
 	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
 	DeviltoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
 	Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
-
+	Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());
 
 	m_GoList.push_back(Devil);
 	m_enemy.push_back(Devil);
@@ -79,10 +81,10 @@ void SceneB::Init()
 	GameEntity *Guy = new GameEntity();
 	Guy->setName("Guy");
 	MeshComponent *guyMesh = new MeshComponent();
-	guyMesh->onNotify(zeGraphics->getMeshID("whiteQuad"));
+	guyMesh->onNotify(zeGraphics->getMeshID("GuySprite"));
 	Guy->addComponent(MeshComponent::g_CompID_.getValue(), guyMesh);
 	PhysicsComponent *guyPhysic = new PhysicsComponent();
-	guyPhysic->setSize(Vector3(25, 25, 1));
+	guyPhysic->setSize(Vector3(20, 20, 1));
 	guyPhysic->setYrotation(0);
 	guyPhysic->setBoundary(boundary);
 	guyPhysic->setPos(Vector3(150, 0, 0));
@@ -99,7 +101,7 @@ void SceneB::Init()
 	AllyEnemyComponent *GuytoRecogniseEnemyAlly = new AllyEnemyComponent;
 	GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 	Guy->addComponent(AllyEnemyComponent::ID_, GuytoRecogniseEnemyAlly);
-
+	Guy->addComponent(GuyAnimComp::ID_, new GuyAnimComp());
 
 	m_GoList.push_back(Guy);
 	m_ally.push_back(Guy);
@@ -132,7 +134,7 @@ void SceneB::Init()
 		AllyEnemyComponent *bullettoRecogniseEnemyAlly = new AllyEnemyComponent;
 		//GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 		bullet->addComponent(AllyEnemyComponent::ID_, bullettoRecogniseEnemyAlly);
-		bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
+		bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 49));
 		CollisionComponent *bulletCollision = new CollisionComponent;
 		bulletCollision->setDespawnList(listToDespawn).setEnemyList(m_enemy);
 		bullet->addComponent(CollisionComponent::ID_, bulletCollision);
@@ -141,7 +143,9 @@ void SceneB::Init()
 	}
 	//m_allyBullet, m_enemyBullet;
 	background = zeGraphics->getMeshID("sceneBBackground");
-	
+	timerForQ = 0.5f;
+	timerForW = 0.5f;
+	maxDevils = 0;
 }
 
 void SceneB::Update(float dt)
@@ -179,17 +183,43 @@ void SceneB::Update(float dt)
 				break;
 			}
 		}
-		/*for (std::vector<GameEntity*>::iterator it = despawningBullets.begin(), end = despawningBullets.end(); it != end; ++it)
-		{
-			for (std::vector<GameEntity*>::iterator it2 = m_GoList.begin(), end = m_GoList.end(); it2 != end; ++it2)
-			{
-				if ((*it) == (*it2))
-				{
-
-				}
-			}
-		}*/
+		
 	}
+	
+	timerForW += dt;
+	if (timerForW > 15.f && maxDevils <= 10)
+	{
+		GameEntity *Devil = new GameEntity();
+		Devil->setName("Devil");
+		MeshComponent *devilMesh = new MeshComponent();
+		devilMesh->onNotify(zeGraphics->getMeshID("DevilSprite"));
+		Devil->addComponent(MeshComponent::g_CompID_.getValue(), devilMesh);
+		PhysicsComponent *devilPhysic = new PhysicsComponent();
+		devilPhysic->setSize(Vector3(30, 30, 1));
+		devilPhysic->setYrotation(0);
+		devilPhysic->setBoundary(boundary);
+		devilPhysic->setPos(Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0));
+		Devil->addComponent(PhysicsComponent::g_ID_, devilPhysic);
+
+		StateMachineComponent *devilFSM = new StateMachineComponent();
+		Devil->addComponent(StateMachineComponent::ID_.getValue(), devilFSM);
+		devilFSM->addStates(*new Devil_SearchState(), Devil_SearchState::ID_);
+		devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
+		devilFSM->addStates(*new Devil_EscapeState(), Devil_EscapeState::ID_);
+		devilFSM->addStates(*new Devil_HealState(), Devil_HealState::ID_);
+		Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
+
+		AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
+		DeviltoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
+		Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
+		Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());
+
+		m_GoList.push_back(Devil);
+		m_enemy.push_back(Devil);
+		timerForW = 0.f;
+		maxDevils += 1;
+	}
+	
 }
 
 void SceneB::Render()
@@ -244,6 +274,8 @@ void SceneB::Render()
 					 {
 						 modelStack->PushMatrix();
 						 HPandDPComponent*zeHP = dynamic_cast<HPandDPComponent*>(&(*it)->getComponent(HPandDPComponent::ID_));
+						 if ((*it)->seeComponentActive(7))
+							 zeGraphics->getMeshRef(zeMeshID->getMeshID()).onNotify((*it)->getComponent(7));
 						 modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
 						 // Debuggin Stuff
 						 modelStack->PushMatrix();
