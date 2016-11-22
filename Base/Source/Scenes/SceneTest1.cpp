@@ -39,9 +39,15 @@ void SceneTest1::Init()
 	boundaryOfRoom.Set(320, 180, 0);
 	// The very reason why we can't see any thing
 	healthBarID = zeGraphics->getMeshID("redCube");
+    
+    spawnLimitOfDog = 2;
+    spawnLimitOfZombie = 5;
+    for (size_t num = 0, zombiePresence = 0; num < spawnLimitOfZombie; ++num, ++zombiePresence)
+        m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+	m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(0, 20, 0)));
+    m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+    dogPresence = 2;
 
-	m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(-55, 0, 0)));
-	//m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(0, 20, 0)));
 	m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
 	m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
 	for (int i = 0; i < 10; ++i)
@@ -72,6 +78,16 @@ void SceneTest1::Update(float dt)
 			GameEntity *zeRemovedGo = m_GoList[(*it)];
 			m_GoList.erase(m_GoList.end() - (m_GoList.size() - (*it)));
 			m_InactiveList.push_back(zeRemovedGo);
+            if (checkWhetherTheWordInThatString("Dog", zeRemovedGo->getName()))
+            {
+                --dogPresence;
+                SpawnDog(Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));
+            }
+            else if (checkWhetherTheWordInThatString("Zombie", zeRemovedGo->getName()))
+            {
+                --zombiePresence;
+                SpawnZombie(Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));
+            }
 		}
 		inactiveObjPos.clear();
 		break;
@@ -106,7 +122,6 @@ void SceneTest1::Update(float dt)
 				break;
 			}
 		}
-
 	}
 }
 
@@ -304,4 +319,57 @@ bool SceneTest1::onNotify(const std::string &zeEvent)
 
 
 	//return false;
+}
+
+bool SceneTest1::SpawnDog(const Vector3 &zePos)
+{
+    if (dogPresence < spawnLimitOfDog)
+    {
+        for (std::vector<GameEntity*>::iterator it = m_InactiveList.begin(), end = m_InactiveList.end(); it != end; ++it)
+        {
+            if (checkWhetherTheWordInThatString("Dog", (*it)->getName()))
+            {
+                (*it)->getComponent(HPandDPComponent::ID_).Exit();
+                (*it)->getComponent(1).Exit();
+                PhysicsComponent *zePhysicz = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+                zePhysicz->Exit();
+                zePhysicz->setPos(zePos);
+                GameEntity *zeDog = (*it);
+                m_InactiveList.erase(it);
+                tempStorage.push_back(zeDog);
+                m_ally.push_back(zeDog);
+                return true;
+                break;
+            }
+        }
+        tempStorage.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, zePos));
+        return true;
+    }
+    return false;
+}
+
+bool SceneTest1::SpawnZombie(const Vector3 &zePos)
+{
+    if (zombiePresence < spawnLimitOfZombie)
+    {
+        for (std::vector<GameEntity*>::iterator it = m_InactiveList.begin(), end = m_InactiveList.end(); it != end; ++it)
+        {
+            if (checkWhetherTheWordInThatString("Zombie", (*it)->getName()))
+            {
+                (*it)->getComponent(HPandDPComponent::ID_).Exit();
+                (*it)->getComponent(1).Exit();
+                PhysicsComponent *zePhysicz = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+                zePhysicz->Exit();
+                zePhysicz->setPos(zePos);
+                m_enemy.push_back(*it);
+                tempStorage.push_back(*it);
+                m_InactiveList.erase(it);
+                return true;
+                break;
+            }
+        }
+        tempStorage.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, zePos));
+        return true;
+    }
+    return false;
 }

@@ -78,7 +78,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     HPandDPComponent *zeHPandDP = new HPandDPComponent;
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);
     zeHPandDP->setHealth(100);
-    zeHPandDP->setDamage(10);
+    zeHPandDP->setDamage(45);
 
     go->addComponent(ZombieAnimComp::ID_, new ZombieAnimComp());
 
@@ -124,12 +124,12 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
 
     SpeedComponent *zeSpeed = new SpeedComponent;
     go->addComponent(SpeedComponent::ID_, zeSpeed);
-    zeSpeed->onNotify(20.f);
+    zeSpeed->onNotify(60.f);
 
     HPandDPComponent *zeHPandDP = new HPandDPComponent;
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);
     zeHPandDP->setHealth(25);
-    zeHPandDP->setDamage(3);
+    zeHPandDP->setDamage(10);
 
     go->addComponent(DogAnimComp::ID_, new DogAnimComp());
     
