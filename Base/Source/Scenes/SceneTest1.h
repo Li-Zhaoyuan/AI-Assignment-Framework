@@ -4,6 +4,7 @@
 #include "../Classes/SceneEntity.h"
 #include "../Classes/GameEntity.h"
 #include "../Classes/CameraBS.h"
+#include <set>
 
 class SceneTest1 : public SceneEntity
 {
@@ -25,7 +26,7 @@ private:
     
     std::vector<GameEntity*> m_GoList, m_InactiveList, tempStorage, nonActiveBulletList, listToDespawn;
 	std::vector<GameEntity*> m_enemy, m_ally;
-	std::vector<size_t> inactiveObjPos;
+	std::set<size_t> inactiveObjPos;
 	
 	CameraBS camera_;
     float m_worldHeight, m_worldWidth;

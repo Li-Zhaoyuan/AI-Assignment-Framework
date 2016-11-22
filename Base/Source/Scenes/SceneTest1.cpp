@@ -75,7 +75,7 @@ void SceneTest1::Update(float dt)
 	switch (inactiveObjPos.empty())
 	{
 	case false:
-		for (std::vector<size_t>::iterator it = inactiveObjPos.begin(), end = inactiveObjPos.end(); it != end; ++it)
+		for (std::set<size_t>::iterator it = inactiveObjPos.begin(), end = inactiveObjPos.end(); it != end; ++it)
 		{
 			GameEntity *zeRemovedGo = m_GoList[(*it)];
 			m_GoList.erase(m_GoList.end() - (m_GoList.size() - (*it)));
@@ -258,7 +258,7 @@ bool SceneTest1::onNotify(GenericEntity &zeEvent)
 	{
 		if ((*it)->getName() == zeEvent.getName())
 		{
-			inactiveObjPos.push_back(it - m_GoList.begin());
+			inactiveObjPos.insert(it - m_GoList.begin());
 			AllyEnemyComponent *zeAlly = dynamic_cast<AllyEnemyComponent*>(&(*it)->getComponent(AllyEnemyComponent::ID_));
 			for (std::vector<GameEntity*>::iterator it2 = zeAlly->m_allyList->begin(), end2 = zeAlly->m_allyList->end(); it2 != end2; ++it2)
 			{
