@@ -31,9 +31,6 @@
     <Filter Include="Source Files\Classes">
       <UniqueIdentifier>{ea0727e2-ee25-4d44-8d90-f39b8b008d78}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Mains">
-      <UniqueIdentifier>{35081f40-8b4a-47b1-93c1-05fb587f553b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{b2d02fa3-79ee-458b-86f2-0209eca1da31}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,9 @@
     </Filter>
     <Filter Include="Source Files\StatesStuff">
       <UniqueIdentifier>{04fbd980-13a8-4d08-aa6f-15c4ec17f894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mains">
+      <UniqueIdentifier>{35081f40-8b4a-47b1-93c1-05fb587f553b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -231,13 +231,13 @@
     <ClCompile Include="Source\StatesStuff\Guy_StunState.cpp">
       <Filter>Source Files\StatesStuff</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Gathering of Components\GuyAnimComponent.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Gathering of Components\DevilAnimComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -428,13 +428,13 @@
     <ClInclude Include="Source\StatesStuff\Guy_StunState.h">
       <Filter>Header Files\StatesStuff</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Gathering of Components\CollisionComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Gathering of Components\GuyAnimComponent.h">
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Gathering of Components\DevilAnimComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\CollisionComponent.h">
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
   </ItemGroup>

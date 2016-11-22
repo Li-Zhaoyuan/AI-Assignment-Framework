@@ -350,9 +350,13 @@ bool SceneA::SpawnDog(const Vector3 &zePos)
             PhysicsComponent *zePhysicz = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             zePhysicz->Exit();
             zePhysicz->setPos(zePos);
+            GameEntity *zeDog = (*it);
+            m_InactiveList.erase(it);
+            tempStorage.push_back(zeDog);
+            m_ally.push_back(zeDog);
             return true;
             break;
-        }
+        }   
     }
     tempStorage.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, zePos));
     return true;
@@ -369,6 +373,9 @@ bool SceneA::SpawnZombie(const Vector3 &zePos)
             PhysicsComponent *zePhysicz = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
             zePhysicz->Exit();
             zePhysicz->setPos(zePos);
+            m_enemy.push_back(*it);
+            tempStorage.push_back(*it);
+            m_InactiveList.erase(it);
             return true;
             break;
         }
