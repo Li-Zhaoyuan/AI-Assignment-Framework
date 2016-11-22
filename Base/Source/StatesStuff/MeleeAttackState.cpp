@@ -66,8 +66,11 @@ void MeleeAttackState::Update(double dt)
             HPandDPComponent *zeMyDMG = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
             enemyHealth->onNotify(-zeMyDMG->getDamage());
             if (enemyHealth->getHealth() <= 0) {
+                if (checkWhetherTheWordInThatString("Dog", zeEnemy->getName()))
+                {
+                    Scene_System::accessing().getCurrScene().onNotify(*zeEnemy);
+                }
                 FSM_->switchState(0);
-                Scene_System::accessing().getCurrScene().onNotify(*zeEnemy);
             }
             timeCounter = 0;
         }

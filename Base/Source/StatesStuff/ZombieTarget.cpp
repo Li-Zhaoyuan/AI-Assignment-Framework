@@ -39,7 +39,7 @@ void ZombieTarget::Update(double dt)
     GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
     PhysicsComponent *enemyPhysics = dynamic_cast<PhysicsComponent*>(zeVictim);
-    if ((zePhysics->getPos() - enemyPhysics->getPos()).LengthSquared() > influenceRadius * influenceRadius)
+    if (!enemyPhysics || ((zePhysics->getPos() - enemyPhysics->getPos()).LengthSquared() > influenceRadius * influenceRadius))
     {
         FSM_->switchState(0);
         zePhysics->setVel(Vector3(0, 0, 0));

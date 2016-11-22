@@ -3,6 +3,8 @@
 #include "PhysicsComponent.h"
 #include "../Misc/DetectMemoryLeak.h"
 #include "../Classes/GameEntity.h"
+#include "../Gathering of Components/HPandDPComponent.h"
+#include "../Systems/Scene_System.h"
 
 ZombieAnimComp::ZombieAnimComp()
 {
@@ -46,4 +48,10 @@ void ZombieAnimComp::Update(double dt)
         zeGo->addComponent(AnimationComponent::ID_, allAnimations[1]);
     else if (zePhysics->getVel().x < Math::EPSILON)
         zeGo->addComponent(AnimationComponent::ID_, allAnimations[0]);
+
+    HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
+    if (zeHP->getHealth() <= 0)
+    {
+        Scene_System::accessing().getCurrScene().onNotify(*zeGo);
+    }
 }

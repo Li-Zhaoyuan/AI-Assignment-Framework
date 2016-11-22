@@ -41,7 +41,7 @@ void SceneTest1::Init()
 	healthBarID = zeGraphics->getMeshID("redCube");
     
     spawnLimitOfDog = 2;
-    spawnLimitOfZombie = 5;
+    zombiePresence = spawnLimitOfZombie = 5;
     for (size_t num = 0, zombiePresence = 0; num < spawnLimitOfZombie; ++num, ++zombiePresence)
         m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
 	m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(0, 20, 0)));
@@ -50,7 +50,9 @@ void SceneTest1::Init()
 
 	m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
 	m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
-	for (int i = 0; i < 10; ++i)
+    m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+    m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+    for (int i = 0; i < 10; ++i)
 	{
 		nonActiveBulletList.push_back(NPCBuilder::BuildBullet("Bullet", boundaryOfRoom, m_enemy, m_ally, listToDespawn, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
 	}
@@ -338,11 +340,13 @@ bool SceneTest1::SpawnDog(const Vector3 &zePos)
                 m_InactiveList.erase(it);
                 tempStorage.push_back(zeDog);
                 m_ally.push_back(zeDog);
+                ++dogPresence;
                 return true;
                 break;
             }
         }
         tempStorage.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, zePos));
+        ++dogPresence;
         return true;
     }
     return false;
@@ -364,11 +368,13 @@ bool SceneTest1::SpawnZombie(const Vector3 &zePos)
                 m_enemy.push_back(*it);
                 tempStorage.push_back(*it);
                 m_InactiveList.erase(it);
+                ++zombiePresence;
                 return true;
                 break;
             }
         }
         tempStorage.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, zePos));
+        ++zombiePresence;
         return true;
     }
     return false;
