@@ -111,5 +111,6 @@ void Devil_SearchState::Update(double dt)
 void Devil_SearchState::Exit()
 {
 	changedName = false;
-	owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }

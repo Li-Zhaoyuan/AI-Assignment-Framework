@@ -82,5 +82,6 @@ void Devil_HealState::Update(double dt)
 void Devil_HealState::Exit()
 {
 	changedName = false;
-	owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }

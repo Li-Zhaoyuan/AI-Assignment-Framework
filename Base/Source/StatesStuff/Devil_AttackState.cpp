@@ -112,5 +112,6 @@ void Devil_AttackState::Update(double dt)
 void Devil_AttackState::Exit()
 {
 	changedName = false;
-	owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+	    owner_of_component->setName(originalOwnerName);
 }

@@ -150,6 +150,7 @@ void Guy_AttackState::Update(double dt)
 void Guy_AttackState::Exit()
 {
 	changedName = false;
-	owner_of_component->setName(originalOwnerName);
-	//timer = 2.f;
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
+    //timer = 2.f;
 }

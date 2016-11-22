@@ -130,5 +130,6 @@ void Devil_EscapeState::Update(double dt)
 void Devil_EscapeState::Exit()
 {
 	changedName = false;
-	owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }

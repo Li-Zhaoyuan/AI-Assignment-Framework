@@ -77,6 +77,7 @@ void Guy_StunState::Update(double dt)
 void Guy_StunState::Exit()
 {
 	changedName = false;
-	owner_of_component->setName(originalOwnerName);
-	timer = 0;
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
+    timer = 0;
 }

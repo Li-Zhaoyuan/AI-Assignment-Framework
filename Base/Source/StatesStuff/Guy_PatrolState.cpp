@@ -140,7 +140,8 @@ void Guy_PatrolState::Update(double dt)
 void Guy_PatrolState::Exit()
 {
 	changedName = false;
-	owner_of_component->setName(originalOwnerName);
+    if (originalOwnerName != "")
+        owner_of_component->setName(originalOwnerName);
 }
 
 void Guy_PatrolState::setWayPoints()
