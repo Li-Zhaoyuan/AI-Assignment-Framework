@@ -51,3 +51,5 @@ Base/Debug/vc120.pdb
 Common/Debug/Common.log
 Debug/Base.ilk
 Debug/Base.pdb
+*.lastbuildstate
+*.tlog
