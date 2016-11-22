@@ -41,6 +41,7 @@ void ZombieTarget::Update(double dt)
     if ((zePhysics->getPos() - enemyPhysics->getPos()).LengthSquared() > influenceRadius * influenceRadius)
     {
         FSM_->switchState(0);
+        zePhysics->setVel(Vector3(0, 0, 0));
     }
     else
     {

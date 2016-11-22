@@ -62,7 +62,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     zeFSM->getSpecificStates(MeleeAttackState::ID_).onNotify(-1.f);
     zeFSM->getSpecificStates(IdleState::ID_).onNotify(40.f);
     zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(40.f);
-    zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(-25.f);
+    zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(-30.f);
     zeFSM->getSpecificStates(ZombieTarget::ID_).onNotify(2);
     zeFSM->getSpecificStates(ZombieCharge::ID_).onNotify(30.f);
     zeFSM->getSpecificStates(ZombieCharge::ID_).onNotify(2);
@@ -109,7 +109,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     go->addComponent(StateMachineComponent::ID_.getValue(), zeFSM);
     zeFSM->addStates(*new PatrolState, PatrolState::ID_);
     zeFSM->addStates(*new DogBarkState, DogBarkState::ID_);
-    zeFSM->getSpecificStates(PatrolState::ID_).onNotify(60.f);
+    zeFSM->getSpecificStates(PatrolState::ID_).onNotify(50.f);
     zeFSM->getSpecificStates(DogBarkState::ID_).onNotify(25.f);
     zeFSM->addStates(*new GoThereState, GoThereState::ID_);
     zeFSM->addStates(*new DogBite, DogBite::ID_);
@@ -124,7 +124,7 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
 
     SpeedComponent *zeSpeed = new SpeedComponent;
     go->addComponent(SpeedComponent::ID_, zeSpeed);
-    zeSpeed->onNotify(15);
+    zeSpeed->onNotify(20.f);
 
     HPandDPComponent *zeHPandDP = new HPandDPComponent;
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);
