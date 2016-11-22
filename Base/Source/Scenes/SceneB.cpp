@@ -5,19 +5,8 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
 #include "../Gathering of Components/AllyEnemyComponent.h"
-#include "../StatesStuff/StateMachineComponent.h"
-#include "../StatesStuff/Devil_SearchState.h"   
-#include "../StatesStuff/Devil_AttackState.h"   
-#include "../StatesStuff/Devil_HealState.h"
-#include "../StatesStuff/Devil_EscapeState.h"  
-#include "../StatesStuff/Guy_PatrolState.h"   
-#include "../StatesStuff/Guy_EscapeState.h"   
-#include "../StatesStuff/Guy_StunState.h"
-#include "../StatesStuff/Guy_AttackState.h"
 #include "../Gathering of Components/HPandDPComponent.h"
-#include "../Gathering of Components/CollisionComponent.h"
-#include "../Gathering of Components/DevilAnimComponent.h"
-#include "../Gathering of Components/GuyAnimComponent.h"
+#include "../Misc/NPCBuilder.h"
 #include "../Misc/GlobalFunctions.h"
 
 
@@ -50,7 +39,7 @@ void SceneB::Init()
     projectionStack->LoadMatrix(ortho);
     // The very reason why we can't see any thing
 	//Devil_SearchState
-	GameEntity *Devil = new GameEntity();
+	/*GameEntity *Devil = new GameEntity();
 	Devil->setName("Devil");
 	MeshComponent *devilMesh = new MeshComponent();
 	devilMesh->onNotify(zeGraphics->getMeshID("DevilSprite"));
@@ -73,38 +62,12 @@ void SceneB::Init()
 	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
 	DeviltoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
 	Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
-	Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());
+	Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());*/
 
-	m_GoList.push_back(Devil);
-	m_enemy.push_back(Devil);
+	m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundary, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0)));
 
-	GameEntity *Guy = new GameEntity();
-	Guy->setName("Guy");
-	MeshComponent *guyMesh = new MeshComponent();
-	guyMesh->onNotify(zeGraphics->getMeshID("GuySprite"));
-	Guy->addComponent(MeshComponent::g_CompID_.getValue(), guyMesh);
-	PhysicsComponent *guyPhysic = new PhysicsComponent();
-	guyPhysic->setSize(Vector3(20, 20, 1));
-	guyPhysic->setYrotation(0);
-	guyPhysic->setBoundary(boundary);
-	guyPhysic->setPos(Vector3(150, 0, 0));
-	Guy->addComponent(PhysicsComponent::g_ID_, guyPhysic);
-
-	StateMachineComponent *guyFSM = new StateMachineComponent();
-	Guy->addComponent(StateMachineComponent::ID_.getValue(), guyFSM);
-	guyFSM->addStates(*new Guy_PatrolState(), Guy_PatrolState::ID_);
-	guyFSM->addStates(*new Guy_EscapeState(), Guy_EscapeState::ID_);
-	guyFSM->addStates(*new Guy_StunState(), Guy_StunState::ID_);
-	guyFSM->addStates(*new Guy_AttackState(), Guy_AttackState::ID_);
-	Guy->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
-	
-	AllyEnemyComponent *GuytoRecogniseEnemyAlly = new AllyEnemyComponent;
-	GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
-	Guy->addComponent(AllyEnemyComponent::ID_, GuytoRecogniseEnemyAlly);
-	Guy->addComponent(GuyAnimComp::ID_, new GuyAnimComp());
-
-	m_GoList.push_back(Guy);
-	m_ally.push_back(Guy);
+	m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundary, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0)));
+	//m_ally.push_back(Guy);
 
 	/*healthBars = new GameEntity();
 	healthBars->setName("healthBars");
@@ -120,26 +83,9 @@ void SceneB::Init()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		GameEntity* bullet = new GameEntity();
-		bullet->setName("Bullet");
-		MeshComponent *bulletMesh = new MeshComponent();
-		bulletMesh->onNotify(zeGraphics->getMeshID("bullet"));
-		bullet->addComponent(MeshComponent::g_CompID_.getValue(), bulletMesh);
-		PhysicsComponent *bulletPhysic = new PhysicsComponent();
-		bulletPhysic->setSize(Vector3(5, 5, 1));
-		bulletPhysic->setYrotation(0);
-		bulletPhysic->setBoundary(boundary);
-		bulletPhysic->setPos(Vector3(150, 0, 0));
-		bullet->addComponent(PhysicsComponent::g_ID_, bulletPhysic);
-		AllyEnemyComponent *bullettoRecogniseEnemyAlly = new AllyEnemyComponent;
-		//GuytoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
-		bullet->addComponent(AllyEnemyComponent::ID_, bullettoRecogniseEnemyAlly);
-		bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 49));
-		CollisionComponent *bulletCollision = new CollisionComponent;
-		bulletCollision->setDespawnList(listToDespawn).setEnemyList(m_enemy);
-		bullet->addComponent(CollisionComponent::ID_, bulletCollision);
+		
 
-		nonActiveBulletList.push_back(bullet);
+		nonActiveBulletList.push_back(NPCBuilder::BuildBullet("Bullet", boundary, m_enemy, m_ally, listToDespawn, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0)));
 	}
 	//m_allyBullet, m_enemyBullet;
 	background = zeGraphics->getMeshID("sceneBBackground");
@@ -189,33 +135,9 @@ void SceneB::Update(float dt)
 	timerForW += dt;
 	if (timerForW > 15.f && maxDevils <= 10)
 	{
-		GameEntity *Devil = new GameEntity();
-		Devil->setName("Devil");
-		MeshComponent *devilMesh = new MeshComponent();
-		devilMesh->onNotify(zeGraphics->getMeshID("DevilSprite"));
-		Devil->addComponent(MeshComponent::g_CompID_.getValue(), devilMesh);
-		PhysicsComponent *devilPhysic = new PhysicsComponent();
-		devilPhysic->setSize(Vector3(30, 30, 1));
-		devilPhysic->setYrotation(0);
-		devilPhysic->setBoundary(boundary);
-		devilPhysic->setPos(Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0));
-		Devil->addComponent(PhysicsComponent::g_ID_, devilPhysic);
-
-		StateMachineComponent *devilFSM = new StateMachineComponent();
-		Devil->addComponent(StateMachineComponent::ID_.getValue(), devilFSM);
-		devilFSM->addStates(*new Devil_SearchState(), Devil_SearchState::ID_);
-		devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
-		devilFSM->addStates(*new Devil_EscapeState(), Devil_EscapeState::ID_);
-		devilFSM->addStates(*new Devil_HealState(), Devil_HealState::ID_);
-		Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
-
-		AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
-		DeviltoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
-		Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
-		Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());
-
-		m_GoList.push_back(Devil);
-		m_enemy.push_back(Devil);
+		m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundary, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0)));
+		if (maxDevils < 5)
+			m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundary, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0)));
 		timerForW = 0.f;
 		maxDevils += 1;
 	}
@@ -370,26 +292,7 @@ bool SceneB::onNotify(const std::string &zeEvent)
 	}
 	else
 	{//create new bullet
-		GraphicsEntity *zeGraphics = dynamic_cast<GraphicsEntity*>(&Scene_System::accessing().getGraphicsScene());
-		bullet = new GameEntity();
-		bullet->setName("Bullet");
-		MeshComponent *bulletMesh = new MeshComponent();
-		bulletMesh->onNotify(zeGraphics->getMeshID("bullet"));
-		bullet->addComponent(MeshComponent::g_CompID_.getValue(), bulletMesh);
-		PhysicsComponent *bulletPhysic = new PhysicsComponent();
-		bulletPhysic->setSize(Vector3(5, 5, 1));
-		bulletPhysic->setYrotation(0);
-		bulletPhysic->setBoundary(boundary);
-		bulletPhysic->setPos(Vector3(150, 0, 0));
-		bullet->addComponent(PhysicsComponent::g_ID_, bulletPhysic);
-		AllyEnemyComponent *bullettoRecogniseEnemyAlly = new AllyEnemyComponent();
-		//bullettoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
-		bullet->addComponent(AllyEnemyComponent::ID_, bullettoRecogniseEnemyAlly);
-		bullet->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
-		CollisionComponent *bulletCollision = new CollisionComponent;
-		bulletCollision->setDespawnList(listToDespawn).setEnemyList(m_enemy);
-		bullet->addComponent(CollisionComponent::ID_, bulletCollision);
-
+		bullet = NPCBuilder::BuildBullet("Bullet", boundary, m_enemy, m_ally, listToDespawn, Vector3(Math::RandFloatMinMax(-boundary.x, boundary.x), Math::RandFloatMinMax(-boundary.y, boundary.y), 0));
 		tempStorage.push_back(bullet);
 	}
 	//std::string debugddd = "ally/GO:1,2,3/POS:4,5,6";
