@@ -3,6 +3,8 @@
 #include "../Classes/GameEntity.h"
 #include "AnimationComponent.h"
 #include "../Misc/DetectMemoryLeak.h"
+#include "HPandDPComponent.h"
+#include "../Systems/Scene_System.h"
 
 //std::vector<GenericComponent*> DogAnimComp::allAnimations;
 
@@ -66,4 +68,8 @@ void DogAnimComp::Update(double dt)
     else if (zePhysics->getVel().x > Math::EPSILON)
         //zeGo->getComponent(AnimationComponent::ID_) = *dynamic_cast<AnimationComponent*>(allAnimations[0]);
         zeGo->addComponent(AnimationComponent::ID_, allAnimations[0]);
+
+    HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
+    if (zeHP->getHealth() <= 0)
+        Scene_System::accessing().getCurrScene().onNotify(*zeGo);
 }
