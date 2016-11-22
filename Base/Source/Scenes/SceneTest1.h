@@ -20,7 +20,10 @@ public:
 	virtual bool onNotify(const std::string &zeEvent);
 
 private:
-	std::vector<GameEntity*> m_GoList, m_InactiveList, tempStorage, nonActiveBulletList, listToDespawn;
+    bool SpawnDog(const Vector3 &zePos);
+    bool SpawnZombie(const Vector3 &zePos);
+    
+    std::vector<GameEntity*> m_GoList, m_InactiveList, tempStorage, nonActiveBulletList, listToDespawn;
 	std::vector<GameEntity*> m_enemy, m_ally;
 	std::vector<size_t> inactiveObjPos;
 	
@@ -30,6 +33,7 @@ private:
 	//float
 	Vector3 boundaryOfRoom;
 	unsigned char zeBackground, healthBarID;
+    size_t spawnLimitOfDog, spawnLimitOfZombie, dogPresence, zombiePresence;
 };
 
 #endif
