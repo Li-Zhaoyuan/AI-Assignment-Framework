@@ -47,8 +47,11 @@ void MeleeAttackState::Update(double dt)
     }
     GameEntity *zeEnemy = dynamic_cast<GameEntity*>(&zeVictim->getOwner());
     HPandDPComponent *enemyHealth = dynamic_cast<HPandDPComponent*>(&zeEnemy->getComponent(HPandDPComponent::ID_));
-    if (enemyHealth->getHealth() <= 0)
-        FSM_->switchState(0);
+	if (enemyHealth->getHealth() <= 0)
+	{
+		FSM_->switchState(0);
+		return;
+	}
     timeCounter += (float)dt;
     if (timeCounter >= attackDelay)
     {
