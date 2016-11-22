@@ -12,6 +12,7 @@ ZombieTarget::ZombieTarget()
     originalOwnerName = "";
     chancesOfAction = 1000;
     originalDistToActivate = distToActivate = 0;
+    zeVictim = nullptr;
 }
 
 ZombieTarget::~ZombieTarget()
