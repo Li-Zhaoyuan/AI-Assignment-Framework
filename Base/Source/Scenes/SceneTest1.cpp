@@ -41,7 +41,7 @@ void SceneTest1::Init()
 	healthBarID = zeGraphics->getMeshID("redCube");
 	background = zeGraphics->getMeshID("SceneTestBackground");
     spawnLimitOfDog = 2;
-    zombiePresence = spawnLimitOfZombie = 5;
+    zombiePresence = spawnLimitOfZombie = 2;
     for (size_t num = 0, zombiePresence = 0; num < spawnLimitOfZombie; ++num, ++zombiePresence)
         m_GoList.push_back(NPCBuilder::BuildZombie("Zombie", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
 	m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(0, 20, 0)));

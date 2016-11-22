@@ -45,6 +45,10 @@ void MeleeAttackState::Update(double dt)
     default:
         break;
     }
+    GameEntity *zeEnemy = dynamic_cast<GameEntity*>(&zeVictim->getOwner());
+    HPandDPComponent *enemyHealth = dynamic_cast<HPandDPComponent*>(&zeEnemy->getComponent(HPandDPComponent::ID_));
+    if (enemyHealth->getHealth() <= 0)
+        FSM_->switchState(0);
     timeCounter += (float)dt;
     if (timeCounter >= attackDelay)
     {
@@ -61,8 +65,6 @@ void MeleeAttackState::Update(double dt)
         PhysicsComponent *zeEnemyPhysic = dynamic_cast<PhysicsComponent*>(zeVictim);
         if ((zePhysics->getPos() - zeEnemyPhysic->getPos()).LengthSquared() <= influenceRadius * influenceRadius)
         {
-            GameEntity *zeEnemy = dynamic_cast<GameEntity*>(&zeVictim->getOwner());
-            HPandDPComponent *enemyHealth = dynamic_cast<HPandDPComponent*>(&zeEnemy->getComponent(HPandDPComponent::ID_));
             HPandDPComponent *zeMyDMG = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
             enemyHealth->onNotify(-zeMyDMG->getDamage());
             if (enemyHealth->getHealth() <= 0) {
