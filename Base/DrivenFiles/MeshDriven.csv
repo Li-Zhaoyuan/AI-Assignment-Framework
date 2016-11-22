@@ -11,3 +11,4 @@ bullet,1,0,1,quad,,Image//Fireball.tga,,,
 ZombieSprite,,,,sprite,,Image//ZombieSprite.tga,,2,2
 GuySprite,,,,sprite,,Image//FullGuySprite.tga,,2,2
 DevilSprite,,,,sprite,,Image//devilSpriteNew.tga,,4,3
+SceneTestBackground,1,1,1,quad,,Image//SceneTestBackground.tga,,,
