@@ -33,7 +33,7 @@ private:
 	//float
 	Vector3 boundaryOfRoom;
 	unsigned char zeBackground, healthBarID;
-    size_t spawnLimitOfDog, spawnLimitOfZombie, dogPresence, zombiePresence;
+    size_t spawnLimitOfDog, spawnLimitOfZombie, dogPresence, zombiePresence, background;
 };
 
 #endif

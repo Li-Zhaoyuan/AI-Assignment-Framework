@@ -39,7 +39,7 @@ void SceneTest1::Init()
 	boundaryOfRoom.Set(320, 180, 0);
 	// The very reason why we can't see any thing
 	healthBarID = zeGraphics->getMeshID("redCube");
-    
+	background = zeGraphics->getMeshID("SceneTestBackground");
     spawnLimitOfDog = 2;
     spawnLimitOfZombie = 5;
     for (size_t num = 0, zombiePresence = 0; num < spawnLimitOfZombie; ++num, ++zombiePresence)
@@ -155,7 +155,11 @@ void SceneTest1::Render()
     // Model matrix : an identity matrix (model will be at the origin)
     modelStack->LoadIdentity();
 
-    zeGraphics->RenderMesh(0, false);
+	modelStack->PushMatrix();
+	modelStack->Translate(0, 0, -1);
+	modelStack->Scale(boundaryOfRoom.x * 2, boundaryOfRoom.x * 2, 1);
+	zeGraphics->RenderMesh(background, false);
+	modelStack->PopMatrix();
 
 	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
 	{
@@ -182,7 +186,7 @@ void SceneTest1::Render()
 			if (zeHP->getHealth() > 0) {
 				modelStack->PushMatrix();
 				modelStack->Translate(0, (-zePhysicsStuff->getSize().y / 2) - 5.f, 0);
-				modelStack->Scale(zeHP->getHealth() / 2.5f, 10, 1);
+				modelStack->Scale(zeHP->getHealth() / 2.5f, 5, 1);
 				//ss.str("");
 				//ss << zeHP->getHealth();
 				zeGraphics->RenderMesh(healthBarID, false);
@@ -202,9 +206,9 @@ void SceneTest1::Render()
 
     //zeGraphics->SetHUD(true);
     viewStack->LoadIdentity();
-    std::ostringstream ss;
+    /*std::ostringstream ss;
     ss << "FPS:" << fps;
-    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);*/
     //zeGraphics->SetHUD(false);
 }
 
