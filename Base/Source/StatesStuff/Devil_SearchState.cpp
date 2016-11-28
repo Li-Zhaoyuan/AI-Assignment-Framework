@@ -65,14 +65,32 @@ void Devil_SearchState::Update(double dt)
 			enemyLastSeen.SetZero();
 		}
 	}
-	if ((zePhysicsStuff->getPos().x + zePhysicsStuff->getVel().x * dt) > zePhysicsStuff->getBoundary().x
+	/*if ((zePhysicsStuff->getPos().x + zePhysicsStuff->getVel().x * dt) > zePhysicsStuff->getBoundary().x
 		|| (zePhysicsStuff->getPos().x + zePhysicsStuff->getVel().x * dt) < -zePhysicsStuff->getBoundary().x)
 		searchVel.x = -searchVel.x;
 	if ((zePhysicsStuff->getPos().y + zePhysicsStuff->getVel().y * dt) > zePhysicsStuff->getBoundary().y
 		|| (zePhysicsStuff->getPos().y + zePhysicsStuff->getVel().y * dt) < -zePhysicsStuff->getBoundary().y)
-		searchVel.y = -searchVel.y;
+		searchVel.y = -searchVel.y;*/
+
 	//zePhysicsStuff->getPos().x
 	zePhysicsStuff->setVel(searchVel);
+	if (zePhysicsStuff->getPos().x > zePhysicsStuff->getBoundary().x)
+	{
+		zePhysicsStuff->getPos().x -= zePhysicsStuff->getBoundary().x * 2;
+	}
+	else if (zePhysicsStuff->getPos().x < -zePhysicsStuff->getBoundary().x)
+	{
+		zePhysicsStuff->getPos().x += zePhysicsStuff->getBoundary().x * 2;
+	}
+
+	if (zePhysicsStuff->getPos().y > zePhysicsStuff->getBoundary().y)
+	{
+		zePhysicsStuff->getPos().y -= zePhysicsStuff->getBoundary().y * 2;
+	}
+	else if (zePhysicsStuff->getPos().y < -zePhysicsStuff->getBoundary().y)
+	{
+		zePhysicsStuff->getPos().y += zePhysicsStuff->getBoundary().y * 2;
+	}
 
 	AllyEnemyComponent *checkForEnemy = dynamic_cast<AllyEnemyComponent*>(&devil->getComponent(AllyEnemyComponent::ID_));
 	for (std::vector<GameEntity*>::iterator it = checkForEnemy->m_enemyList->begin(), end = checkForEnemy->m_enemyList->end(); it != end; ++it)
