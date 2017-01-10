@@ -64,6 +64,7 @@
     <ClCompile Include="Source\StatesStuff\ZombieCharge.cpp" />
     <ClCompile Include="Source\StatesStuff\ZombieTarget.cpp" />
     <ClCompile Include="Source\Systems\ComponentSystem.cpp" />
+    <ClCompile Include="Source\Systems\MessageSystem.cpp" />
     <ClCompile Include="Source\Systems\Scene_System.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Classes\SpriteAnimation.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="Source\StatesStuff\ZombieCharge.h" />
     <ClInclude Include="Source\StatesStuff\ZombieTarget.h" />
     <ClInclude Include="Source\Systems\ComponentSystem.h" />
+    <ClInclude Include="Source\Systems\MessageSystem.h" />
     <ClInclude Include="Source\Systems\Scene_System.h" />
   </ItemGroup>
   <ItemGroup>
