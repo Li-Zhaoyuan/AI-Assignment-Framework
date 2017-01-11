@@ -58,7 +58,7 @@ void DogBarkState::Update(double dt)
             zeFSM->getCurrentState().onNotify(ss.str());
         }
         ss.str("");
-        ss << "Dog:" << zePhysics->getPos().x << "," << zePhysics->getPos().y << "," << zePhysics->getPos().z;
+        ss << "BARK|Dog|Guy|GO:" << zePhysics->getPos().x << "," << zePhysics->getPos().y << "," << zePhysics->getPos().z;
         MessageSystem::accessing().onNotify(ss.str());
     }
         warnedEveryone = true;
