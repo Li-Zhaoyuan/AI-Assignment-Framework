@@ -8,6 +8,7 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
 #include "../Misc/GlobalFunctions.h"
+#include "../Systems/MessageSystem.h"
 
 SceneTest1::SceneTest1()
 {
@@ -66,6 +67,12 @@ void SceneTest1::Update(float dt)
     zeGraphics->Update(dt);
     // TODO: Remove it when it is not debugging
 #endif
+    if (MessageSystem::accessing().getMessage() != "")
+    {
+        for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
+            (*it)->getComponent(9).onNotify(MessageSystem::accessing().getMessage());
+        MessageSystem::accessing().Update(dt);
+    }
     fps = 1 / dt;
 
 	for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)

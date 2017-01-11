@@ -30,6 +30,7 @@
 #include "../Gathering of Components/DevilAnimComponent.h"
 #include "../Gathering of Components/GuyAnimComponent.h"
 #include "../Gathering of Components/CollisionComponent.h"
+#include "../Gathering of Components/DogReactComponent.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -132,6 +133,8 @@ GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, s
     zeHPandDP->setDamage(10);
 
     go->addComponent(DogAnimComp::ID_, new DogAnimComp());
+
+    go->addComponent(DogReactComponent::ID_, new DogReactComponent());
     
     return go;
 }

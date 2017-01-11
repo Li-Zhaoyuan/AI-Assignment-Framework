@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DevilAnimComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogAnimComp.cpp" />
+    <ClCompile Include="Source\Gathering of Components\DogReactComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
     <ClCompile Include="Source\Gathering of Components\GuyAnimComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DevilAnimComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DogAnimComp.h" />
+    <ClInclude Include="Source\Gathering of Components\DogReactComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
     <ClInclude Include="Source\Gathering of Components\GuyAnimComponent.h" />
     <ClInclude Include="Source\Gathering of Components\HPandDPComponent.h" />
