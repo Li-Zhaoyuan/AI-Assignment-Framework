@@ -150,6 +150,8 @@ bool GameEntity::turnOnComponent(const size_t &zeNum)
 
 bool GameEntity::seeComponentActive(const size_t &zeNum)
 {
+    if (ComponentActive.size() <= zeNum)
+        return false;
     return ComponentActive[zeNum];
 }
 

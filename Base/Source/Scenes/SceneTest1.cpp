@@ -10,6 +10,8 @@
 #include "../Misc/GlobalFunctions.h"
 #include "../Systems/MessageSystem.h"
 
+#define MAX_LIMIT_DISPLAY_MESSAGE 4
+
 SceneTest1::SceneTest1()
 {
     Init();
@@ -70,7 +72,10 @@ void SceneTest1::Update(float dt)
     if (MessageSystem::accessing().getMessage() != "")
     {
         for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)
-            (*it)->getComponent(9).onNotify(MessageSystem::accessing().getMessage());
+        {
+            if ((*it)->seeComponentActive(9))   // Only Component with ID of 9 will receive the message from MessageBoard!!!!
+                (*it)->getComponent(9).onNotify(MessageSystem::accessing().getMessage());
+        }
         MessageSystem::accessing().Update(dt);
     }
     fps = 1 / dt;
@@ -213,12 +218,18 @@ void SceneTest1::Render()
 		}
 	}
 
-    //zeGraphics->SetHUD(true);
+    zeGraphics->SetHUD(true);
     viewStack->LoadIdentity();
-    /*std::ostringstream ss;
+    std::ostringstream ss;
     ss << "FPS:" << fps;
-    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 10, 0, 0);*/
-    //zeGraphics->SetHUD(false);
+    zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 25, 0, 0);
+
+    // Starting from the latest Message thus getting the size of stored message then decrement by the limit
+    for (int sizeOfMessage = MessageSystem::accessing().StoreMessage.size(), num = sizeOfMessage - 1; num >= sizeOfMessage - MAX_LIMIT_DISPLAY_MESSAGE - 1 && num >= 0; --num)
+    {
+        //zeGraphics->RenderTextOnScreen(Sto)
+    }
+    zeGraphics->SetHUD(false);
 }
 
 void SceneTest1::Exit()

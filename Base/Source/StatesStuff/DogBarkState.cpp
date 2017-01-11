@@ -4,6 +4,7 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include <sstream>
 #include "MyMath.h"
+#include "../Systems/MessageSystem.h"
 
 DogBarkState::DogBarkState()
 {
@@ -56,6 +57,9 @@ void DogBarkState::Update(double dt)
             ss << "GO:" << zePhysics->getPos().x << "," << zePhysics->getPos().y << "," << zePhysics->getPos().z;
             zeFSM->getCurrentState().onNotify(ss.str());
         }
+        ss.str("");
+        ss << "Dog:" << zePhysics->getPos().x << "," << zePhysics->getPos().y << "," << zePhysics->getPos().z;
+        MessageSystem::accessing().onNotify(ss.str());
     }
         warnedEveryone = true;
         break;
