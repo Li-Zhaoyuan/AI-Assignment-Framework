@@ -28,7 +28,14 @@ public:
     StateComponent &getSpecificStates(const std::string &zeName);
     StateComponent &getCurrentState();
 
+    // All OnNotify calls will go straight to the current state onNotify
 	virtual bool onNotify(GenericComponent &zeEvent);
+    // All OnNotify calls will go straight to the current state onNotify
+    virtual bool onNotify(const std::string &zeEvent);
+    // All OnNotify calls will go straight to the current state onNotify
+    virtual bool onNotify(const int &zeEvent);
+    // All OnNotify calls will go straight to the current state onNotify
+    virtual bool onNotify(const float &zeEvent);
 
 protected:
     std::vector<StateComponent*> allRegisteredStates, HistoryOfStates;

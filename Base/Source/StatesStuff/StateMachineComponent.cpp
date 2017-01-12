@@ -112,3 +112,18 @@ bool StateMachineComponent::onNotify(GenericComponent &zeEvent)
 	HistoryOfStates.back()->onNotify(zeEvent);
 	return true;
 }
+
+bool StateMachineComponent::onNotify(const std::string &zeEvent)
+{
+    return HistoryOfStates.back()->onNotify(zeEvent);
+}
+
+bool StateMachineComponent::onNotify(const int &zeEvent)
+{
+    return HistoryOfStates.back()->onNotify(zeEvent);
+}
+
+bool StateMachineComponent::onNotify(const float &zeEvent)
+{
+    return HistoryOfStates.back()->onNotify(zeEvent);
+}

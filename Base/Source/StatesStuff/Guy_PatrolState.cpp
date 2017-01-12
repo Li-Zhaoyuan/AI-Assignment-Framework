@@ -151,3 +151,29 @@ void Guy_PatrolState::setWayPoints()
 	wayPoints[2].Set(pointToPatrol.x + rangeToPatrolPoint, pointToPatrol.y, 0);
 	wayPoints[3].Set(pointToPatrol.x - rangeToPatrolPoint, pointToPatrol.y, 0);
 }
+
+bool Guy_PatrolState::onNotify(const std::string &zeEvent)
+{
+    if (zeEvent.find("GO") != std::string::npos)    // Check to see if the event is for the guy to go. If so, extract the position out from the string
+    {
+        currPoint = 0;
+        nextPoint = 0;
+
+        // The complex alogorithm to extract the position slowly
+        std::string anotherStr = zeEvent.substr(3); // Hardcoding 3 because "GO:.....".thus extracting string after the ':'
+        float x, y, z;
+        size_t posOfComma = anotherStr.find(',');
+        x = stof(anotherStr.substr(0, posOfComma));
+        anotherStr = anotherStr.substr(posOfComma + 1);
+        posOfComma = anotherStr.find(',');
+        y = stof(anotherStr.substr(0, posOfComma));
+        anotherStr = anotherStr.substr(posOfComma + 1);
+        z = stof(anotherStr);
+
+        wayPoints[0].Set(x, y, z);
+        wayPoints[3] = wayPoints[2] = wayPoints[1] = wayPoints[0];  // Need to make sure all the waypoints are in the same position otherwise the Guy will just go haywire!
+
+        return true;
+    }
+    return false;
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../GenericECS/GenericComponent.h"
+class StateMachineComponent;
 
 class ManReactComponent : public GenericComponent
 {
@@ -14,4 +15,5 @@ public:
 
 private:
     std::string receivedMessage;
+    StateMachineComponent *FSM_;
 };

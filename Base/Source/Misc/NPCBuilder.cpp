@@ -31,6 +31,7 @@
 #include "../Gathering of Components/GuyAnimComponent.h"
 #include "../Gathering of Components/CollisionComponent.h"
 #include "../Gathering of Components/DogReactComponent.h"
+#include "../Gathering of Components/ManReactComponent.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
