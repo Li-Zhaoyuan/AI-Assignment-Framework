@@ -44,20 +44,26 @@ void GoThereState::Update(double dt)
     GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));
     SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeOwner->getComponent(SpeedComponent::ID_));
+    zeOwnerPos->setVel((goThatPos - zeOwnerPos->getPos()).Normalized() * zeSpeed->getSpeed());
     switch (updatedSpeed)
     {
     case false:
     {
-        zeOwnerPos->setVel((goThatPos - zeOwnerPos->getPos()).Normalized() * zeSpeed->getSpeed());
+        //zeOwnerPos->setVel((goThatPos - zeOwnerPos->getPos()).Normalized() * zeSpeed->getSpeed());
         updatedSpeed = true;
     }
         break;
     default:
-        if ((zeOwnerPos->getPos() - goThatPos).LengthSquared() < 4.f)
+        Vector3 DirToDest = zeOwnerPos->getPos() - goThatPos;   // Getting the direction from own position to the destination
+        if (DirToDest.LengthSquared() < 4.f)    // Check to see if it reached it's destination. 4.f will be an offset radius
         {
             FSM_->switchState(0);
             zeOwnerPos->setVel(Vector3(0, 0, 0));
+            break;
         }
+        //DirToDest.Normalized();
+        //if (DirToDest.Dot(zeOwnerPos->getVel().Normalize()) <= 0)  // Check whether is it going in the right direction. If not, recalculate the velocity.
+        //    updatedSpeed = false;
         break;
     }
 }
