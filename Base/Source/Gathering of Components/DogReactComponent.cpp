@@ -11,11 +11,6 @@ DogReactComponent::~DogReactComponent()
 
 }
 
-void DogReactComponent::Update(double dt)
-{
-
-}
-
 bool DogReactComponent::onNotify(const std::string &zeEvent)
 {
 

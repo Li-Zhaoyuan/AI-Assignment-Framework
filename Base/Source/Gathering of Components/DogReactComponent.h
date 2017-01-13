@@ -8,7 +8,6 @@ public:
     DogReactComponent();
     virtual ~DogReactComponent();
 
-    virtual void Update(double dt);
     virtual bool onNotify(const std::string &zeEvent);
 
     static const unsigned char ID_ = 9;

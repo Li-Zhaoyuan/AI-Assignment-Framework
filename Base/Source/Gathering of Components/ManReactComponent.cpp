@@ -7,6 +7,7 @@ ManReactComponent::ManReactComponent()
     name_ = "Man Reaction";
     receivedMessage = "";
     FSM_ = nullptr;
+    chanceToReact = 1;
 }
 
 ManReactComponent::~ManReactComponent()
@@ -30,6 +31,16 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
             FSM_->switchState(0);   // Causing it to switch to Patrol State
             return FSM_->onNotify(extractingTheMessage);
         }
+        return true;
+    }
+    return false;
+}
+
+bool ManReactComponent::onNotify(const int &zeEvent)
+{
+    if (zeEvent > 0)
+    {
+        chanceToReact = zeEvent;
         return true;
     }
     return false;
