@@ -27,7 +27,7 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
         {
             size_t posOfLastOr = zeEvent.find_last_of("|");
             std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
-            FSM_->switchState(0);
+            FSM_->switchState(0);   // Causing it to switch to Patrol State
             return FSM_->onNotify(extractingTheMessage);
         }
         return true;

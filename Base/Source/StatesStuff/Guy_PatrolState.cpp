@@ -171,7 +171,7 @@ bool Guy_PatrolState::onNotify(const std::string &zeEvent)
         z = stof(anotherStr);
 
         wayPoints[0].Set(x, y, z);
-        wayPoints[3] = wayPoints[2] = wayPoints[1] = wayPoints[0];  // Need to make sure all the waypoints are in the same position otherwise the Guy will just go haywire!
+        //wayPoints[3] = wayPoints[2] = wayPoints[1] = wayPoints[0];  // Need to make sure all the waypoints are in the same position otherwise the Guy will just go haywire!
 
         return true;
     }
