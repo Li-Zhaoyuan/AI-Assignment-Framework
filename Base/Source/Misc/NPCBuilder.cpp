@@ -199,6 +199,8 @@ GameEntity *NPCBuilder::BuildGuy(const std::string &zeName, Vector3 &boundary, s
 	Guy->addComponent(AllyEnemyComponent::ID_, GuytoRecogniseEnemyAlly);
 	Guy->addComponent(GuyAnimComp::ID_, new GuyAnimComp());
 
+    Guy->addComponent(ManReactComponent::ID_, new ManReactComponent());
+
 	allyList.push_back(Guy);
 	return Guy;
 }
