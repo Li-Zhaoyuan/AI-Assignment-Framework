@@ -1,13 +1,14 @@
 #include "ManReactComponent.h"
 #include "../Classes/GameEntity.h"
 #include "../StatesStuff/StateMachineComponent.h"
+#include "MyMath.h"
 
 ManReactComponent::ManReactComponent()
 {
     name_ = "Man Reaction";
     receivedMessage = "";
     FSM_ = nullptr;
-    chanceToReact = 1;
+    chanceToReact = 2;
 }
 
 ManReactComponent::~ManReactComponent()
@@ -26,10 +27,16 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
         }
         if (zeEvent.find("BARK") != std::string::npos)  // Is it the dog barking, if so do the following statements
         {
-            size_t posOfLastOr = zeEvent.find_last_of("|");
-            std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
-            FSM_->switchState(0);   // Causing it to switch to Patrol State
-            return FSM_->onNotify(extractingTheMessage);
+            int GettingTheChances = Math::RandIntMinMax(1, chanceToReact);  // Giving the chance for man to react properly.
+            if (GettingTheChances == 1)
+            {
+                size_t posOfLastOr = zeEvent.find_last_of("|");
+                std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
+                FSM_->switchState(0);   // Causing it to switch to Patrol State
+                return FSM_->onNotify(extractingTheMessage);
+            }
+            else
+                return false;
         }
         return true;
     }

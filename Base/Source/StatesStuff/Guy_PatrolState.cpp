@@ -170,7 +170,7 @@ bool Guy_PatrolState::onNotify(const std::string &zeEvent)
         anotherStr = anotherStr.substr(posOfComma + 1);
         z = stof(anotherStr);
 
-        wayPoints[0].Set(x, y, z);
+        wayPoints[0].Set(x, y, z);  // Setting just the 1st waypoint because Guy will go to other waypoints after finding that the dog is safe!
 
         return true;
     }
