@@ -5,6 +5,7 @@
 #include "../Misc/GlobalFunctions.h"
 #include "../Gathering of Components/HPandDPComponent.h"
 #include <math.h>
+#include "../Systems/MessageSystem.h"
 #define speed 60
 
 Guy_EscapeState::Guy_EscapeState()
@@ -38,6 +39,9 @@ void Guy_EscapeState::Update(double dt)
 				  newName.append(name_);
 				  owner_of_component->setName(newName);
 				  changedName = true;
+                  // Putting the sending of message here because this state is activated when the guy's health is low.  This changedName will only happens once thus sending the message to the message system once!
+                  //std::ostringstream ss;
+                  //ss << "I am being attacked!|Guy|Dog"
 	}
 		break;
 	default:
