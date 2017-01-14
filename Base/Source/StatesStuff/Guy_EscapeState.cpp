@@ -6,6 +6,7 @@
 #include "../Gathering of Components/HPandDPComponent.h"
 #include <math.h>
 #include "../Systems/MessageSystem.h"
+#include <sstream>
 #define speed 60
 
 Guy_EscapeState::Guy_EscapeState()
@@ -27,10 +28,11 @@ void Guy_EscapeState::Init()
 }
 
 void Guy_EscapeState::Update(double dt)
-
 {
-	
-	switch (changedName)
+    // Shifting ur physics component up because i need to use it for sending coordinate to other entities
+    GameEntity* guy = dynamic_cast<GameEntity*>(owner_of_component);
+    PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(guy)->getComponent(PhysicsComponent::g_ID_));
+    switch (changedName)
 	{
 	case false:
 	{
@@ -40,16 +42,15 @@ void Guy_EscapeState::Update(double dt)
 				  owner_of_component->setName(newName);
 				  changedName = true;
                   // Putting the sending of message here because this state is activated when the guy's health is low.  This changedName will only happens once thus sending the message to the message system once!
-                  //std::ostringstream ss;
-                  //ss << "I am being attacked!|Guy|Dog"
+                  std::ostringstream ss;
+                  ss << "I am being attacked!|Guy|Dog|GO:" << zePhysicsStuff->getPos().x << "," << zePhysicsStuff->getPos().y << "," << zePhysicsStuff->getPos().z;
+                  MessageSystem::accessing().onNotify(ss.str());
 	}
 		break;
 	default:
 		break;
 	}
 	timer += (float)dt;
-	GameEntity* guy = dynamic_cast<GameEntity*>(owner_of_component);
-	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(guy)->getComponent(PhysicsComponent::g_ID_));
 
 	//int randomDir = rand() % 4 + 1;
 	Vector3 temp;

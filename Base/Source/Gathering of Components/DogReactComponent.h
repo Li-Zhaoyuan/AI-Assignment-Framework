@@ -2,6 +2,7 @@
 
 #include "../GenericECS/GenericComponent.h"
 
+class StateMachineComponent;
 class DogReactComponent : public GenericComponent
 {
 public:
@@ -13,4 +14,5 @@ public:
     static const unsigned char ID_ = 9;
 protected:
     std::string receivedMessage;
+    StateMachineComponent *FSM_;    // Need to know what state the dog is in.
 };
