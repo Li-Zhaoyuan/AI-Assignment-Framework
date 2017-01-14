@@ -22,6 +22,7 @@ void Devil_SearchState::Init()
 	timer = 0;
 	searchVel.SetZero();
 	enemyLastSeen.SetZero();
+	//chancesToActivate = 1;
 }
 
 void Devil_SearchState::Update(double dt)
@@ -131,4 +132,25 @@ void Devil_SearchState::Exit()
 	changedName = false;
     if (originalOwnerName != "")
         owner_of_component->setName(originalOwnerName);
+}
+
+bool Devil_SearchState::onNotify(const std::string &zeEvent)
+{
+	if (zeEvent.find("GO") != std::string::npos)    // Check to see if the event is for the guy to go. If so, extract the position out from the string
+	{
+		// The complex alogorithm to extract the position slowly
+		std::string anotherStr = zeEvent.substr(3); // Hardcoding 3 because "GO:.....".thus extracting string after the ':'
+		float x, y, z;
+		size_t posOfComma = anotherStr.find(',');
+		x = stof(anotherStr.substr(0, posOfComma));
+		anotherStr = anotherStr.substr(posOfComma + 1);
+		posOfComma = anotherStr.find(',');
+		y = stof(anotherStr.substr(0, posOfComma));
+		anotherStr = anotherStr.substr(posOfComma + 1);
+		z = stof(anotherStr);
+
+		enemyLastSeen.Set(x, y, z);
+		return true;
+	}
+	return false;
 }

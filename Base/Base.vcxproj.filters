@@ -249,6 +249,12 @@
     <ClCompile Include="Source\Gathering of Components\ManReactComponent.cpp">
       <Filter>Source Files\Gathering of Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\DevilReactComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gathering of Components\ZombieReactComponent.cpp">
+      <Filter>Source Files\Gathering of Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Classes\Camera.h">
@@ -453,6 +459,12 @@
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Gathering of Components\ManReactComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\DevilReactComponent.h">
+      <Filter>Header Files\Gathering of Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gathering of Components\ZombieReactComponent.h">
       <Filter>Header Files\Gathering of Components</Filter>
     </ClInclude>
   </ItemGroup>

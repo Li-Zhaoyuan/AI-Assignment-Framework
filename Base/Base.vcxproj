@@ -18,6 +18,7 @@
     <ClCompile Include="Source\Gathering of Components\AnimationComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\CollisionComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DevilAnimComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\DevilReactComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogAnimComp.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogReactComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Source\Gathering of Components\SpeedComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\SpriteComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ZombieAnimComp.cpp" />
+    <ClCompile Include="Source\Gathering of Components\ZombieReactComponent.cpp" />
     <ClCompile Include="Source\GenericECS\GenericComponent.cpp" />
     <ClCompile Include="Source\GenericECS\GenericEntity.cpp" />
     <ClCompile Include="Source\Mains\Application.cpp" />
@@ -88,6 +90,7 @@
     <ClInclude Include="Source\Gathering of Components\CollisionComponent.h" />
     <ClInclude Include="Source\Gathering of Components\CommandComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DevilAnimComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\DevilReactComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DogAnimComp.h" />
     <ClInclude Include="Source\Gathering of Components\DogReactComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
@@ -101,6 +104,7 @@
     <ClInclude Include="Source\Gathering of Components\SpeedComponent.h" />
     <ClInclude Include="Source\Gathering of Components\SpriteComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ZombieAnimComp.h" />
+    <ClInclude Include="Source\Gathering of Components\ZombieReactComponent.h" />
     <ClInclude Include="Source\GenericECS\GenericComponent.h" />
     <ClInclude Include="Source\GenericECS\GenericEntity.h" />
     <ClInclude Include="Source\GenericECS\GenericSystem.h" />

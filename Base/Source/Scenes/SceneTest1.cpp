@@ -51,7 +51,7 @@ void SceneTest1::Init()
     m_GoList.push_back(NPCBuilder::BuildDog("Dog", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
     dogPresence = 2;
 
-	m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+	m_GoList.push_back(NPCBuilder::BuildDevil("Devil<LEADER>", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
 	m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
     m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
     m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
@@ -99,7 +99,12 @@ void SceneTest1::Update(float dt)
             }
             else if (checkWhetherTheWordInThatString("Zombie", zeRemovedGo->getName()))
             {
-                --zombiePresence;
+				PhysicsComponent *deathPos = dynamic_cast<PhysicsComponent*>(&(zeRemovedGo)->getComponent(PhysicsComponent::g_ID_));
+				std::ostringstream ss;
+				ss.str("");
+				ss << "I DIED!|Zombie|Devil|GO:" << deathPos->getPos().x << "," << deathPos->getPos().y << "," << deathPos->getPos().z;
+				MessageSystem::accessing().onNotify(ss.str());
+				--zombiePresence;
                 SpawnZombie(Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));
             }
 		}

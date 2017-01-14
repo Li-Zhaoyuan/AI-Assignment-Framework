@@ -32,6 +32,8 @@
 #include "../Gathering of Components/CollisionComponent.h"
 #include "../Gathering of Components/DogReactComponent.h"
 #include "../Gathering of Components/ManReactComponent.h"
+#include "../Gathering of Components/DevilReactComponent.h"
+//#include "../Gathering of Components/ZombieReactComponent.h"
 
 GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
 {
@@ -84,6 +86,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
 
     go->addComponent(ZombieAnimComp::ID_, new ZombieAnimComp());
 
+	//go->addComponent(ZombieReactComponent::ID_, new ZombieReactComponent());
     return go;
 }
 GameEntity *NPCBuilder::BuildDog(const std::string &zeName, Vector3 &boundary, std::vector<GameEntity*> &enemyList, std::vector<GameEntity*> &allyList, const Vector3 &zePos)
@@ -167,6 +170,8 @@ GameEntity *NPCBuilder::BuildDevil(const std::string &zeName, Vector3 &boundary,
 	DeviltoRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
 	Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
 	Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());
+	if (Devil->getName().find("LEADER") != std::string::npos)
+		Devil->addComponent(DevilReactComponent::ID_, new DevilReactComponent());
 	
 	enemyList.push_back(Devil);
 	return Devil;
