@@ -27,15 +27,16 @@ bool DogReactComponent::onNotify(const std::string &zeEvent)
     std::string secondPart = zeEvent.substr(firstOR + 1);   // Here shall be "FROM|TO|CONTENT....."
     size_t secondOR = secondPart.find("|");
 
-    std::string FromMessage = secondPart.substr(0, secondOR);
+    std::string FromMessage = secondPart.substr(0, secondOR); 
     std::string thirdPart = secondPart.substr(secondOR + 1);   // "TO|CONTENT"
 
     size_t thirdOR = thirdPart.find("|");
     std::string ToMessage = thirdPart.substr(0, thirdOR);
-    if (TextMessage == "I am being attacked" && FromMessage == "Guy")
+    if (TextMessage.find("I am being attacked") != std::string::npos && FromMessage.find("Guy") != std::string::npos)   // checking whether is it the correct string
     {
         std::string contentMessage = thirdPart.substr(thirdOR + 1); // "CONTENT"
-        return true;
+        FSM_->switchState(2);
+        return FSM_->onNotify(contentMessage);
     }
     return false;
 }

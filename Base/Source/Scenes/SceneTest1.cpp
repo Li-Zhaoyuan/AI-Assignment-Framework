@@ -231,8 +231,6 @@ void SceneTest1::Render()
         if (num < 0)    // Vector will went out of range if it is less than 0!
             continue;
         size_t posOfLastOr = MessageSystem::accessing().StoreMessage[num].find_last_of("|");    // this will find '|' from end to beginning
-        //size_t posOfFirstOr = MessageSystem::accessing().StoreMessage[num].find("|");
-        //size_t posOfLastOr = MessageSystem::accessing().StoreMessage[num].find("|", posOfFirstOr); // Finding the second '|'
         std::string extractedText = MessageSystem::accessing().StoreMessage[num].substr(0, posOfLastOr);    // Get the extracted text out of the overall message
         zeGraphics->RenderTextOnScreen(extractedText, Color(1, 0, 0), 25, 0,
             525.0f - (25.0f*(sizeOfMessage - 1.0f - num))); // 525 is from above 550 - 25. 25 shall be the constant size for the text. Then the minus operation after 525 will help to get the the actual values we want.
