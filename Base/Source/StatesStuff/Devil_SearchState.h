@@ -15,6 +15,8 @@ public:
 
 	const static unsigned char ID_ = 0;
 
+	virtual bool onNotify(const std::string &zeEvent);
+
 private:
 	float timer;
 	
