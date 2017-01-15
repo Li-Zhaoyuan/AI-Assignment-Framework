@@ -91,7 +91,7 @@ void Guy_AttackState::Update(double dt)
 		std::ostringstream ss;
 		//ally/GO:X,Y,Z/POS:X,Y,Z 
 		ss.str("");
-		ss << "ally/GO:" << bulletVel.x << "," << bulletVel.y << "," << bulletVel.z << "/POS:" << zePhysicsStuff->getPos().x << "," << zePhysicsStuff->getPos().y << "," << zePhysicsStuff->getPos().z;
+		ss << "ally/GO:" << bulletVel.x << "," << bulletVel.y << "," << bulletVel.z << "/POS:" << zePhysicsStuff->getPos().x << "," << zePhysicsStuff->getPos().y << "," << zePhysicsStuff->getPos().z << "/name:" << originalOwnerName;
 
 		if (timer > 2.f)
 		{

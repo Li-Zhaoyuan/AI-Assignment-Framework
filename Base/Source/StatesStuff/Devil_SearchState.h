@@ -22,5 +22,5 @@ private:
 	
 	Vector3 searchVel, enemyLastSeen;
 	
-
+	bool showReplying;
 };

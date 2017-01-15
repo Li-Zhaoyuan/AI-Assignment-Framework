@@ -3,6 +3,8 @@
 #include "CollisionComponent.h"
 #include "PhysicsComponent.h"
 #include "HPandDPComponent.h"
+#include <sstream>
+#include "../Systems/MessageSystem.h"
 
 CollisionComponent::CollisionComponent()
 {
@@ -13,6 +15,7 @@ CollisionComponent::~CollisionComponent()
 {
 	despawnList = nullptr;
 	m_enemyList = nullptr;
+	spawner_name = "";
 }
 
 void CollisionComponent::Init()
@@ -20,6 +23,7 @@ void CollisionComponent::Init()
 	despawnList = nullptr;
 	m_enemyList = nullptr;
 	influenceRange = 0;
+	spawner_name = "";
 }
 
 void CollisionComponent::Update(double dt)
@@ -42,6 +46,14 @@ void CollisionComponent::Update(double dt)
 			despawnList->push_back(ownself);
 			zeEnemyHP->getHealth() -= zeDamage->getDamage();
 			(*it)->getComponent(1).onNotify(*this);
+			if ((*it)->getName().find("Devil") != std::string::npos
+				&& zeEnemyHP->getHealth() < 50)//see if Devil is the one takeing dameage
+			{
+				std::ostringstream ss;
+				ss.str("");
+				ss << "I’m Low Health!|Devil|Zombie|name:" << this->getSpawnerName();
+				MessageSystem::accessing().onNotify(ss.str());
+			}
 			break;
 		}
 		if (zePhysics->getPos().x > zePhysics->getBoundary().x
@@ -72,4 +84,14 @@ CollisionComponent &CollisionComponent::setEnemyList(std::vector<GameEntity*> &z
 {
 	m_enemyList = &zeEnemy;
 	return *this;
+}
+
+void CollisionComponent::setSpawnerName(std::string name)
+{
+	spawner_name = name;
+}
+
+std::string CollisionComponent::getSpawnerName()
+{
+	return spawner_name;
 }

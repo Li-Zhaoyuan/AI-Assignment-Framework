@@ -7,6 +7,7 @@
 #include "../Gathering of Components/HPandDPComponent.h"
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/MeshComponent.h"
+#include "../Gathering of Components/CollisionComponent.h"
 #include "../Misc/GlobalFunctions.h"
 #include "../Systems/MessageSystem.h"
 
@@ -52,9 +53,9 @@ void SceneTest1::Init()
     dogPresence = 2;
 
 	m_GoList.push_back(NPCBuilder::BuildDevil("Devil<LEADER>", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
-	m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+	m_GoList.push_back(NPCBuilder::BuildGuy("Guy1", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
     m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
-    m_GoList.push_back(NPCBuilder::BuildGuy("Guy", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+    m_GoList.push_back(NPCBuilder::BuildGuy("Guy2", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
     for (int i = 0; i < 10; ++i)
 	{
 		nonActiveBulletList.push_back(NPCBuilder::BuildBullet("Bullet", boundaryOfRoom, m_enemy, m_ally, listToDespawn, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
@@ -102,7 +103,7 @@ void SceneTest1::Update(float dt)
 				PhysicsComponent *deathPos = dynamic_cast<PhysicsComponent*>(&(zeRemovedGo)->getComponent(PhysicsComponent::g_ID_));
 				std::ostringstream ss;
 				ss.str("");
-				ss << "I DIED!|Zombie|Devil|GO:" << deathPos->getPos().x << "," << deathPos->getPos().y << "," << deathPos->getPos().z;
+				ss << "I DIED!|Zombie|Devil<LDR>|GO:" << deathPos->getPos().x << "," << deathPos->getPos().y << "," << deathPos->getPos().z;
 				MessageSystem::accessing().onNotify(ss.str());
 				--zombiePresence;
                 SpawnZombie(Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));
@@ -318,18 +319,23 @@ bool SceneTest1::onNotify(const std::string &zeEvent)
 		bullet = NPCBuilder::BuildBullet("Bullet", boundaryOfRoom, m_enemy, m_ally, listToDespawn, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));
 		tempStorage.push_back(bullet);
 	}
-	//std::string debugddd = "ally/GO:1,2,3/POS:4,5,6";
+	//std::string debugddd = "ally/GO:1,2,3/POS:4,5,6/name:devil";
 	//ally/GO:X,Y,Z/POS:X,Y,Z 
 	AllyEnemyComponent *bullettoRecogniseEnemyAlly = dynamic_cast<AllyEnemyComponent*>(&bullet->getComponent(AllyEnemyComponent::ID_));
 	PhysicsComponent *bulletPhysic = dynamic_cast<PhysicsComponent*>(&bullet->getComponent(PhysicsComponent::g_ID_));
+	CollisionComponent *bulletCollision = dynamic_cast<CollisionComponent*>(&bullet->getComponent(CollisionComponent::ID_));
 	if (checkWhetherTheWordInThatString("ally", zeEvent))
 		bullettoRecogniseEnemyAlly->setAllyList(m_ally).setEnemyList(m_enemy);
 	else if (checkWhetherTheWordInThatString("enemy", zeEvent))
 		bullettoRecogniseEnemyAlly->setAllyList(m_enemy).setEnemyList(m_ally);
 
 	Vector3 tempVel, tempPos;
+	std::string anotherString;
+	if (zeEvent.find("ally") != std::string::npos)
+		anotherString = zeEvent.substr(8);
+	else if (zeEvent.find("enemy") != std::string::npos)
+		anotherString = zeEvent.substr(9);
 
-	std::string anotherString = zeEvent.substr(8);
 	size_t posOfDelim = anotherString.find(',');
 
 	tempVel.x = stof(anotherString.substr(0, posOfDelim));
@@ -347,7 +353,10 @@ bool SceneTest1::onNotify(const std::string &zeEvent)
 	posOfDelim = anotherString.find(',');
 	tempPos.y = stof(anotherString.substr(0, posOfDelim));
 	anotherString = anotherString.substr(posOfDelim + 1);
-	tempPos.z = stof(anotherString);
+	posOfDelim = anotherString.find('/');
+	tempPos.z = stof(anotherString.substr(0, posOfDelim));
+	anotherString = anotherString.substr(posOfDelim + 6);
+	bulletCollision->setSpawnerName(anotherString);
 	bulletPhysic->getPos() = tempPos;
 	bulletPhysic->setVel(tempVel);
 	//posOfComma = anotherString.find(',');

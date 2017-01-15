@@ -19,6 +19,7 @@ void Devil_SearchState::Init()
 {
 	name_ = " : SEARCH";
 	changedName = false;
+	showReplying = false;
 	timer = 0;
 	searchVel.SetZero();
 	enemyLastSeen.SetZero();
@@ -34,6 +35,8 @@ void Devil_SearchState::Update(double dt)
 	{
 		std::string newName = owner_of_component->getName();
 		originalOwnerName = newName;
+		if (showReplying)
+			newName.append("[Reply]");
 		newName.append(name_);
 		owner_of_component->setName(newName);
 		changedName = true;
@@ -129,6 +132,7 @@ void Devil_SearchState::Update(double dt)
 
 void Devil_SearchState::Exit()
 {
+	showReplying = false;
 	changedName = false;
     if (originalOwnerName != "")
         owner_of_component->setName(originalOwnerName);
@@ -150,6 +154,11 @@ bool Devil_SearchState::onNotify(const std::string &zeEvent)
 		z = stof(anotherStr);
 
 		enemyLastSeen.Set(x, y, z);
+		return true;
+	}
+	else if (zeEvent.find("[Reply]") != std::string::npos)
+	{
+		showReplying = true;
 		return true;
 	}
 	return false;

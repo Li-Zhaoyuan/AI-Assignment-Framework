@@ -14,6 +14,7 @@ public:
     virtual bool onNotify(const float &zeEvent);
     virtual bool onNotify(GenericComponent &zeEvent);
     virtual bool onNotify(const int &zeEvent);
+	virtual bool onNotify(const std::string &zeEvent);
 
     static const unsigned char ID_ = 1;
 
@@ -21,4 +22,5 @@ protected:
     GenericComponent *zeVictim;
     int chancesOfAction;
     float distToActivate, originalDistToActivate;
+	bool isReplying = false;
 };
