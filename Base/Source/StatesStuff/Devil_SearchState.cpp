@@ -161,13 +161,14 @@ bool Devil_SearchState::onNotify(const std::string &zeEvent)
 		z = stof(anotherStr);
 
 		enemyLastSeen.Set(x, y, z);
-		return true;
-	}
-	else if (zeEvent.find("[Reply]") != std::string::npos)
-	{
 		showReplying = true;
 		return true;
 	}
+	/*else if (zeEvent.find("[Reply]") != std::string::npos)
+	{
+		showReplying = true;
+		return true;
+	}*/
 	else if (zeEvent.find("name") != std::string::npos)  //check if the message to to tell the Devil to target a person
 	{
 		std::string anotherStr = zeEvent.substr(5);
@@ -179,6 +180,7 @@ bool Devil_SearchState::onNotify(const std::string &zeEvent)
 			if (zeEvent.find(fsm->getCurrentState().getOriginalOwnerName()) != std::string::npos)
 			{
 				zeVictim = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+				showReplying = true;
 				return true;
 			}
 		}
