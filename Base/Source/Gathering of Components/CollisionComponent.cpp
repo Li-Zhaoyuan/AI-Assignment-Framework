@@ -51,7 +51,10 @@ void CollisionComponent::Update(double dt)
 			{
 				std::ostringstream ss;
 				ss.str("");
-				ss << "I’m Low Health!|Devil|Zombie|name:" << this->getSpawnerName();
+				if ((*it)->getName().find("Devil<Leader>") != std::string::npos)
+					ss << "I’m Low Health!|Devil<LDR>|Zombie&Devil<LDR>|name:" << this->getSpawnerName();
+				else
+					ss << "I’m Low Health!|Devil|Zombie&Devil<LDR>|name:" << this->getSpawnerName();
 				MessageSystem::accessing().onNotify(ss.str());
 			}
 			break;

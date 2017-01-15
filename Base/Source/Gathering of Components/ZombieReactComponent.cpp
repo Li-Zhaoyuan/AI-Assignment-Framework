@@ -6,7 +6,7 @@
 
 ZombieReactComponent::ZombieReactComponent()
 {
-	name_ = "Devil Reaction";
+	name_ = "Zombie Reaction";
 	receivedMessage = "";
 	FSM_ = nullptr;
 	chanceToReact = 2;

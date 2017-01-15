@@ -21,6 +21,7 @@ private:
 	float timer;
 	
 	Vector3 searchVel, enemyLastSeen;
+	GenericComponent *zeVictim;
 	
 	bool showReplying;
 };

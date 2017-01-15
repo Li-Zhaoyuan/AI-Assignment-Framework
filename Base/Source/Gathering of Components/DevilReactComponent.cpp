@@ -55,6 +55,54 @@ bool DevilReactComponent::onNotify(const std::string &zeEvent)
 			return true;
 		}
 	}
+	//else if (zeEvent.find("|Devil|") != std::string::npos//from
+	//	&& zeEvent.find("Devil<LDR>") != std::string::npos//reciever
+	//	&& (zeEvent.find("|Devil|") < zeEvent.find("Devil<LDR>")) // making sure the msg is the correct sender and meant for the correct person
+	//	&& zeEvent.find("name") != std::string::npos)
+	else if (zeEvent.find("Devil|Zombie&Devil<LDR>") != std::string::npos
+		&& zeEvent.find("name") != std::string::npos)
+	{
+		if (zeEvent.find("I’m Low Health!") != std::string::npos)
+		{
+			int GettingTheChances = Math::RandIntMinMax(1, chanceToReact);  // get chance to make devil go to  the pos
+			if (GettingTheChances == 1)
+			{
+				GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
+				FSM_ = dynamic_cast<StateMachineComponent*>(&zeOwner->getComponent(StateMachineComponent::ID_.getValue()));
+				size_t posOfLastOr = zeEvent.find_last_of("|");
+				std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // name of the entity to follw
+				//int GettingTheChances = Math::RandIntMinMax(1, chanceToReact);  // Giving the chance for man to react properly.
+				//if (GettingTheChances == 1)//zombie no need to think :V just do only
+				//{
+				FSM_->switchState(0);   // Causing it to switch to target State
+				FSM_->onNotify(extractingTheMessage);
+			}
+			//}
+			return true;
+		}
+	}
+	else if (zeEvent.find("Devil<LDR>|Zombie&Devil<LDR>") != std::string::npos
+		&& zeEvent.find("name") != std::string::npos)
+	{
+		if (zeEvent.find("I’m Low Health!") != std::string::npos)
+		{
+			int GettingTheChances = Math::RandIntMinMax(1, chanceToReact/chanceToReact);  // get chance to make devil go to  the pos
+			if (GettingTheChances == 1)
+			{
+				GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
+				FSM_ = dynamic_cast<StateMachineComponent*>(&zeOwner->getComponent(StateMachineComponent::ID_.getValue()));
+				size_t posOfLastOr = zeEvent.find_last_of("|");
+				std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // name of the entity to follw
+				//int GettingTheChances = Math::RandIntMinMax(1, chanceToReact);  // Giving the chance for man to react properly.
+				//if (GettingTheChances == 1)//zombie no need to think :V just do only
+				//{
+				FSM_->switchState(0);   // Causing it to switch to target State
+				FSM_->onNotify(extractingTheMessage);
+			}
+			//}
+			return true;
+		}
+	}
 	return false;
 }
 

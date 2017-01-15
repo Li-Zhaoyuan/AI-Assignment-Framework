@@ -20,6 +20,7 @@ void Devil_SearchState::Init()
 	name_ = " : SEARCH";
 	changedName = false;
 	showReplying = false;
+	zeVictim = nullptr;
 	timer = 0;
 	searchVel.SetZero();
 	enemyLastSeen.SetZero();
@@ -50,7 +51,7 @@ void Devil_SearchState::Update(double dt)
 
 	//int randomDir = rand() % 4 + 1;
 	timer += (float)dt;
-	if (enemyLastSeen == Vector3(0, 0, 0))
+	if (enemyLastSeen == Vector3(0, 0, 0) && zeVictim == nullptr)
 	{
 
 		if (timer >= 0.5f)
@@ -62,6 +63,11 @@ void Devil_SearchState::Update(double dt)
 	}
 	else
 	{
+		if (zeVictim != nullptr)
+		{
+			PhysicsComponent *enemyPhysics = dynamic_cast<PhysicsComponent*>(zeVictim);
+			enemyLastSeen = enemyPhysics->getPos();//track the enenmy last seen
+		}
 		searchVel = (enemyLastSeen - zePhysicsStuff->getPos()).Normalized() * 40.f;
 		
 		if ((enemyLastSeen - zePhysicsStuff->getPos()).LengthSquared() < 100)
@@ -134,6 +140,7 @@ void Devil_SearchState::Exit()
 {
 	showReplying = false;
 	changedName = false;
+	zeVictim = nullptr;
     if (originalOwnerName != "")
         owner_of_component->setName(originalOwnerName);
 }
@@ -160,6 +167,21 @@ bool Devil_SearchState::onNotify(const std::string &zeEvent)
 	{
 		showReplying = true;
 		return true;
+	}
+	else if (zeEvent.find("name") != std::string::npos)  //check if the message to to tell the Devil to target a person
+	{
+		std::string anotherStr = zeEvent.substr(5);
+		GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+		AllyEnemyComponent *findingEnemy = dynamic_cast<AllyEnemyComponent*>(&zeGo->getComponent(AllyEnemyComponent::ID_));
+		for (std::vector<GameEntity*>::iterator it = findingEnemy->m_enemyList->begin(), end = findingEnemy->m_enemyList->end(); it != end; ++it)
+		{
+			StateMachineComponent* fsm = dynamic_cast<StateMachineComponent*>(&(*it)->getComponent(StateMachineComponent::ID_.getValue()));
+			if (zeEvent.find(fsm->getCurrentState().getOriginalOwnerName()) != std::string::npos)
+			{
+				zeVictim = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+				return true;
+			}
+		}
 	}
 	return false;
 }

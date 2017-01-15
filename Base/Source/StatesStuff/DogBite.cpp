@@ -4,7 +4,7 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/HPandDPComponent.h"
 #include <sstream>
-
+#include "../Systems/MessageSystem.h"
 DogBite::DogBite()
 {
     Init();
@@ -65,6 +65,18 @@ void DogBite::Update(double dt)
         {
             HPandDPComponent *zeMyDMG = dynamic_cast<HPandDPComponent*>(&zeGo->getComponent(HPandDPComponent::ID_));
             zeEnemy->getComponent(HPandDPComponent::ID_).onNotify(-zeMyDMG->getDamage());
+			HPandDPComponent *enemyHP = dynamic_cast<HPandDPComponent*>(&zeEnemy->getComponent(HPandDPComponent::ID_));
+			if (enemyHP->getHealth() < 50
+				&& zeEnemy->getName().find("Devil") != std::string::npos)
+			{
+				std::ostringstream ss;
+				ss.str("");
+				if (zeEnemy->getName().find("Devil<Leader>") != std::string::npos)
+					ss << "I’m Low Health!|Devil<LDR>|Zombie&Devil<LDR>|name:" << originalOwnerName;
+				else
+					ss << "I’m Low Health!|Devil|Zombie&Devil<LDR>|name:" << originalOwnerName;
+				MessageSystem::accessing().onNotify(ss.str());
+			}
         }
             break;
         default:
