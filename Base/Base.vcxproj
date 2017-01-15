@@ -21,9 +21,11 @@
     <ClCompile Include="Source\Gathering of Components\DevilReactComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogAnimComp.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogReactComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\FollowerComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
     <ClCompile Include="Source\Gathering of Components\GuyAnimComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
+    <ClCompile Include="Source\Gathering of Components\LeaderComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ManReactComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MeshComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\MyMeshComponent.cpp" />
@@ -93,10 +95,12 @@
     <ClInclude Include="Source\Gathering of Components\DevilReactComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DogAnimComp.h" />
     <ClInclude Include="Source\Gathering of Components\DogReactComponent.h" />
+    <ClInclude Include="Source\Gathering of Components\FollowerComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
     <ClInclude Include="Source\Gathering of Components\GuyAnimComponent.h" />
     <ClInclude Include="Source\Gathering of Components\HPandDPComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ID_Component.h" />
+    <ClInclude Include="Source\Gathering of Components\LeaderComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ManReactComponent.h" />
     <ClInclude Include="Source\Gathering of Components\MeshComponent.h" />
     <ClInclude Include="Source\Gathering of Components\MyMeshComponent.h" />
