@@ -28,6 +28,7 @@ public:
     virtual bool onNotify(const int &zeEvent) { return false; };
     virtual bool onNotify(const float &zeEvent) { return false; };
     virtual bool onNotify(GenericComponent &zeEvent) { return false; };
+    virtual bool onNotify(GenericEntity &zeEvent) { return false; }
 
     std::string getName();
     GenericEntity &getOwner();
