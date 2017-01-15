@@ -3,12 +3,14 @@
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Classes/GameEntity.h"
 #include "../Gathering of Components/SpeedComponent.h"
+#include "../Gathering of Components/AllyEnemyComponent.h"
 #include "MeleeAttackState.h"
 
 ZombieTarget::ZombieTarget()
 {
     name_ = "TARGET";
     changedName = false;
+	//isReplying = false;
     originalOwnerName = "";
     chancesOfAction = 1000;
     originalDistToActivate = distToActivate = 0;
@@ -36,10 +38,12 @@ void ZombieTarget::Update(double dt)
     default:
         break;
     }
+	//std::string str = getOriginalOwnerName();
     GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
     PhysicsComponent *enemyPhysics = dynamic_cast<PhysicsComponent*>(zeVictim);
-    if (!enemyPhysics || ((zePhysics->getPos() - enemyPhysics->getPos()).LengthSquared() > influenceRadius * influenceRadius))
+    if ((!enemyPhysics || ((zePhysics->getPos() - enemyPhysics->getPos()).LengthSquared() > influenceRadius * influenceRadius))
+		&& isReplying == false)
     {
         FSM_->switchState(0);
         zePhysics->setVel(Vector3(0, 0, 0));
@@ -67,8 +71,10 @@ void ZombieTarget::Update(double dt)
             {
                 FSM_->getSpecificStates(MeleeAttackState::ID_).onNotify(*zeVictim);
                 FSM_->switchState(MeleeAttackState::ID_);
+				isReplying = false;
             }
             zePhysics->setVel(sqOfDist.Normalize() * zeSpeed->getSpeed());
+			
         }
     }
 }
@@ -77,6 +83,7 @@ void ZombieTarget::Exit()
 {
     zeVictim = nullptr;
     changedName = false;
+	//isReplying = false;
     if (originalOwnerName != "")
         owner_of_component->setName(originalOwnerName);
     distToActivate = originalDistToActivate;
@@ -123,4 +130,26 @@ bool ZombieTarget::onNotify(const int &zeEvent)
         chancesOfAction = zeEvent;
     }
     return false;
+}
+
+bool ZombieTarget::onNotify(const std::string &zeEvent)
+{
+	if (zeEvent.find("name") != std::string::npos)    // Check to see if the event is for the guy to go. If so, extract the position out from the string
+	{
+		std::string anotherStr = zeEvent.substr(5);//hardcoding that 5 coz of name:
+		GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+		AllyEnemyComponent *findingEnemy = dynamic_cast<AllyEnemyComponent*>(&zeGo->getComponent(AllyEnemyComponent::ID_));
+		for (std::vector<GameEntity*>::iterator it = findingEnemy->m_enemyList->begin(), end = findingEnemy->m_enemyList->end(); it != end; ++it)
+		{
+			StateMachineComponent* fsm = dynamic_cast<StateMachineComponent*>(&(*it)->getComponent(StateMachineComponent::ID_.getValue()));
+			if (zeEvent.find(fsm->getCurrentState().getOriginalOwnerName()) != std::string::npos)
+			{
+				zeVictim = dynamic_cast<PhysicsComponent*>(&(*it)->getComponent(PhysicsComponent::g_ID_));
+				isReplying = true;
+				return true;
+			}
+		}
+		return false;
+	}
+	return false;
 }

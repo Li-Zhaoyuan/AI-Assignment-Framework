@@ -13,7 +13,7 @@ public:
     virtual ~StateComponent() { FSM_ = nullptr; changedName = false; originalOwnerName = ""; influenceRadius = 0; };
 
     void setFSM(StateMachineComponent &zeFSM) { FSM_ = &zeFSM; }
-
+	std::string getOriginalOwnerName() { return originalOwnerName; }
 protected:
     StateMachineComponent *FSM_;
     StateComponent() { FSM_ = nullptr; };

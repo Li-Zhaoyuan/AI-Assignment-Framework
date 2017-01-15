@@ -9,7 +9,7 @@ DevilReactComponent::DevilReactComponent()
 	name_ = "Devil Reaction";
 	receivedMessage = "";
 	FSM_ = nullptr;
-	chanceToReact = 1;
+	chanceToReact = 2;
 }
 
 DevilReactComponent::~DevilReactComponent()
@@ -22,14 +22,15 @@ bool DevilReactComponent::onNotify(const std::string &zeEvent)
 //msg in the format of MESSAGE|SENDER|RECIEVER|GO:
 //only the DEVIL leader will have this COMPONENT
 	if (zeEvent.find("Zombie") != std::string::npos
-		&& zeEvent.find("Devil") != std::string::npos
+		&& zeEvent.find("Devil<LDR>") != std::string::npos
+		&& (zeEvent.find("Zombie") < zeEvent.find("Devil<LDR>"))// making sure the msg is the correct sender and meant for the correct person
 		&& zeEvent.find("GO") != std::string::npos) // Check and see if this message is meant for the Devil, and wants the devil to go to a specific place.
 	{
-		if (!FSM_)// check if FSM_ is nullptr, if it is assign. initialise :V
-		{
-			GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
-			FSM_ = dynamic_cast<StateMachineComponent*>(&zeOwner->getComponent(StateMachineComponent::ID_.getValue()));
-		}
+		//if (!FSM_)// check if FSM_ is nullptr, if it is assign. initialise :V
+		//{
+		//	GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
+		//	FSM_ = dynamic_cast<StateMachineComponent*>(&zeOwner->getComponent(StateMachineComponent::ID_.getValue()));
+		//}
 		if (zeEvent.find("I DIED!") != std::string::npos)
 		{
 			GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
@@ -46,7 +47,8 @@ bool DevilReactComponent::onNotify(const std::string &zeEvent)
 					if (GettingTheChances == 1)
 					{
 						FSM_->switchState(0);
-						FSM_->getCurrentState().onNotify(extractingTheMessage);
+						FSM_->getCurrentState().onNotify(extractingTheMessage);//Reply
+						FSM_->getCurrentState().onNotify("[Reply]");
 					}
 				}
 			}

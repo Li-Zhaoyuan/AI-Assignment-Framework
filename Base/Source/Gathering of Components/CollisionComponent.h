@@ -16,9 +16,14 @@ public:
 	CollisionComponent &setDespawnList(std::vector<GameEntity*> &zeDespawnList);
 	//void setOwner(GameEntity* ownerOfbullet);
 
+	void setSpawnerName(std::string name);
+	std::string getSpawnerName();
+
 	static const unsigned char ID_ = 8;
 
 	float influenceRange;
 	std::vector<GameEntity*> *m_enemyList, *despawnList;
 	//GameEntity* ownerOfbullet;
+protected:
+	std::string spawner_name;
 };
