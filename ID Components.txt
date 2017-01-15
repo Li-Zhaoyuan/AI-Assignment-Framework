@@ -9,3 +9,4 @@ AllyEnemy Component: 6
 Animation Stuff: 7
 collision : 8
 Reacting Component:9
+Leader and Follower Component:10
