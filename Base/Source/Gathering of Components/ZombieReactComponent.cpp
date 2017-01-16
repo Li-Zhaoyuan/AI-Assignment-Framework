@@ -32,7 +32,7 @@ bool ZombieReactComponent::onNotify(const std::string &zeEvent)
 			GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
 			FSM_ = dynamic_cast<StateMachineComponent*>(&zeOwner->getComponent(StateMachineComponent::ID_.getValue()));
 		}
-		if (zeEvent.find("I’m Low Health!") != std::string::npos)
+		if (zeEvent.find("I Need Assistance!") != std::string::npos)
 		{
 			GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
 			size_t posOfLastOr = zeEvent.find_last_of("|");

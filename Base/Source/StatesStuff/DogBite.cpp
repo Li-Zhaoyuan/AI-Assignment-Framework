@@ -71,10 +71,10 @@ void DogBite::Update(double dt)
 			{
 				std::ostringstream ss;
 				ss.str("");
-				if (zeEnemy->getName().find("Devil<Leader>") != std::string::npos)
-					ss << "I’m Low Health!|Devil<LDR>|Zombie&Devil<LDR>|name:" << originalOwnerName;
+				if (zeEnemy->getName().find("Devil<LEADER>") != std::string::npos)
+					ss << "I Need Assistance!|Devil<LDR>|Zombie&Devil<LDR>|name:" << originalOwnerName;
 				else
-					ss << "I’m Low Health!|Devil|Zombie&Devil<LDR>|name:" << originalOwnerName;
+					ss << "I Need Assistance!|Devil|Zombie&Devil<LDR>|name:" << originalOwnerName;
 				MessageSystem::accessing().onNotify(ss.str());
 			}
         }

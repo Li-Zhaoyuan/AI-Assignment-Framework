@@ -62,7 +62,7 @@ bool DevilReactComponent::onNotify(const std::string &zeEvent)
 	else if (zeEvent.find("Devil|Zombie&Devil<LDR>") != std::string::npos
 		&& zeEvent.find("name") != std::string::npos)
 	{
-		if (zeEvent.find("I’m Low Health!") != std::string::npos)
+		if (zeEvent.find("I Need Assistance!") != std::string::npos)
 		{
 			int GettingTheChances = Math::RandIntMinMax(1, chanceToReact);  // get chance to make devil go to  the pos
 			if (GettingTheChances == 1)
@@ -84,7 +84,7 @@ bool DevilReactComponent::onNotify(const std::string &zeEvent)
 	else if (zeEvent.find("Devil<LDR>|Zombie&Devil<LDR>") != std::string::npos
 		&& zeEvent.find("name") != std::string::npos)
 	{
-		if (zeEvent.find("I’m Low Health!") != std::string::npos)
+		if (zeEvent.find("I Need Assistance!") != std::string::npos)
 		{
 			int GettingTheChances = Math::RandIntMinMax(1, chanceToReact/chanceToReact);  // get chance to make devil go to  the pos
 			if (GettingTheChances == 1)

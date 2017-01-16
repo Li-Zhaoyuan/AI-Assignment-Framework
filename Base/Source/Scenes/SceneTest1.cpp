@@ -201,8 +201,8 @@ void SceneTest1::Render()
 			modelStack->Translate(zePhysicsStuff->getPos().x, zePhysicsStuff->getPos().y, zePhysicsStuff->getPos().z);
 			// Debuggin Stuff
 			modelStack->PushMatrix();
-			modelStack->Translate(0, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
-			modelStack->Scale(15, 15, 1);
+			modelStack->Translate(-25, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
+			modelStack->Scale(10, 10, 1);
 			zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
 			modelStack->PopMatrix();
 
@@ -234,14 +234,14 @@ void SceneTest1::Render()
     zeGraphics->RenderTextOnScreen(ss.str(), Color(0, 1, 0), 25, 0, 0);
 
     // Starting from the latest Message thus getting the size of stored message and num starts from size - 5 to get the last 4th element of the message array then increment
-    zeGraphics->RenderTextOnScreen("Text|From|To", Color(1, 0, 0), 25, 0, 550);
+    zeGraphics->RenderTextOnScreen("Text|From|To", Color(1, 0, 0), 15, 0, 550);
     for (int sizeOfMessage = MessageSystem::accessing().StoreMessage.size(), num = sizeOfMessage - MAX_LIMIT_DISPLAY_MESSAGE; num < sizeOfMessage; ++num)
     {
         if (num < 0)    // Vector will went out of range if it is less than 0!
             continue;
         size_t posOfLastOr = MessageSystem::accessing().StoreMessage[num].find_last_of("|");    // this will find '|' from end to beginning
         std::string extractedText = MessageSystem::accessing().StoreMessage[num].substr(0, posOfLastOr);    // Get the extracted text out of the overall message
-        zeGraphics->RenderTextOnScreen(extractedText, Color(1, 0, 0), 25, 0,
+        zeGraphics->RenderTextOnScreen(extractedText, Color(1, 0, 0), 15, 0,
             525.0f - (25.0f*(sizeOfMessage - 1.0f - num))); // 525 is from above 550 - 25. 25 shall be the constant size for the text. Then the minus operation after 525 will help to get the the actual values we want.
         // Example: sizeOfMessage = 4. num = 0. overall = 0.
     }

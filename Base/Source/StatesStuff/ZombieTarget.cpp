@@ -53,7 +53,12 @@ void ZombieTarget::Update(double dt)
     else
     {
         SpeedComponent *zeSpeed = dynamic_cast<SpeedComponent*>(&zeGo->getComponent(SpeedComponent::ID_));
-        Vector3 sqOfDist = enemyPhysics->getPos() - zePhysics->getPos();
+		if (enemyPhysics == NULL)
+		{
+			isReplying = false;
+			return;
+		}
+		Vector3 sqOfDist = enemyPhysics->getPos() - zePhysics->getPos();
         if (sqOfDist.LengthSquared() <= distToActivate * distToActivate)
         {
             switch (Math::RandIntMinMax(1, chancesOfAction))

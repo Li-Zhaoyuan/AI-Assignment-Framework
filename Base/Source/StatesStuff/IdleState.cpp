@@ -42,6 +42,7 @@ void IdleState::Update(double dt)
     GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
     AllyEnemyComponent *zeEnemyStuff = dynamic_cast<AllyEnemyComponent*>(&zeGo->getComponent(AllyEnemyComponent::ID_));
+	zePhysics->setVel(Vector3(0, 0, 0));// i want to make sure the zombie dont move in idle
     for (std::vector<GameEntity*>::iterator it = zeEnemyStuff->m_enemyList->begin(), end = zeEnemyStuff->m_enemyList->end(); it != end; ++it)
     {
         GameEntity *zeEnemy = (*it);
