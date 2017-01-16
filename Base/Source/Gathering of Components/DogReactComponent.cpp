@@ -1,12 +1,14 @@
 #include "DogReactComponent.h"
 #include "../StatesStuff/StateMachineComponent.h"
 #include "../Classes/GameEntity.h"
+#include "AllyEnemyComponent.h"
 
 DogReactComponent::DogReactComponent()
 {
     name_ = "Dog Reaction Message";
     receivedMessage = "";
     FSM_ = nullptr;
+    listOfAllyEnemy = nullptr;
 }
 
 DogReactComponent::~DogReactComponent()
@@ -20,6 +22,11 @@ bool DogReactComponent::onNotify(const std::string &zeEvent)
     {
         GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
         FSM_ = dynamic_cast<StateMachineComponent*>(&zeGo->getComponent(StateMachineComponent::ID_.getValue()));
+    }
+    if (!listOfAllyEnemy)
+    {
+        GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+        listOfAllyEnemy = dynamic_cast<AllyEnemyComponent*>(&zeGo->getComponent(AllyEnemyComponent::ID_));
     }
 
     size_t firstOR = zeEvent.find("|"); // Get the message because the string is in the Format of "MESSAGE|FROM|TO|CONTENT"

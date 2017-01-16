@@ -2,7 +2,7 @@
 
 #include "../GenericECS/GenericComponent.h"
 class StateMachineComponent;
-
+class AllyEnemyComponent;
 class ManReactComponent : public GenericComponent
 {
 public:
@@ -18,5 +18,6 @@ public:
 private:
     std::string receivedMessage;
     StateMachineComponent *FSM_;
+    AllyEnemyComponent *listOfAllyEnemy;    // Need to know check through it's ally list
     int chanceToReact;
 };

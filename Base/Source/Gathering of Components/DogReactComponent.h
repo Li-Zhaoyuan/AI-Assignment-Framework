@@ -3,6 +3,7 @@
 #include "../GenericECS/GenericComponent.h"
 
 class StateMachineComponent;
+class AllyEnemyComponent;
 class DogReactComponent : public GenericComponent
 {
 public:
@@ -15,4 +16,5 @@ public:
 protected:
     std::string receivedMessage;
     StateMachineComponent *FSM_;    // Need to know what state the dog is in.
+    AllyEnemyComponent *listOfAllyEnemy;    // Need to know check through it's ally list
 };

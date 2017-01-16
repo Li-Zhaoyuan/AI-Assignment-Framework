@@ -21,7 +21,6 @@
     <ClCompile Include="Source\Gathering of Components\DevilReactComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogAnimComp.cpp" />
     <ClCompile Include="Source\Gathering of Components\DogReactComponent.cpp" />
-    <ClCompile Include="Source\Gathering of Components\FollowerComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\ForwardCommand.cpp" />
     <ClCompile Include="Source\Gathering of Components\GuyAnimComponent.cpp" />
     <ClCompile Include="Source\Gathering of Components\HPandDPComponent.cpp" />
@@ -95,7 +94,6 @@
     <ClInclude Include="Source\Gathering of Components\DevilReactComponent.h" />
     <ClInclude Include="Source\Gathering of Components\DogAnimComp.h" />
     <ClInclude Include="Source\Gathering of Components\DogReactComponent.h" />
-    <ClInclude Include="Source\Gathering of Components\FollowerComponent.h" />
     <ClInclude Include="Source\Gathering of Components\ForwardCommand.h" />
     <ClInclude Include="Source\Gathering of Components\GuyAnimComponent.h" />
     <ClInclude Include="Source\Gathering of Components\HPandDPComponent.h" />
