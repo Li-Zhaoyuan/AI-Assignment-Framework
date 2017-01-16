@@ -8,7 +8,7 @@
 
 ZombieTarget::ZombieTarget()
 {
-    name_ = "TARGET";
+    name_ = ": TARGET";
     changedName = false;
 	//isReplying = false;
     originalOwnerName = "";
@@ -30,6 +30,8 @@ void ZombieTarget::Update(double dt)
     {
         std::string zeName = owner_of_component->getName();
         originalOwnerName = zeName;
+		if (isReplying)
+			zeName.append("[reply]");
         zeName.append(name_);
         owner_of_component->setName(zeName);
         changedName = true;
