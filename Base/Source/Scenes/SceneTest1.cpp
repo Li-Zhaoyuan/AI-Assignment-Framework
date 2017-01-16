@@ -10,6 +10,7 @@
 #include "../Gathering of Components/CollisionComponent.h"
 #include "../Misc/GlobalFunctions.h"
 #include "../Systems/MessageSystem.h"
+#include "../Gathering of Components/LeaderComponent.h"
 
 #define MAX_LIMIT_DISPLAY_MESSAGE 4
 
@@ -53,7 +54,9 @@ void SceneTest1::Init()
     dogPresence = 2;
 
 	m_GoList.push_back(NPCBuilder::BuildDevil("Devil<LEADER>", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
-	m_GoList.push_back(NPCBuilder::BuildGuy("Guy1", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
+    GameEntity *zeHumanLeader = NPCBuilder::BuildGuy("Guy1<LEADER>", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));  // Need to separate it out otherwise thr will be compilation error
+    zeHumanLeader->addComponent(LeaderComponent::ID_, new LeaderComponent());
+    m_GoList.push_back(zeHumanLeader);
     m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
     m_GoList.push_back(NPCBuilder::BuildGuy("Guy2", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
     for (int i = 0; i < 10; ++i)
