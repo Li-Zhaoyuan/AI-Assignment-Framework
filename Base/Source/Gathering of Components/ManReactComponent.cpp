@@ -4,6 +4,7 @@
 #include "MyMath.h"
 #include "AllyEnemyComponent.h"
 #include "../Systems/MessageSystem.h"
+#include <iostream>
 
 ManReactComponent::ManReactComponent()
 {
@@ -54,8 +55,6 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
                 {
                     size_t posOfLastOr = zeEvent.find_last_of("|");
                     std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
-                    FSM_->switchState(0);   // Causing it to switch to Patrol State
-                    FSM_->onNotify(extractingTheMessage);   // Leader will also go there.
                     return MessageSystem::accessing().onNotify("Help Dog|LEADER|Guy|"+extractingTheMessage);    // Sending the message to message board so other guys will be able to listen to it!
                 }
             }
@@ -64,13 +63,40 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
         }
         return true;
     }
-    else if (FromMessage == "LEADER" && ToMessage == "Guy") // Checking whether the message is from the Leader and sending to Guy
+    else if (FromMessage == "LEADER" && ToMessage == "Guy" && TextMessage == "Help Dog") // Checking whether the message is from the Leader and sending to Guy
+    {
+        size_t posOfLastOr = zeEvent.find_last_of("|");
+        std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
+        FSM_->switchState(0);   // Causing it to switch to Patrol State
+        std::cout << owner_of_component->getName() << " Helping the dog!" << std::endl; // need to check if this has been passed through or not
+        return FSM_->onNotify(extractingTheMessage);
+    }
+    // These parts will check to see if the guys is being attacked or not
+    else if (TextMessage.find("I am being attacked") != std::string::npos && FromMessage.find("Guy") != std::string::npos)  // This will help to check if it is a message from the guy.
+    {
+        GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
+        if (zeGo->seeComponentActive(11))   // see if am I the leader. Else ignore the message
+        {
+            int GettingTheChances = Math::RandIntMinMax(1, chanceToReact);  // Giving the chance for man to react properly.
+            if (GettingTheChances == 1)
+            {
+                size_t posOfLastOr = zeEvent.find_last_of("|");
+                std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the guys's position
+                return MessageSystem::accessing().onNotify("Help Guy|LEADER|Guy|" + extractingTheMessage);    // Sending the message to message board so other guys will be able to listen to it!
+            }
+            return true;
+        }
+    }
+    else if (FromMessage == "LEADER" && ToMessage == "Guy" && TextMessage == "Help Guy") // Checking whether the message is from the Leader and sending to Guy
     {
         size_t posOfLastOr = zeEvent.find_last_of("|");
         std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
         FSM_->switchState(0);   // Causing it to switch to Patrol State
         return FSM_->onNotify(extractingTheMessage);
+        std::cout << owner_of_component->getName() << " helping guy" << std::endl;
+        return true;
     }
+        // These parts will check to see if the guys is being attacked or not
     return false;
 }
 
