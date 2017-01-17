@@ -54,7 +54,7 @@ void SceneTest1::Init()
     dogPresence = 2;
 
 	m_GoList.push_back(NPCBuilder::BuildDevil("Devil<LEADER>", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));
-    GameEntity *zeHumanLeader = NPCBuilder::BuildGuy("Guy1<LEADER>", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));  // Need to separate it out otherwise thr will be compilation error
+    GameEntity *zeHumanLeader = NPCBuilder::BuildGuy("Guy1", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0));  // Need to separate it out otherwise thr will be compilation error
     zeHumanLeader->addComponent(LeaderComponent::ID_, new LeaderComponent());
     m_GoList.push_back(zeHumanLeader);
     m_GoList.push_back(NPCBuilder::BuildDevil("Devil", boundaryOfRoom, m_enemy, m_ally, Vector3(Math::RandFloatMinMax(-boundaryOfRoom.x, boundaryOfRoom.x), Math::RandFloatMinMax(-boundaryOfRoom.y, boundaryOfRoom.y), 0)));

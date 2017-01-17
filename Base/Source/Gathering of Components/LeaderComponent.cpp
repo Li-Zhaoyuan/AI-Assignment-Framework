@@ -20,7 +20,12 @@ void LeaderComponent::Init()
 
 void LeaderComponent::Update(double dt)
 {
-
+    if (!changeLeaderName)
+    {
+        originalName = owner_of_component->getName();
+        owner_of_component->setName(originalName + "<LEADER>");
+        changeLeaderName = true;
+    }
 }
 
 void LeaderComponent::Exit()
