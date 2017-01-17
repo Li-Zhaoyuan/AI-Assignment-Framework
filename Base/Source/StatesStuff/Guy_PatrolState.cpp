@@ -121,18 +121,7 @@ void Guy_PatrolState::Update(double dt)
 	
 	if (hpOfGuy->getHealth() <= 0)
 	{
-
-		zePhysicsStuff->setVel(Vector3(0, 0, 0));
-		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
-		hpOfGuy->getHealth() = 100;
-		/*changedName = false;
-		isAtWayPoint = false;
-		pointToPatrol.SetZero();
-		vel.SetZero();
-		currPoint = 0;
-		nextPoint = 0;
-		setWayPoints();*/
-		FSM_->switchState(0);
+		FSM_->switchState(4);
 	}
 	//setWayPoints();
 }

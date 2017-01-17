@@ -128,11 +128,7 @@ void Devil_SearchState::Update(double dt)
 	}
 	if (zeOwnselfHP->getHealth() <= 0)
 	{
-		zePhysicsStuff->setVel(Vector3(0, 0, 0));
-		zePhysicsStuff->setPos(Vector3(Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().x, zePhysicsStuff->getBoundary().x), Math::RandFloatMinMax(-zePhysicsStuff->getBoundary().y, zePhysicsStuff->getBoundary().y), 0));
-		zeOwnselfHP->getHealth() = 100;
-
-		FSM_->switchState(0);
+		FSM_->switchState(4);
 	}
 }
 

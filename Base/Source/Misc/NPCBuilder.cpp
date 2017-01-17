@@ -22,11 +22,13 @@
 #include "../StatesStuff/Devil_SearchState.h"   
 #include "../StatesStuff/Devil_AttackState.h"   
 #include "../StatesStuff/Devil_HealState.h"
-#include "../StatesStuff/Devil_EscapeState.h"  
+#include "../StatesStuff/Devil_EscapeState.h"
+#include "../StatesStuff/Devil_DeadState.h"
 #include "../StatesStuff/Guy_PatrolState.h"   
 #include "../StatesStuff/Guy_EscapeState.h"   
 #include "../StatesStuff/Guy_StunState.h"
 #include "../StatesStuff/Guy_AttackState.h"
+#include "../StatesStuff/Guy_DeadState.h"
 #include "../Gathering of Components/DevilAnimComponent.h"
 #include "../Gathering of Components/GuyAnimComponent.h"
 #include "../Gathering of Components/CollisionComponent.h"
@@ -164,6 +166,7 @@ GameEntity *NPCBuilder::BuildDevil(const std::string &zeName, Vector3 &boundary,
 	devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
 	devilFSM->addStates(*new Devil_EscapeState(), Devil_EscapeState::ID_);
 	devilFSM->addStates(*new Devil_HealState(), Devil_HealState::ID_);
+	devilFSM->addStates(*new Devil_DeadState(), Devil_DeadState::ID_);
 	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 55));  // Initially the damage is 25. For debug purpose, the values has changed.
 
 	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
@@ -197,6 +200,7 @@ GameEntity *NPCBuilder::BuildGuy(const std::string &zeName, Vector3 &boundary, s
 	guyFSM->addStates(*new Guy_EscapeState(), Guy_EscapeState::ID_);
 	guyFSM->addStates(*new Guy_StunState(), Guy_StunState::ID_);
 	guyFSM->addStates(*new Guy_AttackState(), Guy_AttackState::ID_);
+	guyFSM->addStates(*new Guy_DeadState(), Guy_DeadState::ID_);
 	Guy->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 15));
 
 	AllyEnemyComponent *GuytoRecogniseEnemyAlly = new AllyEnemyComponent;
