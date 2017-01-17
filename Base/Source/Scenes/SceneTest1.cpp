@@ -12,7 +12,7 @@
 #include "../Systems/MessageSystem.h"
 #include "../Gathering of Components/LeaderComponent.h"
 
-#define MAX_LIMIT_DISPLAY_MESSAGE 4
+#define MAX_LIMIT_DISPLAY_MESSAGE 6
 
 SceneTest1::SceneTest1()
 {
