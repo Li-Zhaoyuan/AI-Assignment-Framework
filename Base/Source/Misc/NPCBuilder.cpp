@@ -84,7 +84,7 @@ GameEntity *NPCBuilder::BuildZombie(const std::string &zeName, Vector3 &boundary
     HPandDPComponent *zeHPandDP = new HPandDPComponent;
     go->addComponent(HPandDPComponent::ID_, zeHPandDP);
     zeHPandDP->setHealth(100);
-    zeHPandDP->setDamage(55);   // initially it is 33. the changed values is for testing of bugs
+    zeHPandDP->setDamage(45);   // initially it is 33. the changed values is for testing of bugs
 
     go->addComponent(ZombieAnimComp::ID_, new ZombieAnimComp());
 
@@ -166,8 +166,12 @@ GameEntity *NPCBuilder::BuildDevil(const std::string &zeName, Vector3 &boundary,
 	devilFSM->addStates(*new Devil_AttackState(), Devil_AttackState::ID_);
 	devilFSM->addStates(*new Devil_EscapeState(), Devil_EscapeState::ID_);
 	devilFSM->addStates(*new Devil_HealState(), Devil_HealState::ID_);
+<<<<<<< HEAD
 	devilFSM->addStates(*new Devil_DeadState(), Devil_DeadState::ID_);
 	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 55));  // Initially the damage is 25. For debug purpose, the values has changed.
+=======
+	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
+>>>>>>> e9be4a211b1f2db93ddb2813f768f5b51aa66634
 
 	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
 	DeviltoRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);

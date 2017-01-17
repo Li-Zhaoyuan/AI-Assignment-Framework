@@ -15,6 +15,7 @@ public:
     virtual void Update(double dt);
     virtual void Exit();
     virtual bool onNotify(const std::string &zeEvent);
+    virtual bool onNotify(const int &zeEvent);
 
 private:
     Vector3 goThatPos;

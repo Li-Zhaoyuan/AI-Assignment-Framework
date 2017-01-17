@@ -43,10 +43,14 @@ bool DogReactComponent::onNotify(const std::string &zeEvent)
     std::string ToMessage = thirdPart.substr(0, thirdOR);
     if (TextMessage.find("I am being attacked") != std::string::npos && FromMessage.find("Guy") != std::string::npos)   // checking whether is it the correct string
     {
-        std::string contentMessage = thirdPart.substr(thirdOR + 1); // "CONTENT"
-        FSM_->switchState(2);
-        HasReactedToMessage = true;
-        return FSM_->onNotify(contentMessage);
+        if (FromMessage.find("<LEADER>") != std::string::npos || !HasReactedToMessage)// check if it is a message from the leader which will override the previous message or it currently not reacting to a message
+        {
+            std::string contentMessage = thirdPart.substr(thirdOR + 1); // "CONTENT"
+            FSM_->switchState(2);
+            HasReactedToMessage = true;
+            FSM_->onNotify(-1); // Trying to tell the current state that he is meant to react to this message
+            return FSM_->onNotify(contentMessage);
+        }
     }
     return false;
 }
@@ -57,7 +61,7 @@ bool DogReactComponent::onNotify(const int &zeEvent)
     {
     case 0: // If the event is 0, it means that it has reacted to the message!
         HasReactedToMessage = false;
-        std::cout << "Has Responded to that message!" << std::endl;
+        //std::cout << "Has Responded to that message!" << std::endl;
         return true;
         break;
     default:
