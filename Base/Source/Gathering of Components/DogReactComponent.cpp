@@ -46,6 +46,7 @@ bool DogReactComponent::onNotify(const std::string &zeEvent)
         std::string contentMessage = thirdPart.substr(thirdOR + 1); // "CONTENT"
         FSM_->switchState(2);
         HasReactedToMessage = true;
+        FSM_->onNotify(-1); // Trying to tell the current state that he is meant to react to this message
         return FSM_->onNotify(contentMessage);
     }
     return false;
