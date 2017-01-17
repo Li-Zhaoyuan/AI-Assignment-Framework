@@ -93,6 +93,8 @@ void SceneTest1::Update(float dt)
 	case false:
 		for (std::set<size_t>::iterator it = inactiveObjPos.begin(), end = inactiveObjPos.end(); it != end; ++it)
 		{
+            if ((*it) >= m_GoList.size())   // There is a crash among here and can't really figure out but it appears to be out of range.
+                continue;
 			GameEntity *zeRemovedGo = m_GoList[(*it)];
 			m_GoList.erase(m_GoList.end() - (m_GoList.size() - (*it)));
 			m_InactiveList.push_back(zeRemovedGo);

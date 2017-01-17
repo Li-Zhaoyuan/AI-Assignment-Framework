@@ -17,4 +17,5 @@ protected:
     std::string receivedMessage;
     StateMachineComponent *FSM_;    // Need to know what state the dog is in.
     AllyEnemyComponent *listOfAllyEnemy;    // Need to know check through it's ally list
+    bool HasReactedToMessage;
 };

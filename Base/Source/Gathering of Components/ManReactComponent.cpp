@@ -13,6 +13,7 @@ ManReactComponent::ManReactComponent()
     FSM_ = nullptr;
     chanceToReact = 2;
     listOfAllyEnemy = nullptr;
+    HasReactToMessage = false;
 }
 
 ManReactComponent::~ManReactComponent()

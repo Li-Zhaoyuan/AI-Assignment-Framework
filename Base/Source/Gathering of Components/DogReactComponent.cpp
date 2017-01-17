@@ -9,6 +9,7 @@ DogReactComponent::DogReactComponent()
     receivedMessage = "";
     FSM_ = nullptr;
     listOfAllyEnemy = nullptr;
+    HasReactedToMessage = false;
 }
 
 DogReactComponent::~DogReactComponent()

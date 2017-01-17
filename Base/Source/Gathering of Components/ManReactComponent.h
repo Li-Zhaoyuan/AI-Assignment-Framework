@@ -20,4 +20,5 @@ private:
     StateMachineComponent *FSM_;
     AllyEnemyComponent *listOfAllyEnemy;    // Need to know check through it's ally list
     int chanceToReact;
+    bool HasReactToMessage;
 };
