@@ -25,10 +25,12 @@ public: //Do go and investigate union
     
     bool turnOffComponent(const size_t &zeNum);
     bool turnOnComponent(const size_t &zeNum);
+    // This will completely delete the specific component that you want!
     bool removeComponent(const size_t &zeNum);
 
     bool seeComponentActive(const size_t &zeNum);
 
+    // This will remove the component without deleting them. Do note that the component's Exit() will be called
     GenericComponent *eraseComponent(const size_t &zeNum);
 
 protected:

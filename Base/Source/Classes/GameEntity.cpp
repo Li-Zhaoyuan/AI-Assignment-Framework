@@ -166,6 +166,7 @@ GenericComponent* GameEntity::eraseComponent(const size_t &zeNum)
         ComponentsItHeld[zeNum] = nullptr;
         ComponentActive[zeNum] = false;
         whatComponentAreThr.erase(zeNum);
+        zeErased->Exit();
         return zeErased;
     }
     return nullptr;
