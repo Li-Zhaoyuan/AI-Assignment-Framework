@@ -2,6 +2,7 @@
 #include "../StatesStuff/StateMachineComponent.h"
 #include "../Classes/GameEntity.h"
 #include "AllyEnemyComponent.h"
+#include <iostream>
 
 DogReactComponent::DogReactComponent()
 {
@@ -44,7 +45,24 @@ bool DogReactComponent::onNotify(const std::string &zeEvent)
     {
         std::string contentMessage = thirdPart.substr(thirdOR + 1); // "CONTENT"
         FSM_->switchState(2);
+        HasReactedToMessage = true;
         return FSM_->onNotify(contentMessage);
     }
+    return false;
+}
+
+bool DogReactComponent::onNotify(const int &zeEvent)
+{
+    switch (zeEvent)
+    {
+    case 0: // If the event is 0, it means that it has reacted to the message!
+        HasReactedToMessage = false;
+        std::cout << "Has Responded to that message!" << std::endl;
+        return true;
+        break;
+    default:
+        break;
+    }
+
     return false;
 }

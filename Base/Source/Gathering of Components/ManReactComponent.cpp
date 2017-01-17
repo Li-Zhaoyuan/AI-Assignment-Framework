@@ -33,7 +33,7 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
         GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
         listOfAllyEnemy = dynamic_cast<AllyEnemyComponent*>(&zeGo->getComponent(AllyEnemyComponent::ID_));
     }
-
+    
     size_t firstOR = zeEvent.find("|"); // Get the message because the string is in the Format of "MESSAGE|FROM|TO|CONTENT"
     std::string TextMessage = zeEvent.substr(0, firstOR);
     std::string secondPart = zeEvent.substr(firstOR + 1);   // Here shall be "FROM|TO|CONTENT....."
@@ -69,7 +69,7 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
         size_t posOfLastOr = zeEvent.find_last_of("|");
         std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
         FSM_->switchState(0);   // Causing it to switch to Patrol State
-        std::cout << owner_of_component->getName() << " Helping the dog!" << std::endl; // need to check if this has been passed through or not
+        //std::cout << owner_of_component->getName() << " Helping the dog!" << std::endl; // need to check if this has been passed through or not
         return FSM_->onNotify(extractingTheMessage);
     }
     // These parts will check to see if the guys is being attacked or not
@@ -93,9 +93,8 @@ bool ManReactComponent::onNotify(const std::string &zeEvent)
         size_t posOfLastOr = zeEvent.find_last_of("|");
         std::string extractingTheMessage = zeEvent.substr(posOfLastOr + 1); // Extracting the real content because we don't need the message. In this case, it will be the dog's position
         FSM_->switchState(0);   // Causing it to switch to Patrol State
+        //std::cout << owner_of_component->getName() << " helping guy" << std::endl;
         return FSM_->onNotify(extractingTheMessage);
-        std::cout << owner_of_component->getName() << " helping guy" << std::endl;
-        return true;
     }
         // These parts will check to see if the guys is being attacked or not
     return false;

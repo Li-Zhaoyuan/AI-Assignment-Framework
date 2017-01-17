@@ -10,7 +10,10 @@ public:
     DogReactComponent();
     virtual ~DogReactComponent();
 
+    // This is for the dog to react to messages accordingly
     virtual bool onNotify(const std::string &zeEvent);
+    // This is to toggle certain event that only Sek Heng can use!
+    virtual bool onNotify(const int &zeEvent);
 
     static const unsigned char ID_ = 9;
 protected:

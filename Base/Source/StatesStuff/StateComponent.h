@@ -16,9 +16,9 @@ public:
 	std::string getOriginalOwnerName() { return originalOwnerName; }
 protected:
     StateMachineComponent *FSM_;
-    StateComponent() { FSM_ = nullptr; };
+    StateComponent() { reactingToMessage = false; changedName = false; FSM_ = nullptr; originalOwnerName = ""; influenceRadius = 0; };
     std::string originalOwnerName;
-    bool changedName;
+    bool changedName, reactingToMessage;
     float influenceRadius;
 };
 
