@@ -4,6 +4,7 @@
 #include "..\\Scenes\\GraphicsEntity.h"
 #include "../Systems/ComponentSystem.h"
 #include "../Commands/CommandSystem.h"
+#include "../Systems/MessageSystem.h"
 
 #include <fstream>
 #ifdef _DEBUG
@@ -206,6 +207,9 @@ void Application::Exit()
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW
 	glfwTerminate();
+    Scene_System::Destroy();
+    MessageSystem::Destroy();
+    CommandSystem::Destroy();
 	_CrtDumpMemoryLeaks();
 }
 

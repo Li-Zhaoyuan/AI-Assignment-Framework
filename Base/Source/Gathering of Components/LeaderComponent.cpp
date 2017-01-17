@@ -37,9 +37,3 @@ void LeaderComponent::Exit()
         originalName = "";
     }
 }
-
-bool LeaderComponent::onNotify(GenericEntity &zeEvent)
-{
-    return true;
-}
-

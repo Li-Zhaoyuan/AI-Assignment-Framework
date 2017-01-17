@@ -7,6 +7,7 @@
 
 class MessageSystem : public GenericSystem, public SingletonTemplate<MessageSystem>
 {
+    friend SingletonTemplate<MessageSystem>;
 public:
     //Init does nothing!
     virtual void Init();
@@ -24,4 +25,6 @@ public:
 
 private:
     std::list<std::string> SendingMessage;
+    MessageSystem() {}
+    virtual ~MessageSystem() {}
 };

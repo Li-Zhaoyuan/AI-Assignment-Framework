@@ -27,6 +27,7 @@ Class Scene_System:
 /******************************************************************************/
 class Scene_System : public GenericSystem, public SingletonTemplate<Scene_System>
 {
+    friend SingletonTemplate<Scene_System>;
 public:
     virtual void Init();    
     virtual void Update(double dt);
@@ -50,6 +51,8 @@ private:
 	std::stack<SceneEntity* > SceneHistory;
     std::map<std::string, SceneEntity*> theSceneList;
     SceneEntity *graphics_scene;
+    Scene_System() {}
+    virtual ~Scene_System() {}
 };
 
 #endif

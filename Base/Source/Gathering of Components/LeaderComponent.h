@@ -14,8 +14,6 @@ public:
     virtual void Update(double dt);
     virtual void Exit();
 
-    virtual bool onNotify(GenericEntity &zeEvent);
-
     static const unsigned char ID_ = 11;
 
 private:
