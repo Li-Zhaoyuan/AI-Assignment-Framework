@@ -204,7 +204,16 @@ void SceneTest1::Render()
 			// Debuggin Stuff
 			modelStack->PushMatrix();
 			modelStack->Translate(-25, (zePhysicsStuff->getSize().y / 2) + 5.f, 0);
-			modelStack->Scale(10, 10, 1);
+            // Check Got Leader Position, if so render the LEADER on top of it!
+            if ((*it)->seeComponentActive(LeaderComponent::ID_))
+            {
+                modelStack->PushMatrix();
+                modelStack->Translate(0, 7.5f, 0);
+                modelStack->Scale(10, 10, 1);
+                zeGraphics->RenderText("<LEADER>", Color(1, 0, 0));
+                modelStack->PopMatrix();
+            }
+            modelStack->Scale(10, 10, 1);
 			zeGraphics->RenderText((*it)->getName(), Color(1, 0, 0));
 			modelStack->PopMatrix();
 
