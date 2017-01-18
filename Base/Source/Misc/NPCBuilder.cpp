@@ -167,7 +167,7 @@ GameEntity *NPCBuilder::BuildDevil(const std::string &zeName, Vector3 &boundary,
 	devilFSM->addStates(*new Devil_EscapeState(), Devil_EscapeState::ID_);
 	devilFSM->addStates(*new Devil_HealState(), Devil_HealState::ID_);
 	devilFSM->addStates(*new Devil_DeadState(), Devil_DeadState::ID_);
-	Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 55));  // Initially the damage is 25. For debug purpose, the values has changed.
+    Devil->addComponent(HPandDPComponent::ID_, new HPandDPComponent(100, 25));
 
 	AllyEnemyComponent *DeviltoRecogniseEnemyAlly = new AllyEnemyComponent();
 	DeviltoRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
