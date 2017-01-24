@@ -173,8 +173,8 @@ GameEntity *NPCBuilder::BuildDevil(const std::string &zeName, Vector3 &boundary,
 	DeviltoRecogniseEnemyAlly->setAllyList(enemyList).setEnemyList(allyList);
 	Devil->addComponent(AllyEnemyComponent::ID_, DeviltoRecogniseEnemyAlly);
 	Devil->addComponent(DevilAnimComp::ID_, new DevilAnimComp());
-	if (Devil->getName().find("LEADER") != std::string::npos)
-		Devil->addComponent(DevilReactComponent::ID_, new DevilReactComponent());
+	//if (Devil->getName().find("LEADER") != std::string::npos)
+	Devil->addComponent(DevilReactComponent::ID_, new DevilReactComponent());
 	
 	enemyList.push_back(Devil);
 	return Devil;

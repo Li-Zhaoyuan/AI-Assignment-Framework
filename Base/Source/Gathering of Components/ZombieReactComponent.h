@@ -17,4 +17,5 @@ protected:
 	std::string receivedMessage;
 	StateMachineComponent *FSM_;
 	int chanceToReact;
+	bool HasReactToMessage;
 };

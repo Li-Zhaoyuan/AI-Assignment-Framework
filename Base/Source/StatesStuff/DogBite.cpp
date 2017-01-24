@@ -3,6 +3,7 @@
 #include "../Classes/GameEntity.h"
 #include "../Gathering of Components/PhysicsComponent.h"
 #include "../Gathering of Components/HPandDPComponent.h"
+#include "../Gathering of Components/LeaderComponent.h"
 #include <sstream>
 #include "../Systems/MessageSystem.h"
 DogBite::DogBite()
@@ -71,7 +72,7 @@ void DogBite::Update(double dt)
 			{
 				std::ostringstream ss;
 				ss.str("");
-				if (zeEnemy->getName().find("Devil<LEADER>") != std::string::npos)
+				if ((zeEnemy)->seeComponentActive(LeaderComponent::ID_))
 					ss << "I Need Assistance!|Devil<LDR>|Zombie&Devil<LDR>|name:" << originalOwnerName;
 				else
 					ss << "I Need Assistance!|Devil|Zombie&Devil<LDR>|name:" << originalOwnerName;

@@ -3,6 +3,7 @@
 #include "CollisionComponent.h"
 #include "PhysicsComponent.h"
 #include "HPandDPComponent.h"
+#include "LeaderComponent.h"
 #include <sstream>
 #include "../Systems/MessageSystem.h"
 
@@ -51,7 +52,7 @@ void CollisionComponent::Update(double dt)
 			{
 				std::ostringstream ss;
 				ss.str("");
-				if ((*it)->getName().find("Devil<LEADER>") != std::string::npos)
+				if ((*it)->seeComponentActive(LeaderComponent::ID_))
 					ss << "I Need Assistance!|Devil<LDR>|Zombie&Devil<LDR>|name:" << this->getSpawnerName();
 				else
 					ss << "I Need Assistance!|Devil|Zombie&Devil<LDR>|name:" << this->getSpawnerName();
