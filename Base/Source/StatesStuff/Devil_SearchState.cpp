@@ -3,6 +3,7 @@
 #include "..\Classes\GameEntity.h"
 #include "../Gathering of Components/AllyEnemyComponent.h"
 #include "../Gathering of Components/HPandDPComponent.h"
+#include "../Gathering of Components/DevilReactComponent.h"
 #include "../Misc/GlobalFunctions.h"
 
 Devil_SearchState::Devil_SearchState()
@@ -48,6 +49,11 @@ void Devil_SearchState::Update(double dt)
 	}
 	GameEntity* devil = dynamic_cast<GameEntity*>(owner_of_component);
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(devil)->getComponent(PhysicsComponent::g_ID_));
+	DevilReactComponent *zeReactComp = dynamic_cast<DevilReactComponent*>(&devil->getComponent(DevilReactComponent::ID_));
+	if (!showReplying)//when not replying tell the react component that it is not reacting
+	{
+		zeReactComp->onNotify(0);
+	}
 
 	//int randomDir = rand() % 4 + 1;
 	timer += (float)dt;

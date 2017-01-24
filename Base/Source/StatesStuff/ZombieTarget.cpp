@@ -4,6 +4,7 @@
 #include "../Classes/GameEntity.h"
 #include "../Gathering of Components/SpeedComponent.h"
 #include "../Gathering of Components/AllyEnemyComponent.h"
+#include "../Gathering of Components/ZombieReactComponent.h" 
 #include "MeleeAttackState.h"
 
 ZombieTarget::ZombieTarget()
@@ -44,6 +45,11 @@ void ZombieTarget::Update(double dt)
     GameEntity *zeGo = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zePhysics = dynamic_cast<PhysicsComponent*>(&zeGo->getComponent(PhysicsComponent::g_ID_));
     PhysicsComponent *enemyPhysics = dynamic_cast<PhysicsComponent*>(zeVictim);
+	ZombieReactComponent *zeReactComp = dynamic_cast<ZombieReactComponent*>(&zeGo->getComponent(ZombieReactComponent::ID_));
+	if (!isReplying)// when not replying tell the react component that it is not reacting
+	{
+		zeReactComp->onNotify(0);
+	}
     if ((!enemyPhysics || ((zePhysics->getPos() - enemyPhysics->getPos()).LengthSquared() > influenceRadius * influenceRadius))
 		&& isReplying == false)
     {
