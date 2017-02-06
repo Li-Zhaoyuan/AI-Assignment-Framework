@@ -45,7 +45,15 @@ void CollisionComponent::Update(double dt)
 		if (dir.LengthSquared() < 100)
 		{
 			despawnList->push_back(ownself);
-			zeEnemyHP->getHealth() -= zeDamage->getDamage();
+			int chance = Math::RandIntMinMax(1, 4);
+			if (chance >= 3)
+			{
+				zeEnemyHP->getHealth() -= zeDamage->getDamage();
+			}
+			else
+			{
+				zeEnemyHP->getHealth() -= zeDamage->getDamage() * 3;
+			}
 			(*it)->getComponent(1).onNotify(*this);
 			if ((*it)->getName().find("Devil") != std::string::npos
 				&& zeEnemyHP->getHealth() < 50)//see if Devil is the one takeing dameage

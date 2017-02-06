@@ -43,12 +43,12 @@ void Devil_DeadState::Update(double dt)
 	PhysicsComponent *zePhysicsStuff = dynamic_cast<PhysicsComponent*>(&(devil)->getComponent(PhysicsComponent::g_ID_));
 	HPandDPComponent *zeOwnselfHP = dynamic_cast<HPandDPComponent*>(&devil->getComponent(HPandDPComponent::ID_));
 	
-	if (devil->seeComponentActive(11))
+	if (devil->seeComponentActive(11))//make sure is ldr
 	{
 		AllyEnemyComponent *listofAlly = dynamic_cast<AllyEnemyComponent*>(&devil->getComponent(AllyEnemyComponent::ID_));
-		for (std::vector<GameEntity*>::iterator it = listofAlly->m_allyList->begin(), end = listofAlly->m_allyList->end(); it != end; ++it)   // check through the ally list and see if there is any other guy, if so pass it to him
+		for (std::vector<GameEntity*>::iterator it = listofAlly->m_allyList->begin(), end = listofAlly->m_allyList->end(); it != end; ++it)   // check through the ally list and see if there is any other Devil, if so pass it to him
 		{
-			if ((*it)->getName().find("Guy") != std::string::npos && !(*it)->seeComponentActive(11))    // Check if it is the guy and see whether he does not have a leadership role. if so pass to him!
+			if ((*it)->getName().find("Devil") != std::string::npos && !(*it)->seeComponentActive(11))    // Check if it is the devil and see whether he does not have a leadership role. if so pass to him!
 			{
 				GenericComponent *zeLeaderComponent = devil->eraseComponent(11);
 				(*it)->addComponent(11, zeLeaderComponent); // Give ze leadership position.
