@@ -46,7 +46,7 @@ void CollisionComponent::Update(double dt)
 		{
 			despawnList->push_back(ownself);
 			int chance = Math::RandIntMinMax(1, 4);
-			if (chance >= 3)
+			if (chance >= 2)
 			{
 				zeEnemyHP->getHealth() -= zeDamage->getDamage();
 			}

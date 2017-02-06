@@ -74,6 +74,7 @@ void Devil_EscapeState::Update(double dt)
 			FSM_->switchState(3);
 		}*/
 	}
+	HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&(devil)->getComponent(HPandDPComponent::ID_));
 	if (closest < 20000)
 	{
 		Vector3 tempVel;
@@ -83,13 +84,20 @@ void Devil_EscapeState::Update(double dt)
 	}
 	else
 	{
-		FSM_->switchState(3);
+		if (zeHP->getHealth() < 50)
+		{
+			FSM_->switchState(3);
+		}
+		else
+		{
+			FSM_->switchState(0);
+		}
 	}
 	//if (zePhysicsStuff->getPos())
 
 	//zePhysicsStuff->getPos().x
 	//zePhysicsStuff->setVel(Vector3(searchVel.x, searchVel.y, 0));
-	HPandDPComponent *zeHP = dynamic_cast<HPandDPComponent*>(&(devil)->getComponent(HPandDPComponent::ID_));
+	
 	if (zePhysicsStuff->getPos().x > zePhysicsStuff->getBoundary().x)
 	{
 		zePhysicsStuff->getPos().x -= zePhysicsStuff->getBoundary().x * 2;
