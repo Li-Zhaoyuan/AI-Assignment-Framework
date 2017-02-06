@@ -58,8 +58,8 @@ void GoThereState::Update(double dt)
         if (DirToDest.LengthSquared() < 4.f)    // Check to see if it reached it's destination. 4.f will be an offset radius
         {
             // It appears that the order is important
-            if (reactingToMessage && zeOwner->seeComponentActive(9))    // Check to see if this state is meant to react to a message and there is a react component
-                zeOwner->getComponent(9).onNotify(0);
+            //if (reactingToMessage && zeOwner->seeComponentActive(9))    // Check to see if this state is meant to react to a message and there is a react component
+            //    zeOwner->getComponent(9).onNotify(0);
             FSM_->switchState(0);
             zeOwnerPos->setVel(Vector3(0, 0, 0));
             break;
@@ -80,6 +80,8 @@ void GoThereState::Exit()
     GameEntity *zeOwner = dynamic_cast<GameEntity*>(owner_of_component);
     PhysicsComponent *zeOwnerPos = dynamic_cast<PhysicsComponent*>(&zeOwner->getComponent(PhysicsComponent::g_ID_));
     zeOwnerPos->setVel(Vector3(0, 0, 0));
+    if (reactingToMessage && zeOwner->seeComponentActive(9))    // Check to see if this state is meant to react to a message and there is a react component
+        zeOwner->getComponent(9).onNotify(0);
     reactingToMessage = false;
 }
 
