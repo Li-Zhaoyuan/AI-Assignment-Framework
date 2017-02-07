@@ -75,6 +75,9 @@ void SceneTest1::Update(float dt)
     zeGraphics->Update(dt);
     // TODO: Remove it when it is not debugging
 #endif
+    if (Application::IsKeyPressed(' '))
+        return;
+
     if (MessageSystem::accessing().getMessage() != "")
     {
         for (std::vector<GameEntity*>::iterator it = m_GoList.begin(), end = m_GoList.end(); it != end; ++it)

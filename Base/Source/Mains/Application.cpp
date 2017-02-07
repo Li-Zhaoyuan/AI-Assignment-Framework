@@ -111,7 +111,7 @@ void Application::Init()
 	cA_WindowWidth = mode->width;
 	cA_WindowHeight = mode->height;
 	//Scene_System::accessing().cSS_InputManager->SetScreenSize((float)cA_WindowWidth, (float)cA_WindowHeight);
-	m_window = glfwCreateWindow(cA_WindowWidth, cA_WindowHeight, "SP3 Framework", NULL, NULL); // Create a window with attained values.
+	m_window = glfwCreateWindow(cA_WindowWidth, cA_WindowHeight, "AI Framework", NULL, NULL); // Create a window with attained values.
 
 	//If the window couldn't be created
 	if (!m_window)
